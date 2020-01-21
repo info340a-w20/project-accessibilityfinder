@@ -10,3 +10,9 @@ header img {
   height: 50px;
   margin-left: 10px;
 }
+
+
+/* passes contrast */
+a {
+  color: #0056B3;
+}
