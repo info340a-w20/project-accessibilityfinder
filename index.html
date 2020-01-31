@@ -1,108 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <meta name="author" content="Amit Galitzky and Jill Nguyen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="This website will aggregate and display information regarding accessibile features in various venues">
+    <meta name="keywords" content="Accessibility, wheelchair, disability, ADA, impairment">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Project Proposal</title>
+    <link rel="stylesheet" href="css/projectStyle.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="img/symbol.png">
+
+    <title>Stage 2</title>
 </head>
 
 <body>
     <header>
-        <h1>Project Proposal <img src="img/symbol.png" alt="International Symbol of Access" /></h1>
+        <nav class="navbar navbar-expand-lg bg-light navbar-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html"><h4>AccessibilityFinder</h4></a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Login </a></li>
+                <li class="nav-item"><a class="nav-link" href="signup.html">Signup</a></li>
+            </ul>
+        </nav>
+        <!-- we need to ask about search bar or look it up -->
+        <section>
+            <input type="search">
+        </section>
+      
     </header>
-    <section>
-        <h2>Creating equal access</h2>
-        <p>
-        According to the US Census taken in 2010, 20% of the United States population is recognized as having a
-        disability. Some of the different categories of disabilities are physical, sensory limitations, neurological, along
-        with others. We believe that there isn’t enough awareness for the issue as whole and with that not enough
-        emphasis into ensuring access to people with disabilities.
-        As we constantly strive toward creating equal opportunities in schools, the workplace, and our communities, it's
-        crucial that we also include in this discussion the ways we are making the world more accessible to everyone. We
-        believe that there has been great improvement in this realm, but we think a lot of information is missing in regards
-        to the different resources currently available.
-        It is significant that we both work as a society to create more accessible spaces and that we do a lot better in
-        sharing and creating awareness about these issues and how we plan to fix them.
-        For example, we have made a lot of positive steps toward creating schools more accessible to people with
-        disabilities. Large efforts have been taken since the 1990 Disability Act, especially in creating wheelchair access
-        in buildings as well as using different more accessible technology to aid different categories of disabilities.
-        </p>
-        <p>
-        However, even though we have made a lot of progress, we believe that it is important that we continue to increase
-        our efforts in creating awareness and sharing information about the places that have put an effort into creating
-        inclusivity.
-        We also believe that a larger focus needs to be made in order to create accessible access at locations of
-        entertainment such as theaters, stadiums, and the gaming world. Creating an inclusive environment and giving
-        everyone the opportunity to enjoy a sporting event, a movie, or video games is something we think should be worked
-        on.
-        In order to do this, there needs to be an accessible and easy information source for how people can access these
-        resources.
-        </p>
-    </section>
-    <section>
-        <h2>Potential Web Applications</h2>
-        <ul>
-        <li>Accessibility Finder</li>
-        <p>
-        The idea of this app is to have the main interface be either a search engine or a map (like Google Maps). The
-        app would then give different locations that are wheelchair accessible. This could range from different stadiums
-        and how many accessible seats there are, to different theaters across the United States. This would also include
-        courthouses, schools, malls, and other various public spaces. Our idea is that a lot of the information would be
-        potentially crowdsourced. The users would be able to search for different locations such as theaters and then
-        the different theaters that have accessibility options would show up on the map. Users would also be able to
-        give input and submit information regarding locations they have been to with accessibility features in order to
-        continuously update the app.
-        </p>
-        <li>Accessible Gaming</li>
-        <p>
-        The idea of this app is to aggregate information and resources regarding different efforts that have been made
-        in order to make video games more accessible. For example, Minecraft has worked to make the game more accessible
-        to people with autism. Progress is made both in the gaming software and hardware; for example, there is work on
-        making a lot of games playable just with one hand. I think that with the progress that is being made, there is not
-        enough awareness and information on all the new resources that have been created. This app would have a list of
-        games released and when each game is clicked, it would provide the different accessibility options available
-        for the games on different platforms. Users would mostly be browsing this website, either when they are just
-        trying to find games that have accessibility features or to check if a game they want has an accessibility
-        feature they need.
-        </p>
-        <li>Accessibility in Sports</li>
-        <p>
-        The idea of this app is to create a visual representation and resource guide that encompasses different ways people 
-        with different disabilities can participate in the sports that they enjoy. This website would be interacted by user 
-        scrolling through the lists of sports with available programs and leagues to people with different disabilities. 
-        After clicking on a sport, the user would then choose the location that they would like to search for active programs 
-        with as large a searching radius as they choose. User would be able to make an account in order to also suggest different
-        leagues and programs they have found useful for engaging in sports. The different programs for each sport would be
-        categorized by type of disability. We plan to gather this data by a combination of an API with leagues and professional
-        events as well as giving users the ability to crowdsource information. 
-        </p>
-        </ul>
-    </section>
-    <section>
-        <h2>References</h2>
-        <ol>
-        <li>
-        <a href="https://www.census.gov/newsroom/releases/archives/miscellaneous/cb12-134.html">
-        2010 US Census
-        </a>
-        </li>
-        <li>
-        <a href="https://ctb.ku.edu/en/table-of-contents/implement/physical-social-environment/housing-accessibility-disabilities/main">
-        Ensuring access to people with disabilities
-        </a>
-        </li>
-        <li>
-        <a href="https://www.microsoft.com/en-us/garage/blog/2019/10/minecraft-now-more-autism-friendly-with-accessibility-features-built-by-garage-interns/">
-        Minecraft now more autism friendly
-        </a>
-        </li>
-        </ol>
-    </section>
+ 
+    <footer>Call us...</footer>
+    
 </body>
-
 </html>
