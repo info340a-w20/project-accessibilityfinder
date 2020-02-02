@@ -1,5 +1,31 @@
-body {
+/* body {
     background-image: url("../img/googlemaps.JPG");
     background-size: auto;
-    
+
+} */
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+section {
+    height: 100%;
+}
+
+div#map {
+    width: 50%;
+    height: 100%;
+    float: right;
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:50%;
+    right:0;
+}
+
+div#list {
+    width: 50%;
+    height: 100%;
+    float: left;
 }
