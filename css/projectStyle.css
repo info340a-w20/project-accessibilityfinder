@@ -13,6 +13,12 @@ div#list {
     float: left;
 }
 
+div#info-view {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
 .row {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -46,4 +52,60 @@ div#list {
 .info-link, .info-link:hover {
     text-decoration: none;
     color: inherit;
+}
+
+.infoImgPlaceholder {
+    width: 30%
+}
+
+.infoHeader {
+    border-bottom: 1px solid darkgray;
+}
+
+.locationDetails {
+  margin-left: 15px;  
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.reviewHeader {
+    justify-content: space-between;
+}
+
+.info {
+    padding: 2%;
+}
+
+.review {
+    background: darkgrey;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.icon {
+    margin-top: 8px;
+}
+
+.infoImg {
+    width: 23%;
+    border-radius: 15px;
+    margin-right: 3%;
+}
+
+.images {
+    display: flex;
+    justify-content: space-between;
+}
+.nobackground {
+    background: none;
+    border: none;
+}
+.tag {
+    border-radius: 20px;
+    border: 1px solid black;
+    width: fit-content;
+    padding: 1%;
 }
