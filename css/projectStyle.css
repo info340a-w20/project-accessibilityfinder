@@ -192,6 +192,10 @@ footer p {
     margin-top: auto;
 }
 
+.mainPageHeader {
+    text-align:center;
+}
+
 /* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
 /***********************************************************************/
 form {
