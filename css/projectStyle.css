@@ -1,44 +1,55 @@
-div#map {
-    position: fixed;
-    top:0;
-    bottom:0;
-    left:50%;
-    right:0;
+header {
+  position: fixed;
+  top: 0;
+  width: 100%
 }
 
-#left-view, div#info-view {
+main {
+    padding-top: 56px;
+    display: flex;
+    height: 100vh;
+}
+
+#left-view, #map-outer {
     width: 50%;
     height: 100%;
-    float: left;
 }
 
-/* .navbar {
-    position: fixed;
-    top: 0;
-} */
-
-footer {
-    font-size: 12px;
-    padding-left: 5px;
+#left-view {
+    overflow: auto;
 }
 
-@media (max-width: 768px) {
-    div#map {
-        display: none;
-    }
-
-    div#list, div#info-view {
-        width: 100%;
-        float: none;
-    }
+#map {
+    height: 100%;
 }
 
 .input-group {
-    width: 200px; /*fix?*/
+    width: 45vw;
+}
+
+footer p {
+    font-size: 12px;
+    padding-left: 5px;
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 0;
+}
+
+@media (max-width: 414px) {
+    #map-outer {
+        display: none;
+    }
+
+    #left-view {
+        width: unset;
+    }
+
+    .input-group {
+        width: 40vw;
+    }
 }
 
 /* list */
-
 .col {
     padding: 5px;
 }
@@ -75,7 +86,7 @@ footer {
     color: gray;
 }
 
-.card-title, p {
+.card-title, .card-text {
     margin-bottom: 2px;
 }
 
@@ -86,9 +97,9 @@ footer {
 }
 
 /* amit */
-
 .infoImgPlaceholder {
-    width: 30%
+    width: 30%;
+    object-fit: cover;
 }
 
 .infoHeader {
@@ -96,7 +107,7 @@ footer {
 }
 
 .locationDetails {
-  margin-left: 15px;
+    padding-left: 15px;
 }
 
 .flex {
@@ -113,7 +124,7 @@ footer {
 }
 
 .review {
-    background: darkgrey;
+    background: #ededed;
     border-radius: 10px;
     margin-top: 25px;
 }
@@ -132,13 +143,119 @@ footer {
     display: flex;
     justify-content: space-between;
 }
+
 .nobackground {
     background: none;
     border: none;
 }
+
 .tag {
     border-radius: 20px;
     border: 1px solid black;
     width: fit-content;
     padding: 1%;
 }
+
+.dropDown {
+    padding-left: 3px;
+}
+
+.info-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.info-details {
+    width: 100%;
+    padding: 1% !important;
+    padding-left: 10px;
+}
+
+.hours-link {
+    display: block;
+    padding-right: 10px;
+    text-decoration: none !important;
+}
+
+.locationDetails {
+    width: 100%;
+}
+
+.info-details:hover {
+    background-color: #F8F8FF;
+}
+
+.reviews-title {
+    margin-top: auto;
+}
+
+/* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
+/***********************************************************************/
+form {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid #07051a;
+    padding: 5px;
+}
+
+input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    ;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.search-bar .fa {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 42.5px;
+    height: 42.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: #07051a;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 1s;
+}
+
+.search-bar {
+    margin-right: .5rem;
+}
+
+form:hover {
+    width: 200px;
+    cursor: pointer;
+}
+
+form:hover input {
+    display: block;
+}
+
+form:hover .fa {
+    /* background: #07051a; */
+    color: #07051a;
+}
+
+/***********************************************************************/
