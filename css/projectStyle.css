@@ -1,5 +1,4 @@
 div#map {
-    float: right;
     position: fixed;
     top:0;
     bottom:0;
@@ -7,34 +6,65 @@ div#map {
     right:0;
 }
 
-div#list {
+#left-view, div#info-view {
     width: 50%;
     height: 100%;
     float: left;
 }
 
-div#info-view {
-    width: 50%;
-    height: 100%;
-    float: left;
+/* .navbar {
+    position: fixed;
+    top: 0;
+} */
+
+footer {
+    font-size: 12px;
+    padding-left: 5px;
 }
 
-.row {
-    padding-top: 15px;
-    padding-bottom: 15px;
+@media (max-width: 768px) {
+    div#map {
+        display: none;
+    }
+
+    div#list, div#info-view {
+        width: 100%;
+        float: none;
+    }
+}
+
+.input-group {
+    width: 200px; /*fix?*/
+}
+
+/* list */
+
+.col {
+    padding: 5px;
 }
 
 .card-img-top {
-    height: 150px;
+    height: 125px;
     object-fit: cover;
 }
 
+.card {
+    font-size: .75em;
+}
+
 .card-body {
-    font-size: .9rem;
+    padding: 10px;
+}
+
+.features {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .fas {
-    padding-right: 10px;
+    margin: auto 0px;
+    padding-right: 2.5px;
 }
 
 .fa-check-circle {
@@ -45,14 +75,17 @@ div#info-view {
     color: gray;
 }
 
-.card-title {
+.card-title, p {
     margin-bottom: 2px;
 }
 
-.info-link, .info-link:hover {
+.list-link, .list-link:hover {
     text-decoration: none;
     color: inherit;
+    display: block;
 }
+
+/* amit */
 
 .infoImgPlaceholder {
     width: 30%
@@ -63,7 +96,7 @@ div#info-view {
 }
 
 .locationDetails {
-  margin-left: 15px;  
+  margin-left: 15px;
 }
 
 .flex {
