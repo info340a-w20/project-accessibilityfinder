@@ -55,7 +55,7 @@ div#info-view {
 }
 
 .infoImgPlaceholder {
-    width: 30%
+    width: 30%;
 }
 
 .infoHeader {
@@ -63,7 +63,7 @@ div#info-view {
 }
 
 .locationDetails {
-  margin-left: 15px;  
+  padding-left: 15px;  
 }
 
 .flex {
@@ -80,7 +80,7 @@ div#info-view {
 }
 
 .review {
-    background: darkgrey;
+    background: #ededed;
     border-radius: 10px;
     margin-top: 25px;
 }
@@ -109,3 +109,104 @@ div#info-view {
     width: fit-content;
     padding: 1%;
 }
+
+.dropDown {
+    padding-left: 3px;
+}
+
+.info-link {
+    display:block;
+    height:100%;
+    width:100%;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.info-details {
+    width: 100%;
+    padding: 1% !important;
+    padding-left: 10px;
+}
+
+.hours-link {
+    display:block;
+    padding-right: 10px;
+    text-decoration: none !important;
+}
+
+.locationDetails {
+    width: 100%;
+}
+
+.info-details:hover {
+    background-color: #F8F8FF;
+}
+.reviews-title {
+    margin-top: auto;
+}
+
+/* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
+/***********************************************************************/
+  form{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid #07051a;
+    padding: 5px;
+}
+
+input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.search-bar .fa{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 42.5px;
+    height: 42.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: #07051a;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 1s;
+}
+
+.search-bar {
+    margin-right: .5rem;
+}
+
+form:hover{
+    width: 200px;
+    cursor: pointer;
+}
+
+form:hover input{
+    display: block;
+}
+
+form:hover .fa{
+    /* background: #07051a; */
+    color: #07051a;
+}
+/***********************************************************************/
