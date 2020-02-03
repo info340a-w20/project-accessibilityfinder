@@ -1,40 +1,81 @@
-div#map {
-    float: right;
+header {
     position: fixed;
-    top:0;
-    bottom:0;
-    left:50%;
-    right:0;
+    top: 0;
+    width: 100%
 }
 
-div#list {
+main {
+    padding-top: 56px;
+    display: flex;
+    height: 100vh;
+}
+
+#left-view, #map-outer {
     width: 50%;
     height: 100%;
-    float: left;
 }
 
-div#info-view {
-    width: 50%;
+#left-view {
+    overflow: auto;
+}
+
+#map {
     height: 100%;
-    float: left;
 }
 
-.row {
-    padding-top: 15px;
-    padding-bottom: 15px;
+.input-group {
+    width: 45vw;
+}
+
+footer p {
+    font-size: 12px;
+    padding-left: 5px;
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 0;
+}
+
+@media (max-width: 414px) {
+    #map-outer {
+        display: none;
+    }
+
+    #left-view {
+        width: unset;
+    }
+
+    .input-group {
+        width: 40vw;
+    }
+}
+
+/* list */
+.col {
+    padding: 5px;
 }
 
 .card-img-top {
-    height: 150px;
+    height: 125px;
     object-fit: cover;
 }
 
+.card {
+    font-size: .75em;
+}
+
 .card-body {
-    font-size: .9rem;
+    padding: 10px;
+}
+
+.features {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .fas {
-    padding-right: 10px;
+    margin: auto 0px;
+    padding-right: 2.5px;
 }
 
 .fa-check-circle {
@@ -45,15 +86,17 @@ div#info-view {
     color: gray;
 }
 
-.card-title {
+.card-title, .card-text {
     margin-bottom: 2px;
 }
 
-.info-link, .info-link:hover {
+.list-link, .list-link:hover {
     text-decoration: none;
     color: inherit;
+    display: block;
 }
 
+/* amit */
 .infoImgPlaceholder {
     width: 30%;
     object-fit: cover;
@@ -64,7 +107,7 @@ div#info-view {
 }
 
 .locationDetails {
-  padding-left: 15px;  
+    padding-left: 15px;
 }
 
 .flex {
@@ -100,10 +143,12 @@ div#info-view {
     display: flex;
     justify-content: space-between;
 }
+
 .nobackground {
     background: none;
     border: none;
 }
+
 .tag {
     border-radius: 20px;
     border: 1px solid black;
@@ -116,9 +161,9 @@ div#info-view {
 }
 
 .info-link {
-    display:block;
-    height:100%;
-    width:100%;
+    display: block;
+    height: 100%;
+    width: 100%;
     text-decoration: none;
     padding-left: 10px;
 }
@@ -130,7 +175,7 @@ div#info-view {
 }
 
 .hours-link {
-    display:block;
+    display: block;
     padding-right: 10px;
     text-decoration: none !important;
 }
@@ -142,17 +187,18 @@ div#info-view {
 .info-details:hover {
     background-color: #F8F8FF;
 }
+
 .reviews-title {
     margin-top: auto;
 }
 
 /* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
 /***********************************************************************/
-  form{
+form {
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     transition: all 1s;
     width: 50px;
     height: 50px;
@@ -163,11 +209,12 @@ div#info-view {
     padding: 5px;
 }
 
-input{
+input {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;;
+    width: 100%;
+    ;
     height: 42.5px;
     line-height: 30px;
     outline: 0;
@@ -178,7 +225,7 @@ input{
     padding: 0 20px;
 }
 
-.search-bar .fa{
+.search-bar .fa {
     box-sizing: border-box;
     padding: 10px;
     width: 42.5px;
@@ -197,17 +244,18 @@ input{
     margin-right: .5rem;
 }
 
-form:hover{
+form:hover {
     width: 200px;
     cursor: pointer;
 }
 
-form:hover input{
+form:hover input {
     display: block;
 }
 
-form:hover .fa{
+form:hover .fa {
     /* background: #07051a; */
     color: #07051a;
 }
+
 /***********************************************************************/
