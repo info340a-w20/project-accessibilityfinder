@@ -11,7 +11,9 @@ header {
     background-color:#77c9D4;
     background-color:#40bbe1; */
 }
-
+.MainPage{
+    height:100%;
+}
 #acronym {
     display: none;
 }
