@@ -31,8 +31,6 @@ footer p {
     font-size: 12px;
     padding-left: 5px;
     margin-bottom: 0px;
-    position: absolute;
-    bottom: 0;
 }
 
 @media (max-width: 414px) {
@@ -47,6 +45,9 @@ footer p {
     .input-group {
         width: 40vw;
     }
+
+    
+
 }
 
 /* list */
