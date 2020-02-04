@@ -5,11 +5,15 @@ header {
 }
 
 .navbar {
-    background-color:#4484CE;
-    background-color:#88BBD6;
     background-color:#34A4EB;
-    /* background-color:#77c9D4; */
-    /* background-color:#40bbe1; */
+    /* background-color:#4484CE;
+    background-color:#88BBD6;
+    background-color:#77c9D4;
+    background-color:#40bbe1; */
+}
+
+#acronym {
+    display: none;
 }
 
 main {
@@ -41,6 +45,16 @@ footer p {
     margin-bottom: 0px;
 }
 
+@media (max-width: 375px) {
+    #name {
+        display:none;
+    }
+
+    #acronym {
+        display: inline;
+    }
+}
+
 @media (max-width: 414px) {
     #map-outer {
         display: none;
@@ -49,13 +63,6 @@ footer p {
     #left-view {
         width: unset;
     }
-
-    .input-group {
-        width: 40vw;
-    }
-
-    
-
 }
 
 /* list */
