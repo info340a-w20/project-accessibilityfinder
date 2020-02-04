@@ -4,6 +4,14 @@ header {
     width: 100%
 }
 
+.navbar {
+    background-color:#4484CE;
+    background-color:#88BBD6;
+    background-color:#34A4EB;
+    /* background-color:#77c9D4; */
+    /* background-color:#40bbe1; */
+}
+
 main {
     padding-top: 56px;
     display: flex;
