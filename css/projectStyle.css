@@ -49,26 +49,6 @@ footer p {
     margin-bottom: 0px;
 }
 
-@media (max-width: 414px) {
-    #name {
-        display: none;
-    }
-
-    #acronym {
-        display: inline;
-    }
-}
-
-@media (max-width: 414px) {
-    #map-outer {
-        display: none;
-    }
-
-    #left-view {
-        width: unset;
-    }
-}
-
 /* list */
 .col {
     padding: 5px;
@@ -283,3 +263,28 @@ form:hover .fa {
 }
 
 /***********************************************************************/
+/* crowdsource modal */
+#edit {
+    float: right;
+}
+
+/* 414px is iPhone+ */
+@media (max-width: 414px) {
+    #name {
+        display: none;
+    }
+
+    #acronym {
+        display: inline;
+    }
+}
+
+@media (max-width: 414px) {
+    #map-outer {
+        display: none;
+    }
+
+    #left-view {
+        width: unset;
+    }
+}
