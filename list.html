@@ -21,9 +21,9 @@
             <a class="navbar-brand mb-0 h1 text-white" href="index.html"><span id="name">Accessibility Finder</span><span id="acronym">Access</span></a>
             <div class="input-group">
                 <!--TEMPORARY theatres placeholder-->
-                <input type="text" class="form-control" placeholder="theatres">
+                <input type="text" class="form-control" id = "search"  placeholder="theatres">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-light" type="button">
+                    <button class="btn btn-outline-light" type="button" onclick="callDataByName()">
                         <i class="fa fa-search" aria-label="search"></i>
                     </button>
                 </div>
@@ -31,7 +31,7 @@
         </nav>
     </header>
     <main>
-        <section id="left-view">
+        <section id="left-view list">
             <div id="list" class="container">
                 <div class="row">
                     <div class="col">
@@ -226,5 +226,7 @@
         </section>
     </main>
 </body>
+<script src = "js/script.js"></script>
+
 
 </html>

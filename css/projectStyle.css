@@ -25,6 +25,17 @@ main {
     display: flex;
     height: 100vh;
 }
+#left-view-list {
+    display: none;
+}
+
+.info {
+    display: none;
+}
+.left-view {
+    width: 50%;
+    height: 100%;
+}
 
 #left-view, #map-outer {
     width: 50%;
