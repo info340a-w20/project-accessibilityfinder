@@ -44,8 +44,9 @@ main {
     height:100%;
 }
 
-#map {
+#leaflet-map {
     height: 100%;
+    width: 60%;
 }
 
 .input-group {
