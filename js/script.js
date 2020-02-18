@@ -1,7 +1,7 @@
 let state = {
     displayedListItems: [],
     chosenInfoItem: {},
-    inputtedText: ''
+    inputtedText: '',
 }
 let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 10);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ', {
@@ -32,6 +32,10 @@ function callDataByAmenityOverPass(amenityFromClient) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 152d493aa1cff0292e72b274367782737058f15d
     // amenity = document.getElementById("search").value;
 
     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
@@ -198,6 +202,7 @@ function convertJson(obj) {
     });
 }
 
+<<<<<<< HEAD
 //nominatim
 //e.address."type"
 //e.type
@@ -211,6 +216,16 @@ function convertJson(obj) {
 // e.tags["addr:street"]
 // e.tags["addr:housenumber"]
 // e.tags.wheelchair
+=======
+function placeMarker(place) {
+    console.log(place);
+    // let marker = L.marker([place.lat,place.lon]).addTo(myMap);
+    // let popup = L.popup()
+    // popup.setContent(place.tags.name);
+    // marker.bindPopup(popup).openPopup();
+
+}
+>>>>>>> 152d493aa1cff0292e72b274367782737058f15d
 
 function populateList() {
     state.displayedListItems.forEach(function(e, i) {
@@ -251,5 +266,9 @@ function populateList() {
         col.innerHTML = content;
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
+        let marker = L.marker([e.lat,e.lon]).addTo(myMap);
+        let popup = L.popup()
+        popup.setContent(e.tags.name);
+        marker.bindPopup(popup).openPopup();
     });
 }
