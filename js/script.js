@@ -32,10 +32,7 @@ function callDataByAmenityOverPass(amenityFromClient) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 152d493aa1cff0292e72b274367782737058f15d
     // amenity = document.getElementById("search").value;
 
     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
@@ -44,8 +41,7 @@ function callDataByAmenityOverPass(amenityFromClient) {
         })
         .then((myJson) => {
             console.log(myJson.elements);
-            // state.displayedListItems = myJson.elements;
-            convertJson(myJson.elements);
+            state.displayedListItems = myJson.elements;
             populateList();
         });
 }
@@ -107,8 +103,7 @@ function callDataByName() {
         .then((myJson) => {
             console.log(myJson);
             data = myJson;
-            // state.displayedListItems = myJson;
-            convertJson(myJson);
+            state.displayedListItems = myJson;
             populateList();
         });
 
@@ -170,53 +165,38 @@ function toggleDisplayInfo() {
 //     });
 // }
 
-function convertJson(obj) {
-    let convertedObj = {
-        name: '',
-        type: '',
-        address: '',
-        addressShort: '',
-        wheelchair: '',
-        website: '',
-        phone: '',
-    };
-    obj.forEach(function(e) {
-        if(obj[0].license != null) {
-            convertedObj.name = e.address.test;
-            convertedObj.type = e.type;
-            convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
-            convertedObj.addressShort = e.address.house_number + " " + e.address.road;
-            convertedObj.wheelchair = e.extratags.wheelchair;
-            convertedObj.website = e.extratags.website;
-            convertedObj.phone = e.extratags.phone;
-        } else {
-            convertedObj.name = e.tags.name;
-            convertedObj.type = e.tags.amenity;
-            convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
-            convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
-            convertedObj.wheelchair = e.tags.wheelchair;
-            convertedObj.website = e.tags.website;
-            convertedObj.phone = e.tags.phone;
-        }
-        state.displayedListItems.push(convertedObj);
-    });
-}
+// function convertJson(obj) {
+//     let convertedObj = {
+//         name: '',
+//         type: '',
+//         address: '',
+//         addressShort: '',
+//         wheelchair: '',
+//         website: '',
+//         phone: '',
+//     };
+//     obj.forEach(function(e) {
+//         if(obj[0].license != null) {
+//             convertedObj.name = e.address.test;
+//             convertedObj.type = e.type;
+//             convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
+//             convertedObj.addressShort = e.address.house_number + " " + e.address.road;
+//             convertedObj.wheelchair = e.extratags.wheelchair;
+//             convertedObj.website = e.extratags.website;
+//             convertedObj.phone = e.extratags.phone;
+//         } else {
+//             convertedObj.name = e.tags.name;
+//             convertedObj.type = e.tags.amenity;
+//             convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
+//             convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
+//             convertedObj.wheelchair = e.tags.wheelchair;
+//             convertedObj.website = e.tags.website;
+//             convertedObj.phone = e.tags.phone;
+//         }
+//         state.displayedListItems.push(convertedObj);
+//     });
+// }
 
-<<<<<<< HEAD
-//nominatim
-//e.address."type"
-//e.type
-//e.address.house_number
-//e.address.road
-//e.extratags.wheelchair
-
-// overpass
-// e.tags.name
-// e.tags.amenity
-// e.tags["addr:street"]
-// e.tags["addr:housenumber"]
-// e.tags.wheelchair
-=======
 function placeMarker(place) {
     console.log(place);
     // let marker = L.marker([place.lat,place.lon]).addTo(myMap);
@@ -225,9 +205,9 @@ function placeMarker(place) {
     // marker.bindPopup(popup).openPopup();
 
 }
->>>>>>> 152d493aa1cff0292e72b274367782737058f15d
 
 function populateList() {
+    document.getElementById('list').innerHTML = "";
     state.displayedListItems.forEach(function(e, i) {
         if (i % 3 == 0) {
             let row = document.createElement('div');
@@ -236,21 +216,28 @@ function populateList() {
         }
         let col = document.createElement('div');
         col.classList.add('col');
-        // let name = e.tags.name;
-        // let amenity = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
-        // let addr = e.tags["addr:street"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
-        // let mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
-        let name = e.name;
-        let amenity = e.amenity;
-        let addr = e.address != null ? e.address : "Address unavailable";
-        let mobilityCheck = e.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        let name = '';
+        let type = '';
+        let addr = '';
+        let mobilityCheck = '';
+        if (e.licence != null) {
+            name = e.address[Object.keys(e.address)[0]];
+            type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
+            addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
+            mobilityCheck = e.extratags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        } else {
+            name = e.tags.name;
+            type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
+            addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
+            mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        }
         let content = `
-            <div class="card">
+            <div class="card" onclick="toggleDisplayInfo()">
                 <img class="card-img-top" src="img/placeholder.png" alt="location">
                 <div class="card-body">
                     <h5 class="card-title">` + name + `</h5>
                     <p class="card-text text-secondary">`
-                        + amenity +
+                        + type +
                         `<br />
                         <a href="#" class="card-link">` + addr + `</a>
                     </p>
@@ -259,7 +246,6 @@ function populateList() {
                         <span><i class="fas fa-times-circle"></i>Vision</span>
                         <span><i class="fas fa-times-circle"></i>Hearing</span>
                     </div>
-                    <a class="list-link stretched-link" href="#"></a>
                 </div>
             </div>
         `;
@@ -267,8 +253,8 @@ function populateList() {
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
         let marker = L.marker([e.lat,e.lon]).addTo(myMap);
-        let popup = L.popup()
-        popup.setContent(e.tags.name);
+        let popup = L.popup();
+        popup.setContent(name);
         marker.bindPopup(popup).openPopup();
     });
 }

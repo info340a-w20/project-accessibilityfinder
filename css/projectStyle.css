@@ -100,6 +100,10 @@ footer p {
     margin-bottom: 2px;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .list-link, .list-link:hover {
     text-decoration: none;
     color: inherit;
