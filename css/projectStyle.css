@@ -43,6 +43,11 @@ main {
     width:60%;
     height:100%;
 }
+.no-background-btn{
+    border:none;
+    background-color:unset;
+    
+}
 
 #leaflet-map {
     height: 100%;
