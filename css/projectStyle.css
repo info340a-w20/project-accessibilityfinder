@@ -29,7 +29,7 @@ main {
     display: none;
 }
 
-.info {
+#left-view-info {
     display: none;
 }
 .left-view {

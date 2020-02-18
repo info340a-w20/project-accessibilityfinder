@@ -1,15 +1,23 @@
-// function callData() {
-    
-//     amenity = document.getElementById("search").value;
+let state = {
+    displayedListItems: [],
+    chosenInfoItem: {},
+    inputtedText: ''
+}
 
-//     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](47.481002,-122.459696,47.734136,-122.224433);out%20meta;')
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((myJson) => {
-//             console.log(myJson.elements);
-//         });
-// }
+
+
+function callDataByAmenityOverPass() {
+    
+    amenity = document.getElementById("search").value;
+
+    fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](47.481002,-122.459696,47.734136,-122.224433);out%20meta;')
+        .then((response) => {
+            return response.json();
+        })
+        .then((myJson) => {
+            console.log(myJson.elements);
+        });
+}
 
 // function callDataByName() {
     
@@ -26,14 +34,14 @@
 
 function callDataByName() {
 
-    var listDiv = document.getElementById("left-view-list");
+    let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
-    var homeDiv = document.getElementById("left-view-home");
+    let homeDiv = document.getElementById("left-view-home");
     homeDiv.style.display = "none";
     
     name = document.getElementById("search").value;
-    https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
+    //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
     fetch('https://nominatim.openstreetmap.org/search?q=' + name +'&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1')
         .then((response) => {
             return response.json();
@@ -41,6 +49,15 @@ function callDataByName() {
         .then((myJson) => {
             console.log(myJson);
         });
+}
+
+function toggleDisplayInfo() {
+    let listDiv = document.getElementById("left-view-list");
+    listDiv.style.display = "none";
+
+    let infoDiv = document.getElementById("left-view-info");
+    infoDiv.style.display = "block";
+
 }
 
 
