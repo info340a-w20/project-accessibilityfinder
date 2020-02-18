@@ -4,7 +4,7 @@ let state = {
     inputtedText: '',
     markers: [],
 }
-let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 10);
+let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 13);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -19,7 +19,7 @@ console.log(input);
 input.addEventListener('keyup',function(e){
     if (e.key === "Enter") {
         callDataByName();
-  }  
+  }
 });
 
 document.getElementById('search').addEventListener('input', function(input) {
@@ -173,6 +173,7 @@ function toggleDisplayInfo() {
 //         wheelchair: '',
 //         website: '',
 //         phone: '',
+//         review: []
 //     };
 //     obj.forEach(function(e) {
 //         if(obj[0].license != null) {
@@ -212,7 +213,7 @@ function renderMarker() {
                 myMap.removeLayer(layer);
             }
         });
-    } 
+    }
 }
 
 function populateList() {
@@ -268,3 +269,26 @@ function populateList() {
         marker.bindPopup(popup).openPopup();
     });
 }
+
+function color(e) {
+    console.log(e);
+    let bk = e.querySelector(".icon-background");
+    let ic = e.querySelector(".fa-stack-1x");
+    if (bk.style.color == "lightgray") {
+        bk.style.color = "blue";
+        ic.style.color = "white";
+    } else {
+        bk.style.color = "lightgray";
+        ic.style.color = "black";
+    }
+}
+
+document.getElementById('writeReview').addEventListener('click', function() {
+    console.log("test");
+    let textbox = document.getElementById('reviewText');
+    if (textbox.style.display == "none") {
+        textbox.style.display = "block";
+    } else {
+        textbox.style.display = "none";
+    }
+});
