@@ -34,6 +34,7 @@ main {
     display: flex;
     height: 100vh;
 }
+
 #left-view-list {
     display: none;
 }
@@ -299,6 +300,16 @@ input {
 
 /***********************************************************************/
 
+/* review */
+#reviewText {
+    display: none;
+    margin-top: 16px;
+}
+
+#reviewText button {
+    margin-top: 16px;
+}
+
 /* crowdsource modal */
 #edit {
     float: right;
@@ -317,7 +328,6 @@ input {
 }
 
 /* ty for help: https://markheath.net/post/font-awesome-circle-background */
-/* using js change color if checked */
 .icon-background {
     color: lightgrey;
 }

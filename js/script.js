@@ -19,7 +19,7 @@ console.log(input);
 input.addEventListener('keyup',function(e){
     if (e.key === "Enter") {
         callDataByName();
-  }  
+  }
 });
 
 document.getElementById('search').addEventListener('input', function(input) {
@@ -212,7 +212,7 @@ function renderMarker() {
                 myMap.removeLayer(layer);
             }
         });
-    } 
+    }
 }
 
 function populateList() {
@@ -268,3 +268,26 @@ function populateList() {
         marker.bindPopup(popup).openPopup();
     });
 }
+
+function color(e) {
+    console.log(e);
+    let bk = e.querySelector(".icon-background");
+    let ic = e.querySelector(".fa-stack-1x");
+    if (bk.style.color == "lightgray") {
+        bk.style.color = "blue";
+        ic.style.color = "white";
+    } else {
+        bk.style.color = "lightgray";
+        ic.style.color = "black";
+    }
+}
+
+document.getElementById('writeReview').addEventListener('click', function() {
+    console.log("test");
+    let textbox = document.getElementById('reviewText');
+    if (textbox.style.display == "none") {
+        textbox.style.display = "block";
+    } else {
+        textbox.style.display = "none";
+    }
+});

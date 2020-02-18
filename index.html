@@ -118,61 +118,61 @@
                                                 <form>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-wheelchair fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-door-open fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-chair fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-braille fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-audio-description fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-closed-captioning fa-stack-1x"></i>
                                                             </span>
                                                         </label>
                                                         <label class="cs-checkbox">
                                                             <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x">
+                                                            <span class="fa-stack fa-3x" onclick="color(this)">
                                                                 <i class="fas fa-circle fa-stack-2x icon-background"></i>
                                                                 <i class="fas fa-assistive-listening-systems fa-stack-1x"></i>
                                                             </span>
@@ -249,15 +249,21 @@
                             <div class="flex reviewHeader">
                                 <h4 class="reviews-title">Reviews</h4>
                                 <div class="flex reviews-buttons">
-                                    <div class="search-bar">
+                                    <!-- <div class="search-bar">
                                         <form id="review-search">
                                             <input type="search">
                                             <i class="fa fa-search" aria-label="search"></i>
                                         </form>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-primary rounded-pill">Write a Review</button>
+                                    </div> -->
+                                    <button type="button" class="btn btn-outline-primary rounded-pill" id="writeReview">Write a Review</button>
                                 </div>
                             </div>
+                            <form id="reviewText" style="display:none;">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                         <hr>
                     </div>
@@ -267,11 +273,11 @@
         <div class="map-outer" id="leaflet-map">
         </div>
     </main>
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container">
             <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
         </div>
-    </footer>
+    </footer> -->
 </body>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="js/script.js"></script>
