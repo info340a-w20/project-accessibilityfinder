@@ -32,9 +32,6 @@ function callDataByAmenityOverPass(amenityFromClient) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
-    let homeDiv = document.getElementById("left-view-home");
-    homeDiv.style.display = "none";
-
     // amenity = document.getElementById("search").value;
 
     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
@@ -43,7 +40,8 @@ function callDataByAmenityOverPass(amenityFromClient) {
         })
         .then((myJson) => {
             console.log(myJson.elements);
-            state.displayedListItems = myJson.elements;
+            // state.displayedListItems = myJson.elements;
+            convertJson(myJson.elements);
             populateList();
         });
 }
@@ -105,7 +103,9 @@ function callDataByName() {
         .then((myJson) => {
             console.log(myJson);
             data = myJson;
-            state.displayedListItems = myJson;
+            // state.displayedListItems = myJson;
+            convertJson(myJson);
+            populateList();
         });
 
     console.log(data);
@@ -166,9 +166,51 @@ function toggleDisplayInfo() {
 //     });
 // }
 
-function convertJson() {
-
+function convertJson(obj) {
+    let convertedObj = {
+        name: '',
+        type: '',
+        address: '',
+        addressShort: '',
+        wheelchair: '',
+        website: '',
+        phone: '',
+    };
+    obj.forEach(function(e) {
+        if(obj[0].license != null) {
+            convertedObj.name = e.address.test;
+            convertedObj.type = e.type;
+            convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
+            convertedObj.addressShort = e.address.house_number + " " + e.address.road;
+            convertedObj.wheelchair = e.extratags.wheelchair;
+            convertedObj.website = e.extratags.website;
+            convertedObj.phone = e.extratags.phone;
+        } else {
+            convertedObj.name = e.tags.name;
+            convertedObj.type = e.tags.amenity;
+            convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
+            convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
+            convertedObj.wheelchair = e.tags.wheelchair;
+            convertedObj.website = e.tags.website;
+            convertedObj.phone = e.tags.phone;
+        }
+        state.displayedListItems.push(convertedObj);
+    });
 }
+
+//nominatim
+//e.address."type"
+//e.type
+//e.address.house_number
+//e.address.road
+//e.extratags.wheelchair
+
+// overpass
+// e.tags.name
+// e.tags.amenity
+// e.tags["addr:street"]
+// e.tags["addr:housenumber"]
+// e.tags.wheelchair
 
 function populateList() {
     state.displayedListItems.forEach(function(e, i) {
@@ -179,15 +221,21 @@ function populateList() {
         }
         let col = document.createElement('div');
         col.classList.add('col');
-        let mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
-        let addr = e.tags["addr:street"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
+        // let name = e.tags.name;
+        // let amenity = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
+        // let addr = e.tags["addr:street"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
+        // let mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        let name = e.name;
+        let amenity = e.amenity;
+        let addr = e.address != null ? e.address : "Address unavailable";
+        let mobilityCheck = e.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
         let content = `
             <div class="card">
                 <img class="card-img-top" src="img/placeholder.png" alt="location">
                 <div class="card-body">
-                    <h5 class="card-title">` + e.tags.name.replace(/^\w/, c => c.toUpperCase()) + `</h5>
+                    <h5 class="card-title">` + name + `</h5>
                     <p class="card-text text-secondary">`
-                        + e.tags.amenity +
+                        + amenity +
                         `<br />
                         <a href="#" class="card-link">` + addr + `</a>
                     </p>
