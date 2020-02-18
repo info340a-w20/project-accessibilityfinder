@@ -20,7 +20,6 @@ header {
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 20px;
     background-color: #f5f5f5;
 }
@@ -53,17 +52,15 @@ main {
     width:60%;
     height:100%;
 }
+
 .no-background-btn{
     border:none;
     background-color:unset;
-
 }
 
 .no-background-btn:hover{
     background-color:lightgray;
 }
-
-
 
 #leaflet-map {
     height: 100%;
@@ -105,7 +102,7 @@ footer {
     justify-content: space-around;
 }
 
-.fas {
+.card .fas {
     margin: auto 0px;
     padding-right: 2.5px;
 }
@@ -300,6 +297,23 @@ input {
 
 /***********************************************************************/
 
+/* category */
+#left-view-home {
+    display: block;
+}
+
+#category {
+    text-align: center;
+}
+
+#category button {
+    padding: 20px 0px;
+}
+
+#category .icon-background {
+    color: lightblue;
+}
+
 /* review */
 #reviewText {
     display: none;
@@ -328,7 +342,7 @@ input {
 }
 
 /* ty for help: https://markheath.net/post/font-awesome-circle-background */
-.icon-background {
+#crowdsource .icon-background {
     color: lightgrey;
 }
 
@@ -354,11 +368,23 @@ input {
 }
 
 @media (max-width: 414px) {
-    #map-outer {
-        display: none;
+    main {
+        display:block;
     }
 
-    #left-view {
-        width: unset;
+    .left-view {
+        width: 100%;
+        height: 40%;
+        overflow: auto
+    }
+
+    #map-outer {
+        width: 100%;
+        height: 60%;
+    }
+
+    #leaflet-map {
+        width: 100%;
+        height: 60%;
     }
 }
