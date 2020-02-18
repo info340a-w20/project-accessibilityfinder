@@ -15,16 +15,15 @@ header {
 .index-nav {
     margin-bottom: 8px;
 }
-
 .footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    text-align: end;
+    width: 40%;
     /* Set the fixed height of the footer here */
-    height: 20px;
+    height: 40px;
     background-color: #f5f5f5;
-}
-
+  }
 #acronym {
     display: none;
 }
@@ -73,12 +72,6 @@ main {
     width: 45vw;
 }
 
-footer {
-    font-size: 12px;
-    position: sticky;
-    /* padding-left: 5px;
-    margin-bottom: 0px; */
-}
 
 /* list */
 .col {
@@ -248,6 +241,10 @@ footer {
     padding: 5px;
 }
 
+#about-us {
+    width:100%;
+}
+
 input {
     position: absolute;
     top: 0;
@@ -345,7 +342,7 @@ input {
 
 @media (max-width: 414px) {
     #map-outer {
-        display: none;
+        
     }
 
     #left-view {
