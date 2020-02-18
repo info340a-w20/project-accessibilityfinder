@@ -238,9 +238,9 @@ function populateList() {
                     <h5 class="card-title">` + name + `</h5>
                     <p class="card-text text-secondary">`
                         + type +
-                        `<br />
-                        <a href="#" class="card-link">` + addr + `</a>
-                    </p>
+                        `<br />`
+                        + addr +
+                    `</p>
                     <div class="features">
                         <span>` + mobilityCheck + `Mobility</span>
                         <span><i class="fas fa-times-circle"></i>Vision</span>
