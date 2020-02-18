@@ -2,6 +2,7 @@ let state = {
     displayedListItems: [],
     chosenInfoItem: {},
     inputtedText: '',
+    markers: [],
 }
 let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 10);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ', {
@@ -12,6 +13,14 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ'
 }).addTo(myMap);
+
+let input = document.querySelector('.form-control');
+console.log(input);
+input.addEventListener('keyup',function(e){
+    if (e.key === "Enter") {
+        callDataByName();
+  }  
+});
 
 document.getElementById('search').addEventListener('input', function(input) {
     state.inputtedText = input.target.value;
@@ -67,18 +76,7 @@ function mapBoundOverpass() {
     return strLatLong;
 
 }
-// function callDataByName() {
-//
-//     name = document.getElementById("search").value;
-//
-//     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[name~"' + name + '"](47.481002,-122.459696,47.734136,-122.224433);out%20meta;')
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((myJson) => {
-//             console.log(myJson.elements);
-//         });
-// }
+
 function callDataByName() {
 
     let strLatLong = mapBoundNomi();
@@ -104,6 +102,7 @@ function callDataByName() {
             console.log(myJson);
             data = myJson;
             state.displayedListItems = myJson;
+            renderMarker();
             populateList();
         });
 
@@ -206,6 +205,16 @@ function placeMarker(place) {
 
 }
 
+function renderMarker() {
+    if (state.markers !== null) {
+        myMap.eachLayer(function (layer) {
+            if(layer._popup) {
+                myMap.removeLayer(layer);
+            }
+        });
+    } 
+}
+
 function populateList() {
     document.getElementById('list').innerHTML = "";
     state.displayedListItems.forEach(function(e, i) {
@@ -253,6 +262,7 @@ function populateList() {
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
         let marker = L.marker([e.lat,e.lon]).addTo(myMap);
+        state.markers.push(marker);
         let popup = L.popup();
         popup.setContent(name);
         marker.bindPopup(popup).openPopup();
