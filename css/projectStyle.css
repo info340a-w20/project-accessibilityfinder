@@ -209,7 +209,7 @@ footer p {
 
 /* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
 /***********************************************************************/
-form {
+#review-search {
     position: relative;
     top: 50%;
     left: 50%;
@@ -259,16 +259,16 @@ input {
     margin-right: .5rem;
 }
 
-form:hover {
+#review-search:hover {
     width: 200px;
     cursor: pointer;
 }
 
-form:hover input {
+#review-search:hover input {
     display: block;
 }
 
-form:hover .fa {
+#review-search:hover .fa {
     /* background: #07051a; */
     color: #07051a;
 }
@@ -277,6 +277,28 @@ form:hover .fa {
 /* crowdsource modal */
 #edit {
     float: right;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+/*incorrect order fix*/
+#crowdsource {
+    display: inline-block;
+    columns: 3;
+    margin: auto;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+/* ty for help: https://markheath.net/post/font-awesome-circle-background */
+/* using js change color if checked */
+.icon-background {
+    color: #c0ffc0;
 }
 
 /* 414px is iPhone+ */
