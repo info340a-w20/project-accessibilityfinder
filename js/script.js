@@ -24,19 +24,9 @@ function update() {
 }
 
 function callDataByAmenityOverPass(amenityFromClient) {
-    let amenity = amenityFromClient;
-    // amenity = document.getElementById("search").value;
-
-    let listDiv = document.getElementById("left-view-list");
-    listDiv.style.display = "block";
-
-<<<<<<< HEAD
-function callDataByAmenityOverPass(amenityFromClient) {
     let strLatLong = mapBoundOverpass();
-=======
     let homeDiv = document.getElementById("left-view-home");
     homeDiv.style.display = "none";
->>>>>>> c12947c789382a9799f308fb5b495fecd1b58a34
 
     let amenity = amenityFromClient;
     let listDiv = document.getElementById("left-view-list");
@@ -58,7 +48,6 @@ function callDataByAmenityOverPass(amenityFromClient) {
         });
 }
 
-<<<<<<< HEAD
 function mapBoundNomi() {
     let latlong = [];
     latlong.push(myMap.getBounds()._southWest);
@@ -80,7 +69,6 @@ function mapBoundOverpass() {
     return strLatLong;
 
 }
-=======
 // function callDataByName() {
 //
 //     name = document.getElementById("search").value;
@@ -93,44 +81,34 @@ function mapBoundOverpass() {
 //             console.log(myJson.elements);
 //         });
 // }
->>>>>>> c12947c789382a9799f308fb5b495fecd1b58a34
-
 function callDataByName() {
 
     let strLatLong = mapBoundNomi();
- 
+
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
     let homeDiv = document.getElementById("left-view-home");
     homeDiv.style.display = "none";
-<<<<<<< HEAD
     let data = {};
 
     name = document.getElementById("search").value;
     //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
     fetch('https://nominatim.openstreetmap.org/search?q=' + name + '&format=json&viewbox=' + strLatLong + '&bounded=1&extratags=1')
-=======
 
     name = document.getElementById("search").value;
     //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
     fetch('https://nominatim.openstreetmap.org/search?q=' + name +'&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1&addressdetails=1')
->>>>>>> c12947c789382a9799f308fb5b495fecd1b58a34
         .then((response) => {
             return response.json();
         })
         .then((myJson) => {
             console.log(myJson);
-<<<<<<< HEAD
             data = myJson;
-        });
-
-    console.log(data);
-=======
             state.displayedListItems = myJson;
         });
 
->>>>>>> c12947c789382a9799f308fb5b495fecd1b58a34
+    console.log(data);
 }
 
 function toggleDisplayInfo() {
