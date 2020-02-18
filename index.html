@@ -33,9 +33,9 @@
                 <a class="text-white nav-link" href="aboutus.html"><span id="about-us">About Us</span><span id="acronym">Access</span></a>
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" id="search" placeholder="Search">
+                <input type="text" class="form-control" id="search" placeholder="Search by name of place">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-light" type="button" onclick="callDataByName()">
+                    <button id="main-places-search" class="btn btn-outline-light" type="button" onclick="callDataByName()">
                         <i class="fa fa-search" aria-label="search"></i>
                     </button>
                 </div>
@@ -267,6 +267,11 @@
         <div class="map-outer" id="leaflet-map">
         </div>
     </main>
+    <footer class="footer">
+        <div class="container">
+            <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
+        </div>
+    </footer>
 </body>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="js/script.js"></script>
