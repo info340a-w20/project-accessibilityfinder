@@ -32,10 +32,6 @@ function callDataByAmenityOverPass(amenityFromClient) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 152d493aa1cff0292e72b274367782737058f15d
     // amenity = document.getElementById("search").value;
 
     fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
@@ -202,7 +198,6 @@ function convertJson(obj) {
     });
 }
 
-<<<<<<< HEAD
 //nominatim
 //e.address."type"
 //e.type
@@ -216,7 +211,6 @@ function convertJson(obj) {
 // e.tags["addr:street"]
 // e.tags["addr:housenumber"]
 // e.tags.wheelchair
-=======
 function placeMarker(place) {
     console.log(place);
     // let marker = L.marker([place.lat,place.lon]).addTo(myMap);
@@ -225,7 +219,6 @@ function placeMarker(place) {
     // marker.bindPopup(popup).openPopup();
 
 }
->>>>>>> 152d493aa1cff0292e72b274367782737058f15d
 
 function populateList() {
     state.displayedListItems.forEach(function(e, i) {
