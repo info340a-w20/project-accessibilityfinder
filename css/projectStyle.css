@@ -32,18 +32,16 @@ main {
 #left-view-info {
     display: none;
 }
+
 .left-view {
-    width: 50%;
+    width: 40%;
     height: 100%;
+    overflow: auto
 }
 
-#left-view, #map-outer {
-    width: 50%;
-    height: 100%;
-}
-
-#left-view {
-    overflow: auto;
+#map-outer {
+    width:60%;
+    height:100%;
 }
 
 #map {

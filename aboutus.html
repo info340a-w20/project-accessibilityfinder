@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Amit Galitzky and Jill Nguyen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description"
+        content="This website will aggregate and display information regarding accessibile features in various venues">
+    <meta name="keywords" content="Accessibility, wheelchair, disability, ADA, impairment">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/projectStyle.css">
+    <link rel="icon" type="image/png" href="img/symbol.png">
+    <script src="https://kit.fontawesome.com/adcf7b8f7b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+    <title>Accessibility Finder</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar universal-nav">
+            <a class="navbar-brand mb-0 h1 text-white" href="index.html"><span id="name">Accessibility
+                    Finder</span><span id="acronym">Access</span></a>
+            <ol class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="text-white nav-link" href="aboutus.html"><span id="about-us">About Us</span><span id="acronym">Access</span></a>       
+                </li>
+            </ol>
+            <div class="input-group">
+                <input type="text" class="form-control" id = "search"
+                    placeholder="Search -- GRADER: click on search button to go to another html page">
+                <div class="input-group-append">
+                    <!--TEMPORARY onclick-->
+                    <button class="btn btn-outline-light" type="button" onclick="callDataByName()">
+                        <i class="fa fa-search" aria-label="search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- This is the main section for the home page -->
+        <section id="left-view-home" class="left-view">
+            <nav class="navbar navbar-light bg-light navbar-expand index-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#about"> Who We Are</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#mobility">Mobility</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vision">Vision</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hearing">Hearing</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container">
+                <h2 id="about" class="mainPageHeader">Who We Are</h2>
+                <p>
+                    Accessibility Finder's goal is to give people the ability to enjoy and participate in activities
+                    that they love. Our website empowers people to give feedback through both reviews and
+                    crowdsourcing in order to share information on accessibility features in various locations.
+                </p>
+                <h5 id="mobility">Mobility</h5>
+                <p>
+                    Mobility impairment includes physical defects, including upper or lower limb loss or impairment,
+                    poor manual dexterity, and damage to one or multiple organs of the body. Disability in mobility
+                    can be a congenital or acquired problem or a consequence of disease. People who have a broken
+                    skeletal structure also fall into this category.
+                    <a href="https://en.wikipedia.org/wiki/Physical_disability"> (source)</a>
+                </p>
+                <h5 id="vision">Vision</h5>
+                <p>
+                    Visual impairment, also known as vision impairment or vision loss, is a decreased ability to
+                    see to a degree that causes problems not fixable by usual means, such as glasses. Some also
+                    include those who have a decreased ability to see because they do not have access to glasses
+                    or contact lenses. The term blindness is used for complete or nearly complete vision loss.
+                    Visual impairment may cause people difficulties with normal daily activities such as driving,
+                    reading, socializing, and walking.
+                    <a href="https://en.wikipedia.org/wiki/Visual_impairment"> (source)</a>
+                </p>
+                <h5 id="hearing">Hearing</h5>
+                <p>
+                    Hearing loss, also known as hearing impairment, is a partial or total inability to hear. A
+                    deaf person has little to no hearing. Hearing loss may occur in one or both ears. In children,
+                    hearing problems can affect the ability to learn spoken language and in adults it can create
+                    difficulties with social interaction and at work. Hearing loss can be temporary or permanent.
+                    <a href="https://en.wikipedia.org/wiki/Hearing_loss"> (source)</a>
+                </p>
+            </div>
+            <footer>
+                <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
+            </footer>
+        </section>
+        <section id="map-outer">
+            <div id="map">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/search?q=theatres&key=AIzaSyD7DNlDKGbtHnFeypPF5N6wIkbCochxeE4"
+                    allowfullscreen></iframe>
+            </div>
+        </section>
+    </main>
+</body>
