@@ -6,40 +6,34 @@
     <meta name="author" content="Amit Galitzky and Jill Nguyen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description"
-        content="This website will aggregate and display information regarding accessibile features in various venues">
+    <meta name="description" content="This website will aggregate and display information regarding accessibile features in various venues">
     <meta name="keywords" content="Accessibility, wheelchair, disability, ADA, impairment">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/projectStyle.css">
     <link rel="icon" type="image/png" href="img/symbol.png">
-    <script src="https://kit.fontawesome.com/adcf7b8f7b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <link rel="stylesheet" href="css/projectStyle.css">
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="https://kit.fontawesome.com/adcf7b8f7b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Accessibility Finder</title>
 </head>
 
 <body>
     <header>
         <nav class="navbar universal-nav">
-            <a class="navbar-brand mb-0 h1 text-white" href="index.html"><span id="name">Accessibility
-                    Finder</span><span id="acronym">Access</span></a>
-            <ol class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="text-white nav-link" href="aboutus.html"><span id="about-us">About Us</span><span
-                            id="acronym">Access</span></a>
-                </li>
-            </ol>
+            <a class="navbar-brand mb-0 h1 text-white" href="index.html">
+                <span id="name">Accessibility Finder</span>
+                <span id="acronym">Access</span>
+            </a>
+            <div class="navbar-nav mr-auto">
+                <a class="text-white nav-link" href="aboutus.html"><span id="about-us">About Us</span><span id="acronym">Access</span></a>
+            </div>
             <div class="input-group">
-                <input type="text" class="form-control" id="search"
-                    placeholder="Search -- GRADER: click on search button to go to another html page">
+                <input type="text" class="form-control" id="search" placeholder="Search">
                 <div class="input-group-append">
-                    <!--TEMPORARY onclick-->
                     <button class="btn btn-outline-light" type="button" onclick="callDataByName()">
                         <i class="fa fa-search" aria-label="search"></i>
                     </button>
@@ -50,7 +44,19 @@
     <main>
         <!-- This is the main section for the home page -->
         <section id="left-view-home" class="left-view">
-            <div id="list" class="container">
+            <div>
+                <button type="button" onclick="callDataByAmenityOverPass('cinema')"/>
+                <span class="fa-stack fa-3x">
+                    <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                    <i class="fas fa-wheelchair fa-stack-1x"></i>
+                </span>
+                </button>
+                <button type="button" onclick="callDataByAmenityOverPass('restaurant')"/>
+                <span class="fa-stack fa-3x">
+                    <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                    <i class="fas fa-wheelchair fa-stack-1x"></i>
+                </span>
+                </button>
             </div>
         </section>
 
@@ -58,189 +64,7 @@
         <!-- Main left view section for the list, information from searching for a location will be stored here -->
         <section id="left-view-list" class="left-view">
             <div id="list" class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/amc.jpg" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">AMC Seattle 10</h5>
-                                <p class="card-text text-secondary">
-                                    Movie theater
-                                    <br /> <a
-                                        href="https://www.google.com/maps/place/AMC+Seattle+10/@47.6618936,-122.320221,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f55da571d9:0xdc5f2a50c18f0dea!8m2!3d47.6618936!4d-122.3180323"
-                                        class="card-link">4500 9th
-                                        Ave NE</a>
-                                    <br /> Open until midnight
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-check-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-check-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="info.html"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/neptune.jpg" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Neptune Theatre</h5>
-                                <p class="card-text text-secondary">
-                                    Performing arts theater
-                                    <br /> <a href="#" class="card-link">1303 NE 45th St</a>
-                                    <br /> Open until midnight
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-check-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-check-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/varsity.jpg" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">The Varsity Theatre</h5>
-                                <p class="card-text text-secondary">
-                                    Movie theater
-                                    <br /> <a href="#" class="card-link">4329 University Way NE</a>
-                                    <br /> Open until midnight
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-check-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-check-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="img/placeholder.png" alt="location">
-                            <div class="card-body">
-                                <h5 class="card-title">Location</h5>
-                                <p class="card-text text-secondary">
-                                    Type of venue
-                                    <br /> <a href="#" class="card-link">1234 5th St</a>
-                                    <br /> Open until 8PM
-                                </p>
-                                <div class="features">
-                                    <span><i class="fas fa-times-circle"></i>Mobility</span>
-                                    <span><i class="fas fa-times-circle"></i>Vision</span>
-                                    <span><i class="fas fa-times-circle"></i>Hearing</span>
-                                </div>
-                                <a class="list-link stretched-link" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -258,35 +82,29 @@
 
                             <div class="flex info-details">
                                 <i class="fa fa-home fa-fw margin-right" aria-hidden="true"></i>
-                                <a class="streched-link info-link"
-                                    href="https://www.google.com/maps/place/AMC+Seattle+10/@47.6618936,-122.320221,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f55da571d9:0xdc5f2a50c18f0dea!8m2!3d47.6618936!4d-122.3180323">
+                                <a class="streched-link info-link" href="https://www.google.com/maps/place/AMC+Seattle+10/@47.6618936,-122.320221,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f55da571d9:0xdc5f2a50c18f0dea!8m2!3d47.6618936!4d-122.3180323">
                                     4500 9th Ave NE, Seattle, WA 98105</a>
                             </div>
                             <div class="flex info-details"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
-                                <a class="info-link"
-                                    href="https://www.amctheatres.com/movie-theatres/seattle-tacoma/amc-seattle-10">
+                                <a class="info-link" href="https://www.amctheatres.com/movie-theatres/seattle-tacoma/amc-seattle-10">
                                     website</a>
                             </div>
                             <div class="flex info-details"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>
                                 <a class="info-link" href="tel:206-633-0059">(206) 633-0059 </a>
                             </div>
-                            <div class="flex hours-link info-details"><i class="fa fa-clock-o hours-link"
-                                    aria-hidden="true"></i>
-                                Hours: <b>Closed</b> Opens 8 AM<i class="fa fa-angle-down dropDown"
-                                    aria-hidden="true"></i>
+                            <div class="flex hours-link info-details"><i class="fa fa-clock-o hours-link" aria-hidden="true"></i>
+                                Hours: <b>Closed</b> Opens 8 AM<i class="fa fa-angle-down dropDown" aria-hidden="true"></i>
                             </div>
                         </div>
 
                     </div>
                     <div class="info">
                         <div>
-                            <button type="button" id="edit" class="btn btn-outline-primary rounded-pill"
-                                data-toggle="modal" data-target="#editModal">
+                            <button type="button" id="edit" class="btn btn-outline-primary rounded-pill" data-toggle="modal" data-target="#editModal">
                                 Edit
                             </button>
                             <!-- Modal -->
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -450,13 +268,10 @@
         </section>
         <section id="map-outer">
             <div id="map">
-                <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/search?q=theatres&key=AIzaSyD7DNlDKGbtHnFeypPF5N6wIkbCochxeE4"
-                    allowfullscreen></iframe>
+                <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=theatres&key=AIzaSyD7DNlDKGbtHnFeypPF5N6wIkbCochxeE4" allowfullscreen></iframe>
             </div>
         </section>
     </main>
 </body>
 <script src="js/script.js"></script>
-
 </html>
