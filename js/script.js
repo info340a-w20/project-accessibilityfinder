@@ -469,5 +469,5 @@ document.getElementById('review-input').addEventListener('input', function(input
 
 function renderInput() {
     document.getElementById('review-input').value = state.reviewText;
-    document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false
+    document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false;
 }
