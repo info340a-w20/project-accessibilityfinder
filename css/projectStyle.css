@@ -332,10 +332,24 @@ input {
 
 /*incorrect order fix*/
 #crowdsource {
-    display: inline-block;
-    columns: 3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
     margin: auto;
     padding: 0;
+}
+
+.cs-checkbox {
+    width: 120px;
+}
+
+.cs-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 /* ty for help: https://markheath.net/post/font-awesome-circle-background */
