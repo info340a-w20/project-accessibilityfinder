@@ -218,6 +218,7 @@ function renderMarker() {
     }
 }
 
+// populates the list after searching
 function populateList() {
     document.getElementById('list').innerHTML = "";
     if (state.displayedListItems.length == 0) {
@@ -284,6 +285,7 @@ function populateList() {
     });
 }
 
+// changes color of checkboxes when selected/deselected
 function color(e) {
     let bk = e.querySelector(".icon-background");
     let ic = e.querySelector(".fa-stack-1x");
@@ -296,6 +298,7 @@ function color(e) {
     }
 }
 
+// displays review textbox when "write a review" button is clicked
 document.getElementById('write-review').addEventListener('click', function() {
     let textbox = document.getElementById('review-form');
     if (textbox.style.display == "none") {
@@ -305,6 +308,7 @@ document.getElementById('write-review').addEventListener('click', function() {
     }
 });
 
+// enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
 let checkBoxes = $('.features');
 checkBoxes.change(function () {
@@ -325,44 +329,55 @@ checkBoxes.change();
 
 // add review based off of ps-5 exercise-2
 function renderReviews() {
+    document.getElementById('reviews').innerHTML = '';
     state.reviewList.forEach(function(review) {
         let div = document.createElement('div');
-        n =  new Date();
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        d = n.getDate();
+        div.classList.add('review');
+        let n =  new Date();
+        let y = n.getFullYear();
+        let m = n.getMonth() + 1;
+        let d = n.getDate();
+        let h = n.getHours() - 12;
+        let min = n.getMinutes();
+        let ampm = n.getHours() >= 12 ? "PM" : "AM";
         div.innerHTML = `
              <div class="info">
                  <div class="flex reviewHeader">
                      <h5>Anonymous</h5>
                  </div>
-                 <p class="timestamp">` + m + "/" + d + "/" + y + `</p>
+                 <p class="timestamp">` + m + "/" + d + "/" + y + " " + h + ":" + min + " " + ampm + `</p>
                  <p class="reviewContent">` + review.text + `</p>
              </div>
         `;
-        document.getElementById('reviews').appendChild(div);
+        document.getElementById('reviews').prepend(div);
     });
-    renderReviews();
+    renderInput();
 }
 
-document.getElementById('write-review').addEventListener('click', addReview);
-
-document.getElementById('review-input').addEventListener('input', function(input) {
-    state.reviewText = input.target.value;
-    renderInput();
-});
+renderReviews();
 
 function addReview() {
+    let num = 0;
+    if (state.reviewList.length > 0) {
+        num = state.reviewList[state.reviewList.length - 1].id + 1;
+    }
     let review = {
-        id: state.reviewList[state.reviewList.length - 1].id + 1,
-        text: state.reviewText,
+        id: num,
+        text: state.reviewText
     };
     state.reviewList.push(review);
     state.reviewText = '';
     renderReviews();
 }
 
+document.getElementById('review-submit').addEventListener('click', addReview);
+
+document.getElementById('review-input').addEventListener('input', function(input) {
+    state.reviewText = input.target.value;
+    renderInput();
+});
+
 function renderInput() {
     document.getElementById('review-input').value = state.reviewText;
-    document.getElementById('write-review').disabled = state.reviewText == '' ? true : false
+    document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false
 }
