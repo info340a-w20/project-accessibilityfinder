@@ -2,6 +2,8 @@ let state = {
     displayedListItems: [],
     chosenInfoItem: {},
     inputtedText: '',
+    reviewText: '',
+    reviewList: [],
     markers: [],
 }
 let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 13);
@@ -109,13 +111,13 @@ function callDataByName() {
     console.log(data);
 }
 
-function toggleDisplayInfo() {
+function toggleDisplayInfo(e) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
 
     let infoDiv = document.getElementById("left-view-info");
     infoDiv.style.display = "block";
-
+    console.log(e);
 }
 
 
@@ -218,6 +220,11 @@ function renderMarker() {
 
 function populateList() {
     document.getElementById('list').innerHTML = "";
+    if (state.displayedListItems.length == 0) {
+        let div = document.createElement('div');
+        div.textContent = "No results were found.";
+        document.getElementById('list').appendChild(div);
+    }
     state.displayedListItems.forEach(function(e, i) {
         // added limit to increase render speed
         if (i > 100) {
@@ -245,8 +252,10 @@ function populateList() {
             addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
             mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
         }
+        let card = document.createElement('div');
+        card.classList.add('card');
+        card.addEventListener('click', () => toggleDisplayInfo(e));
         let content = `
-            <div class="card" onclick="toggleDisplayInfo()">
                 <img class="card-img-top" src="img/placeholder.png" alt="location">
                 <div class="card-body">
                     <h5 class="card-title">` + name + `</h5>
@@ -261,9 +270,10 @@ function populateList() {
                         <span><i class="fas fa-times-circle"></i>Hearing</span>
                     </div>
                 </div>
-            </div>
         `;
-        col.innerHTML = content;
+        card.innerHTML = content;
+        col.appendChild(card);
+        // col.innerHTML = content;
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
         let marker = L.marker([e.lat,e.lon]).addTo(myMap);
@@ -286,8 +296,8 @@ function color(e) {
     }
 }
 
-document.getElementById('writeReview').addEventListener('click', function() {
-    let textbox = document.getElementById('reviewText');
+document.getElementById('write-review').addEventListener('click', function() {
+    let textbox = document.getElementById('review-form');
     if (textbox.style.display == "none") {
         textbox.style.display = "block";
     } else {
@@ -312,3 +322,47 @@ checkBoxes.change();
 //         <p></p>
 //     </div>
 // </div>
+
+// add review based off of ps-5 exercise-2
+function renderReviews() {
+    state.reviewList.forEach(function(review) {
+        let div = document.createElement('div');
+        n =  new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        div.innerHTML = `
+             <div class="info">
+                 <div class="flex reviewHeader">
+                     <h5>Anonymous</h5>
+                 </div>
+                 <p class="timestamp">` + m + "/" + d + "/" + y + `</p>
+                 <p class="reviewContent">` + review.text + `</p>
+             </div>
+        `;
+        document.getElementById('reviews').appendChild(div);
+    });
+    renderReviews();
+}
+
+document.getElementById('write-review').addEventListener('click', addReview);
+
+document.getElementById('review-input').addEventListener('input', function(input) {
+    state.reviewText = input.target.value;
+    renderInput();
+});
+
+function addReview() {
+    let review = {
+        id: state.reviewList[state.reviewList.length - 1].id + 1,
+        text: state.reviewText,
+    };
+    state.reviewList.push(review);
+    state.reviewText = '';
+    renderReviews();
+}
+
+function renderInput() {
+    document.getElementById('review-input').value = state.reviewText;
+    document.getElementById('write-review').disabled = state.reviewText == '' ? true : false
+}

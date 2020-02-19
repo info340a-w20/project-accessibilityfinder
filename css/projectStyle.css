@@ -43,8 +43,8 @@ main {
 
 .left-view {
     width: 40%;
-    height: 100%;
-    overflow: auto
+    height: calc(100% - 40px);
+    overflow: auto;
 }
 
 #map-outer {
@@ -312,12 +312,12 @@ input {
 }
 
 /* review */
-#reviewText {
+#review-form {
     display: none;
     margin-top: 16px;
 }
 
-#reviewText button {
+#review-form button {
     margin-top: 16px;
 }
 
