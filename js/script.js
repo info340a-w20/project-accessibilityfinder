@@ -6,7 +6,9 @@ let state = {
     reviewList: [],
     markers: [],
 }
+
 let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 13);
+
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -111,10 +113,6 @@ function callDataByName() {
     console.log(data);
 }
 
-
-
-
-
 // function callDataByName() {
 
 //     name = document.getElementById("search").value;
@@ -144,12 +142,6 @@ function callDataByName() {
 // let leaflet = document.createElement('div');
 // leaflet.classList.add('leaflet-map');
 // map.appendChild(leaflet).
-
-
-
-
-
-
 
 // function displayDivs {
 //     $('a.showlink').click(function(){
@@ -212,11 +204,12 @@ function renderMarker() {
     }
 }
 
-function populateInfo(e,info) {
+// populates info page when card is clicked
+function populateInfo(e, info) {
     console.log(e);
     console.log(info);
 
-    if (info.addr == "Address unavailable"){
+    if (info.addr == "Address unavailable") {
         info.longAddress = info.addr;
     }
 
@@ -224,17 +217,16 @@ function populateInfo(e,info) {
     // infoHeader.classList.add('infoHeader', 'flex');
 
     let content = `
-       
         <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
         <div class="locationDetails info">
         <button type="button" id="back-button" onClick="toggleDisplayList()" class="btn btn-outline-primary rounded-pill">
         <i class="fas fa-chevron-left"></i>
     </button> 
             <h2>` + info.name + `</h2>
-            <h6 class="text-secondary">`+info.type +`</h6>
+            <h6 class="text-secondary">` + info.type + `</h6>
             <div class="flex info-details">
                 <i class="fa fa-home fa-fw margin-right" aria-hidden="true"></i>
-                <a class="streched-link info-link" href="">` + info.longAddress +`
+                <a class="streched-link info-link" href="">` + info.longAddress + `
                 </a>
             </div>
         <div class="flex info-details"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
@@ -242,7 +234,7 @@ function populateInfo(e,info) {
                 ` + info.website + `</a>
         </div>
         <div class="flex info-details"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>
-            <a class="info-link" href="">`+ info.phone + `</a>
+            <a class="info-link" href="">` + info.phone + `</a>
         </div>
         <div class="flex hours-link info-details"><i class="fa fa-clock-o hours-link" aria-hidden="true"></i>
             Hours:` + info.hours + `
@@ -250,19 +242,18 @@ function populateInfo(e,info) {
         </div>
         `
 
-        document.getElementById('info-Header').innerHTML = content;
+    document.getElementById('info-Header').innerHTML = content;
 
-        if (info.wheelchair) {
-            document.getElementById('wheelchair-icon-main-info').classList.remove('fa-times-circle');
-            document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
-            document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
-            document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
-
-        }
- 
+    if (info.wheelchair) {
+        document.getElementById('wheelchair-icon-main-info').classList.remove('fa-times-circle');
+        document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
+        document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
+        document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
 
 
-    toggleDisplayInfo();
+
+        toggleDisplayInfo();
+    }
 }
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
@@ -331,10 +322,10 @@ function populateList() {
         }
 
 
-        let info ={
+        let info = {
             name: name,
             type: type,
-            addr : addr,
+            addr: addr,
             wheelchair: wheelchair,
             longAddress: longAddress,
             website: website,
@@ -343,15 +334,15 @@ function populateList() {
         }
         let card = document.createElement('div');
         card.classList.add('card');
-        card.addEventListener('click', () => populateInfo(e,info));
+        card.addEventListener('click', () => populateInfo(e, info));
         let content = `
                 <img class="card-img-top" src="img/placeholder.png" alt="location">
                 <div class="card-body">
                     <h5 class="card-title">` + name + `</h5>
-                    <p class="card-text text-secondary">`
-            + type +
-            `<br />`
-            + addr +
+                    <p class="card-text text-secondary">` +
+            type +
+            `<br />` +
+            addr +
             `</p>
                     <div class="features">
                         <span>` + mobilityCheck + `Mobility</span>
@@ -362,7 +353,6 @@ function populateList() {
         `;
         card.innerHTML = content;
         col.appendChild(card);
-        // col.innerHTML = content;
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
         let marker = L.marker([e.lat, e.lon]).addTo(myMap);
@@ -373,6 +363,7 @@ function populateList() {
     });
 }
 
+// changes color of checkboxes when selected/deselected
 function color(e) {
     let bk = e.querySelector(".icon-background");
     let ic = e.querySelector(".fa-stack-1x");
@@ -385,6 +376,7 @@ function color(e) {
     }
 }
 
+// displays review textbox when "write a review" button is clicked
 document.getElementById('write-review').addEventListener('click', function () {
     let textbox = document.getElementById('review-form');
     if (textbox.style.display == "none") {
@@ -394,6 +386,7 @@ document.getElementById('write-review').addEventListener('click', function () {
     }
 });
 
+// enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
 let checkBoxes = $('.features');
 checkBoxes.change(function () {
@@ -414,44 +407,55 @@ checkBoxes.change();
 
 // add review based off of ps-5 exercise-2
 function renderReviews() {
+    document.getElementById('reviews').innerHTML = '';
     state.reviewList.forEach(function (review) {
         let div = document.createElement('div');
-        n = new Date();
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        d = n.getDate();
+        div.classList.add('review');
+        let n = new Date();
+        let y = n.getFullYear();
+        let m = n.getMonth() + 1;
+        let d = n.getDate();
+        let h = n.getHours() - 12;
+        let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
+        let ampm = n.getHours() >= 12 ? "PM" : "AM";
         div.innerHTML = `
              <div class="info">
                  <div class="flex reviewHeader">
                      <h5>Anonymous</h5>
                  </div>
-                 <p class="timestamp">` + m + "/" + d + "/" + y + `</p>
+                 <p class="timestamp">` + m + "/" + d + "/" + y + " " + h + ":" + min + " " + ampm + `</p>
                  <p class="reviewContent">` + review.text + `</p>
              </div>
         `;
-        document.getElementById('reviews').appendChild(div);
+        document.getElementById('reviews').prepend(div);
     });
-    renderReviews();
+    renderInput();
 }
 
-document.getElementById('write-review').addEventListener('click', addReview);
-
-document.getElementById('review-input').addEventListener('input', function (input) {
-    state.reviewText = input.target.value;
-    renderInput();
-});
+renderReviews();
 
 function addReview() {
+    let num = 0;
+    if (state.reviewList.length > 0) {
+        num = state.reviewList[state.reviewList.length - 1].id + 1;
+    }
     let review = {
-        id: state.reviewList[state.reviewList.length - 1].id + 1,
-        text: state.reviewText,
+        id: num,
+        text: state.reviewText
     };
     state.reviewList.push(review);
     state.reviewText = '';
     renderReviews();
 }
 
+document.getElementById('review-submit').addEventListener('click', addReview);
+
+document.getElementById('review-input').addEventListener('input', function (input) {
+    state.reviewText = input.target.value;
+    renderInput();
+});
+
 function renderInput() {
     document.getElementById('review-input').value = state.reviewText;
-    document.getElementById('write-review').disabled = state.reviewText == '' ? true : false
+    document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false;
 }
