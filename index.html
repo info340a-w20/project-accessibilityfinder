@@ -40,6 +40,7 @@
         </nav>
     </header>
     <main>
+
         <!-- This is the main section for the home page -->
         <section id="left-view-home" class="left-view">
             <nav class="navbar navbar-light bg-light navbar-expand index-nav">
@@ -101,7 +102,6 @@
                 </button>
             </div>
             <section>
-
                 <div class="container">
                     <h2 id="about" class="mainPageHeader">Who We Are</h2>
                     <p>
@@ -185,12 +185,10 @@
                 </button>
             </div>
             <div id="list" class="container">
-
             </div>
         </section>
 
         <!-- This section displays information after a place has been clicked on. -->
-
         <section id="left-view-info" class="left-view">
             <div id="info-view">
                 <div>
@@ -224,89 +222,123 @@
                                 Edit
                             </button>
                             <!-- Modal -->
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-center" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Submit an edit</h5>
+                                            <h5 class="modal-title" id="editModalLabel">Submit an edit</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <ul id="crowdsource">
-                                                <form>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-wheelchair fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-door-open fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-chair fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-braille fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-audio-description fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-closed-captioning fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                        <label class="cs-checkbox">
-                                                            <input type="checkbox" />
-                                                            <span class="fa-stack fa-3x" onclick="color(this)">
-                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
-                                                                <i class="fas fa-assistive-listening-systems fa-stack-1x"></i>
-                                                            </span>
-                                                        </label>
-                                                </form>
-                                            </ul>
+                                            <form id="crowdsource">
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="wheelchair-access" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-wheelchair fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Wheelchair accessible</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="ada-door" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-door-open fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>ADA doorways</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="stadium" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-chair fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Stadium seating</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="braille" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-braille fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Braille</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="desc-narr" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Descriptive narration</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="empty" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Blank</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="ad" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-audio-description fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Audio description</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="cc" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-closed-captioning fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Closed captioning</span>
+                                                </label>
+                                                <label class="cs-checkbox">
+                                                    <input type="checkbox" name="features" value="als" class="features" />
+                                                    <span class="fa-stack fa-3x" onclick="color(this)">
+                                                        <i class="fas fa-circle fa-stack-2x icon-background" style="color:lightgray;"></i>
+                                                        <i class="fas fa-assistive-listening-systems fa-stack-1x"></i>
+                                                    </span>
+                                                    <br />
+                                                    <span>Assistive listening systems</span>
+                                                </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Submit</button>
+                                            <!-- not type="submit" b/c we don't have server side -->
+                                            <button type="button" class="btn btn-primary" id="cs-submit" disabled="disabled" data-toggle="modal" data-target="#thankModal" data-dismiss="modal">Submit</button>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                             <!-- End Modal -->
+                            <!-- Modal 2 -->
+                            <div class="modal fade" id="thankModal" tabindex="-1" role="dialog" aria-labelledby="thankModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-center" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="thankModalLabel">Thanks for the help!</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Thank you for your submission! You'll get an email when it has been reviewed.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal 2 -->
                             <div class="flex">
                                 <h4><i class="fas fa-times-circle icon"></i>
                                     Mobility related assistance
@@ -317,7 +349,7 @@
                                     Wheelchair accessible
                                 </li>
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                                    ADA Doorways
+                                    ADA doorways
                                 </li>
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
                                     Stadium seating
@@ -333,7 +365,7 @@
                                     Braille
                                 </li>
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                                    Descriptive Narration
+                                    Descriptive narration
                                 </li>
                             </ul>
                             <div class="flex">
@@ -343,13 +375,13 @@
                             </div>
                             <ul class="list-group list-group-flush nobackground">
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                                    Audio Description
+                                    Audio description
                                 </li>
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                                    Closed Caption
+                                    Closed captioning
                                 </li>
                                 <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                                    Assisted Listening Devices
+                                    Assisted listening devices
                                 </li>
                             </ul>
                         </div>
@@ -381,7 +413,7 @@
                             <form id="reviewText" style="display:none;">
                                 <div class="form-group">
                                     <textarea class="form-control" rows="3"></textarea>
-                                    <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+                                    <button type="button" class="btn btn-primary rounded-pill">Submit</button>
                                 </div>
                             </form>
                         </div>

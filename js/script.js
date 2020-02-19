@@ -44,7 +44,7 @@ function callDataByAmenityOverPass(amenityFromClient) {
 
     // amenity = document.getElementById("search").value;
 
-    fetch('https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
+    fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
         .then((response) => {
             return response.json();
         })
@@ -219,6 +219,10 @@ function renderMarker() {
 function populateList() {
     document.getElementById('list').innerHTML = "";
     state.displayedListItems.forEach(function(e, i) {
+        // added limit to increase render speed
+        if (i > 100) {
+            return;
+        }
         if (i % 3 == 0) {
             let row = document.createElement('div');
             row.classList.add('row');
@@ -271,7 +275,6 @@ function populateList() {
 }
 
 function color(e) {
-    console.log(e);
     let bk = e.querySelector(".icon-background");
     let ic = e.querySelector(".fa-stack-1x");
     if (bk.style.color == "lightgray") {
@@ -284,7 +287,6 @@ function color(e) {
 }
 
 document.getElementById('writeReview').addEventListener('click', function() {
-    console.log("test");
     let textbox = document.getElementById('reviewText');
     if (textbox.style.display == "none") {
         textbox.style.display = "block";
@@ -292,3 +294,10 @@ document.getElementById('writeReview').addEventListener('click', function() {
         textbox.style.display = "none";
     }
 });
+
+// https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
+let checkBoxes = $('.features');
+checkBoxes.change(function () {
+    $('#cs-submit').prop('disabled', checkBoxes.filter(':checked').length < 1);
+});
+checkBoxes.change();
