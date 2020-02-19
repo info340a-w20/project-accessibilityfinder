@@ -223,9 +223,13 @@ function populateInfo(e,info) {
     // let infoHeader = document.createElement('div');
     // infoHeader.classList.add('infoHeader', 'flex');
 
-    let content = `        
+    let content = `
+       
         <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
         <div class="locationDetails info">
+        <button type="button" id="back-button" onClick="toggleDisplayList()" class="btn btn-outline-primary rounded-pill">
+        <i class="fas fa-chevron-left"></i>
+    </button> 
             <h2>` + info.name + `</h2>
             <h6 class="text-secondary">`+info.type +`</h6>
             <div class="flex info-details">
@@ -248,7 +252,7 @@ function populateInfo(e,info) {
 
         document.getElementById('info-Header').innerHTML = content;
 
-        if (info.mobilityCheck) {
+        if (info.wheelchair) {
             document.getElementById('wheelchair-icon-main-info').classList.remove('fa-times-circle');
             document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
             document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
@@ -260,12 +264,20 @@ function populateInfo(e,info) {
 
     toggleDisplayInfo();
 }
-function toggleDisplayInfo(e) {
+function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
 
     let infoDiv = document.getElementById("left-view-info");
     infoDiv.style.display = "block";
+}
+
+function toggleDisplayList() {
+    let listDiv = document.getElementById("left-view-list");
+    listDiv.style.display = "block";
+
+    let infoDiv = document.getElementById("left-view-info");
+    infoDiv.style.display = "none";
 }
 
 function populateList() {
@@ -304,6 +316,7 @@ function populateList() {
             website = e.extratags.website != null ? e.extratags.website : "-";
             phone = e.extratags.phone != null ? e.extratags.phone : "-";
             hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
+            wheelchair = e.extratags.wheelchair;
 
         } else {
             name = e.tags.name;
@@ -314,34 +327,15 @@ function populateList() {
             website = e.tags.website != null ? e.tags.website : "--";
             phone = e.tags.phone != null ? e.tags.phone : "--";
             hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
+            wheelchair = e.tags.wheelchair;
         }
 
-        //     obj.forEach(function(e) {
-//         if(obj[0].license != null) {
-//             convertedObj.name = e.address.test;
-//             convertedObj.type = e.type;
-//             convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
-//             convertedObj.addressShort = e.address.house_number + " " + e.address.road;
-//             convertedObj.wheelchair = e.extratags.wheelchair;
-//             convertedObj.website = e.extratags.website;
-//             convertedObj.phone = e.extratags.phone;
-//         } else {
-//             convertedObj.name = e.tags.name;
-//             convertedObj.type = e.tags.amenity;
-//             convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
-//             convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
-//             convertedObj.wheelchair = e.tags.wheelchair;
-//             convertedObj.website = e.tags.website;
-//             convertedObj.phone = e.tags.phone;
-//         }
-//         state.displayedListItems.push(convertedObj);
-//     });
 
         let info ={
             name: name,
             type: type,
             addr : addr,
-            mobilityCheck: mobilityCheck,
+            wheelchair: wheelchair,
             longAddress: longAddress,
             website: website,
             phone: phone,
