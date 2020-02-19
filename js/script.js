@@ -6,7 +6,9 @@ let state = {
     reviewList: [],
     markers: [],
 }
+
 let myMap = L.map('leaflet-map').setView([47.606209, -122.332069], 13);
+
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -18,10 +20,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 let input = document.querySelector('.form-control');
 console.log(input);
-input.addEventListener('keyup',function(e){
+input.addEventListener('keyup', function(e) {
     if (e.key === "Enter") {
         callDataByName();
-  }
+    }
 });
 
 document.getElementById('search').addEventListener('input', function(input) {
@@ -96,7 +98,7 @@ function callDataByName() {
 
     name = document.getElementById("search").value;
     //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
-    fetch('https://nominatim.openstreetmap.org/search?q=' + name +'&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1&addressdetails=1')
+    fetch('https://nominatim.openstreetmap.org/search?q=' + name + '&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1&addressdetails=1')
         .then((response) => {
             return response.json();
         })
@@ -110,16 +112,6 @@ function callDataByName() {
 
     console.log(data);
 }
-
-function toggleDisplayInfo(e) {
-    let listDiv = document.getElementById("left-view-list");
-    listDiv.style.display = "none";
-
-    let infoDiv = document.getElementById("left-view-info");
-    infoDiv.style.display = "block";
-    console.log(e);
-}
-
 
 // function callDataByName() {
 
@@ -150,12 +142,6 @@ function toggleDisplayInfo(e) {
 // let leaflet = document.createElement('div');
 // leaflet.classList.add('leaflet-map');
 // map.appendChild(leaflet).
-
-
-
-
-
-
 
 // function displayDivs {
 //     $('a.showlink').click(function(){
@@ -210,15 +196,74 @@ function placeMarker(place) {
 
 function renderMarker() {
     if (state.markers !== null) {
-        myMap.eachLayer(function (layer) {
-            if(layer._popup) {
+        myMap.eachLayer(function(layer) {
+            if (layer._popup) {
                 myMap.removeLayer(layer);
             }
         });
     }
 }
 
-// populates the list after searching
+// populates info page when card is clicked
+function populateInfo(e, info) {
+    console.log(e);
+    console.log(info);
+
+    if (info.addr == "Address unavailable") {
+        info.longAddress = info.addr;
+    }
+
+    // let infoHeader = document.createElement('div');
+    // infoHeader.classList.add('infoHeader', 'flex');
+
+    let content = `
+        <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
+        <div class="locationDetails info">
+            <h2>` + info.name + `</h2>
+            <h6 class="text-secondary">` + info.type + `</h6>
+            <div class="flex info-details">
+                <i class="fa fa-home fa-fw margin-right" aria-hidden="true"></i>
+                <a class="streched-link info-link" href="">` + info.longAddress + `
+                </a>
+            </div>
+        <div class="flex info-details"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+            <a class="info-link" href="">
+                ` + info.website + `</a>
+        </div>
+        <div class="flex info-details"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+            <a class="info-link" href="">` + info.phone + `</a>
+        </div>
+        <div class="flex hours-link info-details"><i class="fa fa-clock-o hours-link" aria-hidden="true"></i>
+            Hours:` + info.hours + `
+        </div>
+        </div>
+        `
+
+    document.getElementById('info-Header').innerHTML = content;
+
+    if (info.mobilityCheck) {
+        document.getElementById('wheelchair-icon-main-info').classList.remove('fa-times-circle');
+        document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
+        document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
+        document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
+
+    }
+
+
+
+    toggleDisplayInfo();
+}
+
+function toggleDisplayInfo(e) {
+    let listDiv = document.getElementById("left-view-list");
+    listDiv.style.display = "none";
+
+    let infoDiv = document.getElementById("left-view-info");
+    infoDiv.style.display = "block";
+}
+
+
+// populates the list when searching
 function populateList() {
     document.getElementById('list').innerHTML = "";
     if (state.displayedListItems.length == 0) {
@@ -242,29 +287,75 @@ function populateList() {
         let type = '';
         let addr = '';
         let mobilityCheck = '';
+        let longAddress = '';
+        let website = '';
+        let phone = '';
+        let hours = '';
         if (e.licence != null) {
             name = e.address[Object.keys(e.address)[0]];
             type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
             addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
             mobilityCheck = e.extratags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+            longAddress = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
+            website = e.extratags.website != null ? e.extratags.website : "-";
+            phone = e.extratags.phone != null ? e.extratags.phone : "-";
+            hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
+
         } else {
             name = e.tags.name;
             type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
             addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
             mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+            longAddress = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
+            website = e.tags.website != null ? e.tags.website : "--";
+            phone = e.tags.phone != null ? e.tags.phone : "--";
+            hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
+        }
+
+        // deprecated convertJson method
+        //     obj.forEach(function(e) {
+        //         if(obj[0].license != null) {
+        //             convertedObj.name = e.address.test;
+        //             convertedObj.type = e.type;
+        //             convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
+        //             convertedObj.addressShort = e.address.house_number + " " + e.address.road;
+        //             convertedObj.wheelchair = e.extratags.wheelchair;
+        //             convertedObj.website = e.extratags.website;
+        //             convertedObj.phone = e.extratags.phone;
+        //         } else {
+        //             convertedObj.name = e.tags.name;
+        //             convertedObj.type = e.tags.amenity;
+        //             convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
+        //             convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
+        //             convertedObj.wheelchair = e.tags.wheelchair;
+        //             convertedObj.website = e.tags.website;
+        //             convertedObj.phone = e.tags.phone;
+        //         }
+        //         state.displayedListItems.push(convertedObj);
+        //     });
+
+        let info = {
+            name: name,
+            type: type,
+            addr: addr,
+            mobilityCheck: mobilityCheck,
+            longAddress: longAddress,
+            website: website,
+            phone: phone,
+            hours: hours
         }
         let card = document.createElement('div');
         card.classList.add('card');
-        card.addEventListener('click', () => toggleDisplayInfo(e));
+        card.addEventListener('click', () => populateInfo(e, info));
         let content = `
                 <img class="card-img-top" src="img/placeholder.png" alt="location">
                 <div class="card-body">
                     <h5 class="card-title">` + name + `</h5>
-                    <p class="card-text text-secondary">`
-                        + type +
-                        `<br />`
-                        + addr +
-                    `</p>
+                    <p class="card-text text-secondary">` +
+            type +
+            `<br />` +
+            addr +
+            `</p>
                     <div class="features">
                         <span>` + mobilityCheck + `Mobility</span>
                         <span><i class="fas fa-times-circle"></i>Vision</span>
@@ -274,10 +365,9 @@ function populateList() {
         `;
         card.innerHTML = content;
         col.appendChild(card);
-        // col.innerHTML = content;
         let row = document.querySelectorAll('.row');
         row[row.length - 1].appendChild(col);
-        let marker = L.marker([e.lat,e.lon]).addTo(myMap);
+        let marker = L.marker([e.lat, e.lon]).addTo(myMap);
         state.markers.push(marker);
         let popup = L.popup();
         popup.setContent(name);
@@ -311,7 +401,7 @@ document.getElementById('write-review').addEventListener('click', function() {
 // enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
 let checkBoxes = $('.features');
-checkBoxes.change(function () {
+checkBoxes.change(function() {
     $('#cs-submit').prop('disabled', checkBoxes.filter(':checked').length < 1);
 });
 checkBoxes.change();
@@ -333,12 +423,12 @@ function renderReviews() {
     state.reviewList.forEach(function(review) {
         let div = document.createElement('div');
         div.classList.add('review');
-        let n =  new Date();
+        let n = new Date();
         let y = n.getFullYear();
         let m = n.getMonth() + 1;
         let d = n.getDate();
         let h = n.getHours() - 12;
-        let min = n.getMinutes();
+        let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
         let ampm = n.getHours() >= 12 ? "PM" : "AM";
         div.innerHTML = `
              <div class="info">
