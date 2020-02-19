@@ -122,10 +122,14 @@ main {
     display: block;
 }
 
-/* amit */
+/* info Page */
 .infoImgPlaceholder {
     width: 30%;
     object-fit: cover;
+}
+
+#back-button {
+float:right;
 }
 
 .infoHeader {

@@ -20,13 +20,13 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 let input = document.querySelector('.form-control');
 console.log(input);
-input.addEventListener('keyup', function(e) {
+input.addEventListener('keyup', function (e) {
     if (e.key === "Enter") {
         callDataByName();
     }
 });
 
-document.getElementById('search').addEventListener('input', function(input) {
+document.getElementById('search').addEventListener('input', function (input) {
     state.inputtedText = input.target.value;
     update();
 });
@@ -196,7 +196,7 @@ function placeMarker(place) {
 
 function renderMarker() {
     if (state.markers !== null) {
-        myMap.eachLayer(function(layer) {
+        myMap.eachLayer(function (layer) {
             if (layer._popup) {
                 myMap.removeLayer(layer);
             }
@@ -219,6 +219,9 @@ function populateInfo(e, info) {
     let content = `
         <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
         <div class="locationDetails info">
+        <button type="button" id="back-button" onClick="toggleDisplayList()" class="btn btn-outline-primary rounded-pill">
+        <i class="fas fa-chevron-left"></i>
+    </button> 
             <h2>` + info.name + `</h2>
             <h6 class="text-secondary">` + info.type + `</h6>
             <div class="flex info-details">
@@ -241,20 +244,18 @@ function populateInfo(e, info) {
 
     document.getElementById('info-Header').innerHTML = content;
 
-    if (info.mobilityCheck) {
+    if (info.wheelchair) {
         document.getElementById('wheelchair-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
 
+
+
+        toggleDisplayInfo();
     }
-
-
-
-    toggleDisplayInfo();
 }
-
-function toggleDisplayInfo(e) {
+function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
 
@@ -262,8 +263,14 @@ function toggleDisplayInfo(e) {
     infoDiv.style.display = "block";
 }
 
+function toggleDisplayList() {
+    let listDiv = document.getElementById("left-view-list");
+    listDiv.style.display = "block";
 
-// populates the list when searching
+    let infoDiv = document.getElementById("left-view-info");
+    infoDiv.style.display = "none";
+}
+
 function populateList() {
     document.getElementById('list').innerHTML = "";
     if (state.displayedListItems.length == 0) {
@@ -271,7 +278,7 @@ function populateList() {
         div.textContent = "No results were found.";
         document.getElementById('list').appendChild(div);
     }
-    state.displayedListItems.forEach(function(e, i) {
+    state.displayedListItems.forEach(function (e, i) {
         // added limit to increase render speed
         if (i > 100) {
             return;
@@ -300,6 +307,7 @@ function populateList() {
             website = e.extratags.website != null ? e.extratags.website : "-";
             phone = e.extratags.phone != null ? e.extratags.phone : "-";
             hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
+            wheelchair = e.extratags.wheelchair;
 
         } else {
             name = e.tags.name;
@@ -310,35 +318,15 @@ function populateList() {
             website = e.tags.website != null ? e.tags.website : "--";
             phone = e.tags.phone != null ? e.tags.phone : "--";
             hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
+            wheelchair = e.tags.wheelchair;
         }
 
-        // deprecated convertJson method
-        //     obj.forEach(function(e) {
-        //         if(obj[0].license != null) {
-        //             convertedObj.name = e.address.test;
-        //             convertedObj.type = e.type;
-        //             convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
-        //             convertedObj.addressShort = e.address.house_number + " " + e.address.road;
-        //             convertedObj.wheelchair = e.extratags.wheelchair;
-        //             convertedObj.website = e.extratags.website;
-        //             convertedObj.phone = e.extratags.phone;
-        //         } else {
-        //             convertedObj.name = e.tags.name;
-        //             convertedObj.type = e.tags.amenity;
-        //             convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
-        //             convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
-        //             convertedObj.wheelchair = e.tags.wheelchair;
-        //             convertedObj.website = e.tags.website;
-        //             convertedObj.phone = e.tags.phone;
-        //         }
-        //         state.displayedListItems.push(convertedObj);
-        //     });
 
         let info = {
             name: name,
             type: type,
             addr: addr,
-            mobilityCheck: mobilityCheck,
+            wheelchair: wheelchair,
             longAddress: longAddress,
             website: website,
             phone: phone,
@@ -389,7 +377,7 @@ function color(e) {
 }
 
 // displays review textbox when "write a review" button is clicked
-document.getElementById('write-review').addEventListener('click', function() {
+document.getElementById('write-review').addEventListener('click', function () {
     let textbox = document.getElementById('review-form');
     if (textbox.style.display == "none") {
         textbox.style.display = "block";
@@ -401,7 +389,7 @@ document.getElementById('write-review').addEventListener('click', function() {
 // enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
 let checkBoxes = $('.features');
-checkBoxes.change(function() {
+checkBoxes.change(function () {
     $('#cs-submit').prop('disabled', checkBoxes.filter(':checked').length < 1);
 });
 checkBoxes.change();
@@ -420,7 +408,7 @@ checkBoxes.change();
 // add review based off of ps-5 exercise-2
 function renderReviews() {
     document.getElementById('reviews').innerHTML = '';
-    state.reviewList.forEach(function(review) {
+    state.reviewList.forEach(function (review) {
         let div = document.createElement('div');
         div.classList.add('review');
         let n = new Date();
@@ -462,7 +450,7 @@ function addReview() {
 
 document.getElementById('review-submit').addEventListener('click', addReview);
 
-document.getElementById('review-input').addEventListener('input', function(input) {
+document.getElementById('review-input').addEventListener('input', function (input) {
     state.reviewText = input.target.value;
     renderInput();
 });
