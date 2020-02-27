@@ -19,7 +19,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 let input = document.querySelector('.form-control');
-console.log(input);
 input.addEventListener('keyup', function (e) {
     if (e.key === "Enter") {
         callDataByName();
@@ -33,7 +32,6 @@ document.getElementById('search').addEventListener('input', function (input) {
 
 function update() {
     document.getElementById('search').value = state.inputtedText;
-    console.log(state.inputtedText);
 }
 
 function callDataByAmenityOverPass(amenityFromClient) {
@@ -53,8 +51,8 @@ function callDataByAmenityOverPass(amenityFromClient) {
             return response.json();
         })
         .then((myJson) => {
-            console.log(myJson.elements);
             state.displayedListItems = myJson.elements;
+            renderMarker();
             populateList();
         });
 }
@@ -74,8 +72,6 @@ function mapBoundOverpass() {
     let latlong = [];
     latlong.push(myMap.getBounds()._southWest);
     latlong.push(myMap.getBounds()._northEast);
-    console.log(latlong);
-
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     return strLatLong;
 
@@ -103,28 +99,13 @@ function callDataByName() {
             return response.json();
         })
         .then((myJson) => {
-            console.log(myJson);
             data = myJson;
             state.displayedListItems = myJson;
             renderMarker();
             populateList();
         });
-
-    console.log(data);
 }
 
-// function callDataByName() {
-
-//     name = document.getElementById("search").value;
-//     https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
-//     fetch('https://nominatim.openstreetmap.org/search?q=[' + name +']&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1')
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((myJson) => {
-//             console.log(myJson);
-//         });
-// }
 
 
 // let myMap = () => L.map('leaflet-map').setView([47.606209, -122.332069], 10).then(myMap => {
@@ -185,14 +166,6 @@ function callDataByName() {
 //     });
 // }
 
-function placeMarker(place) {
-    console.log(place);
-    // let marker = L.marker([place.lat,place.lon]).addTo(myMap);
-    // let popup = L.popup()
-    // popup.setContent(place.tags.name);
-    // marker.bindPopup(popup).openPopup();
-
-}
 
 function renderMarker() {
     if (state.markers !== null) {
@@ -206,15 +179,9 @@ function renderMarker() {
 
 // populates info page when card is clicked
 function populateInfo(e, info) {
-    console.log(e);
-    console.log(info);
-
     if (info.addr == "Address unavailable") {
         info.longAddress = info.addr;
     }
-
-    // let infoHeader = document.createElement('div');
-    // infoHeader.classList.add('infoHeader', 'flex');
 
     let content = `
         <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
@@ -241,7 +208,6 @@ function populateInfo(e, info) {
         </div>
         </div>
         `
-
     document.getElementById('info-Header').innerHTML = content;
 
     if (info.wheelchair) {
@@ -249,12 +215,36 @@ function populateInfo(e, info) {
         document.getElementById('wheelchair-icon-main-info').classList.add('fa-check-circle');
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
-
-
-
-        toggleDisplayInfo();
     }
+    renderReviewBox();
+    document.getElementById('review-input').addEventListener('input', function (input) {
+        state.reviewText = input.target.value;
+        renderInput();
+    });
+    document.getElementById('review-submit').addEventListener('click', (e) => addReview(info.name));
+    renderReviews(info.name);
+    toggleDisplayInfo();
 }
+
+function renderReviewBox() {
+    document.getElementById('review-form').innerHTML = `
+        <div class="form-group">
+            <textarea class="form-control" rows="3" id="review-input"></textarea>
+            <button type="button" class="btn btn-primary rounded-pill" id="review-submit">Submit</button>
+        </div>
+    `;
+}
+
+document.getElementById('write-review').addEventListener('click', function () {
+    let textbox = document.getElementById('review-form');
+    if (textbox.style.display == "none") {
+        textbox.style.display = "block";
+    } else {
+        textbox.style.display = "none";
+    }
+});
+
+
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
@@ -376,15 +366,7 @@ function color(e) {
     }
 }
 
-// displays review textbox when "write a review" button is clicked
-document.getElementById('write-review').addEventListener('click', function () {
-    let textbox = document.getElementById('review-form');
-    if (textbox.style.display == "none") {
-        textbox.style.display = "block";
-    } else {
-        textbox.style.display = "none";
-    }
-});
+
 
 // enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
@@ -395,30 +377,21 @@ checkBoxes.change(function () {
 checkBoxes.change();
 
 
-// <div class="review">
-//     <div class="info">
-//         <div class="flex reviewHeader">
-//             <h5>Anonymous</h5>
-//         </div>
-//         <p class="timestamp"></p>
-//         <p></p>
-//     </div>
-// </div>
-
 // add review based off of ps-5 exercise-2
-function renderReviews() {
+function renderReviews(location) {
     document.getElementById('reviews').innerHTML = '';
     state.reviewList.forEach(function (review) {
-        let div = document.createElement('div');
-        div.classList.add('review');
-        let n = new Date();
-        let y = n.getFullYear();
-        let m = n.getMonth() + 1;
-        let d = n.getDate();
-        let h = n.getHours() - 12;
-        let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
-        let ampm = n.getHours() >= 12 ? "PM" : "AM";
-        div.innerHTML = `
+        if (location == review.id) {
+            let div = document.createElement('div');
+            div.classList.add('review');
+            let n = new Date();
+            let y = n.getFullYear();
+            let m = n.getMonth() + 1;
+            let d = n.getDate();
+            let h = n.getHours() - 12;
+            let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
+            let ampm = n.getHours() >= 12 ? "PM" : "AM";
+            div.innerHTML = `
              <div class="info">
                  <div class="flex reviewHeader">
                      <h5>Anonymous</h5>
@@ -427,35 +400,28 @@ function renderReviews() {
                  <p class="reviewContent">` + review.text + `</p>
              </div>
         `;
-        document.getElementById('reviews').prepend(div);
+            document.getElementById('reviews').prepend(div);
+        }
     });
     renderInput();
 }
 
-renderReviews();
 
-function addReview() {
-    let num = 0;
-    if (state.reviewList.length > 0) {
-        num = state.reviewList[state.reviewList.length - 1].id + 1;
-    }
-    let review = {
-        id: num,
-        text: state.reviewText
-    };
-    state.reviewList.push(review);
-    state.reviewText = '';
-    renderReviews();
-}
-
-document.getElementById('review-submit').addEventListener('click', addReview);
-
-document.getElementById('review-input').addEventListener('input', function (input) {
-    state.reviewText = input.target.value;
-    renderInput();
-});
 
 function renderInput() {
     document.getElementById('review-input').value = state.reviewText;
     document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false;
 }
+
+
+function addReview(e) {
+    let review = {
+        id: e,
+        text: state.reviewText
+    };
+    state.reviewList.push(review);
+    state.reviewText = '';
+    renderReviews(e);
+}
+
+
