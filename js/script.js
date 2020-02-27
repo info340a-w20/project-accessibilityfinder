@@ -67,7 +67,6 @@ function mapBoundOverpass() {
     let latlong = [];
     latlong.push(myMap.getBounds()._southWest);
     latlong.push(myMap.getBounds()._northEast);
-
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     return strLatLong;
 }
@@ -117,9 +116,6 @@ function populateInfo(e, info) {
         info.longAddress = info.addr;
     }
 
-    // let infoHeader = document.createElement('div');
-    // infoHeader.classList.add('infoHeader', 'flex');
-
     let content = `
         <img class="infoImgPlaceholder" src = "img/placeholder.png" alt = "location">
         <div class="locationDetails info">
@@ -145,7 +141,6 @@ function populateInfo(e, info) {
         </div>
         </div>
         `
-
     document.getElementById('info-Header').innerHTML = content;
 
     if (info.wheelchair) {
@@ -154,10 +149,34 @@ function populateInfo(e, info) {
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
     }
-    document.getElementById('review-submit').addEventListener('click', addReview);
-    renderReviews();
+    renderReviewBox();
+    document.getElementById('review-input').addEventListener('input', function (input) {
+        state.reviewText = input.target.value;
+        renderInput();
+    });
+    document.getElementById('review-submit').addEventListener('click', (e) => addReview(info.name));
+    renderReviews(info.name);
     toggleDisplayInfo();
 }
+
+function renderReviewBox() {
+    document.getElementById('review-form').innerHTML = `
+        <div class="form-group">
+            <textarea class="form-control" rows="3" id="review-input"></textarea>
+            <button type="button" class="btn btn-primary rounded-pill" id="review-submit">Submit</button>
+        </div>
+    `;
+}
+
+document.getElementById('write-review').addEventListener('click', function () {
+    let textbox = document.getElementById('review-form');
+    if (textbox.style.display == "none") {
+        textbox.style.display = "block";
+    } else {
+        textbox.style.display = "none";
+    }
+});
+
 
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
@@ -280,15 +299,7 @@ function color(e) {
     }
 }
 
-// displays review textbox when "write a review" button is clicked
-document.getElementById('write-review').addEventListener('click', function () {
-    let textbox = document.getElementById('review-form');
-    if (textbox.style.display == "none") {
-        textbox.style.display = "block";
-    } else {
-        textbox.style.display = "none";
-    }
-});
+
 
 // enables/disables submit button in crowdsource modal
 // https://stackoverflow.com/questions/20687884/disable-button-if-all-checkboxes-are-unchecked-and-enable-it-if-at-least-one-is
@@ -299,19 +310,20 @@ checkBoxes.change(function () {
 checkBoxes.change();
 
 // add review based off of ps-5 exercise-2
-function renderReviews() {
+function renderReviews(location) {
     document.getElementById('reviews').innerHTML = '';
     state.reviewList.forEach(function (review) {
-        let div = document.createElement('div');
-        div.classList.add('review');
-        let n = new Date();
-        let y = n.getFullYear();
-        let m = n.getMonth() + 1;
-        let d = n.getDate();
-        let h = n.getHours() - 12;
-        let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
-        let ampm = n.getHours() >= 12 ? "PM" : "AM";
-        div.innerHTML = `
+        if (location == review.id) {
+            let div = document.createElement('div');
+            div.classList.add('review');
+            let n = new Date();
+            let y = n.getFullYear();
+            let m = n.getMonth() + 1;
+            let d = n.getDate();
+            let h = n.getHours() - 12;
+            let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
+            let ampm = n.getHours() >= 12 ? "PM" : "AM";
+            div.innerHTML = `
              <div class="info">
                  <div class="flex reviewHeader">
                      <h5>Anonymous</h5>
@@ -320,31 +332,26 @@ function renderReviews() {
                  <p class="reviewContent">` + review.text + `</p>
              </div>
         `;
-        document.getElementById('reviews').prepend(div);
+            document.getElementById('reviews').prepend(div);
+        }
     });
     renderInput();
 }
 
-function addReview() {
-    let num = 0;
-    if (state.reviewList.length > 0) {
-        num = state.reviewList[state.reviewList.length - 1].id + 1;
-    }
-    let review = {
-        id: num,
-        text: state.reviewText
-    };
-    state.reviewList.push(review);
-    state.reviewText = '';
-    renderReviews();
-}
 
-document.getElementById('review-input').addEventListener('input', function (input) {
-    state.reviewText = input.target.value;
-    renderInput();
-});
 
 function renderInput() {
     document.getElementById('review-input').value = state.reviewText;
     document.getElementById('review-submit').disabled = state.reviewText == '' ? true : false;
+}
+
+
+function addReview(e) {
+    let review = {
+        id: e,
+        text: state.reviewText
+    };
+    state.reviewList.push(review);
+    state.reviewText = '';
+    renderReviews(e);
 }
