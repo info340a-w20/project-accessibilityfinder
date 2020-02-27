@@ -19,7 +19,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 let input = document.getElementById('search');
-console.log(input);
 input.addEventListener('keyup', function (e) {
     if (e.key === "Enter") {
         callDataByName();
@@ -33,7 +32,6 @@ document.getElementById('search').addEventListener('input', function (input) {
 
 function update() {
     document.getElementById('search').value = state.inputtedText;
-    console.log(state.inputtedText);
 }
 
 function callDataByAmenityOverPass(amenityFromClient) {
@@ -50,8 +48,8 @@ function callDataByAmenityOverPass(amenityFromClient) {
             return response.json();
         })
         .then((myJson) => {
-            console.log(myJson.elements);
             state.displayedListItems = myJson.elements;
+            renderMarker();
             populateList();
         });
 }
@@ -69,7 +67,6 @@ function mapBoundOverpass() {
     let latlong = [];
     latlong.push(myMap.getBounds()._southWest);
     latlong.push(myMap.getBounds()._northEast);
-    console.log(latlong);
 
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     return strLatLong;
@@ -97,14 +94,11 @@ function callDataByName() {
             return response.json();
         })
         .then((myJson) => {
-            console.log(myJson);
             data = myJson;
             state.displayedListItems = myJson;
             renderMarker();
             populateList();
         });
-
-    console.log(data);
 }
 
 function renderMarker() {
@@ -119,9 +113,6 @@ function renderMarker() {
 
 // populates info page when card is clicked
 function populateInfo(e, info) {
-    console.log(e);
-    console.log(info);
-
     if (info.addr == "Address unavailable") {
         info.longAddress = info.addr;
     }
@@ -163,9 +154,11 @@ function populateInfo(e, info) {
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
     }
-
-        toggleDisplayInfo();
+    document.getElementById('review-submit').addEventListener('click', addReview);
+    renderReviews();
+    toggleDisplayInfo();
 }
+
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
@@ -305,17 +298,6 @@ checkBoxes.change(function () {
 });
 checkBoxes.change();
 
-
-// <div class="review">
-//     <div class="info">
-//         <div class="flex reviewHeader">
-//             <h5>Anonymous</h5>
-//         </div>
-//         <p class="timestamp"></p>
-//         <p></p>
-//     </div>
-// </div>
-
 // add review based off of ps-5 exercise-2
 function renderReviews() {
     document.getElementById('reviews').innerHTML = '';
@@ -343,8 +325,6 @@ function renderReviews() {
     renderInput();
 }
 
-renderReviews();
-
 function addReview() {
     let num = 0;
     if (state.reviewList.length > 0) {
@@ -358,8 +338,6 @@ function addReview() {
     state.reviewText = '';
     renderReviews();
 }
-
-document.getElementById('review-submit').addEventListener('click', addReview);
 
 document.getElementById('review-input').addEventListener('input', function (input) {
     state.reviewText = input.target.value;

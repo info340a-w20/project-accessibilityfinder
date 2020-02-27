@@ -15,6 +15,7 @@ header {
 .index-nav {
     margin-bottom: 8px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -22,7 +23,8 @@ header {
     width: 40%;
     height: 40px;
     background-color: #f5f5f5;
-  }
+}
+
 #acronym {
     display: none;
 }
@@ -334,7 +336,6 @@ input {
     text-align: center;
 }
 
-/*incorrect order fix*/
 #crowdsource {
     display: flex;
     flex-direction: row;
