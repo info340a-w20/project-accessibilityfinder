@@ -18,7 +18,12 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ'
 }).addTo(myMap);
 
+<<<<<<< HEAD
 let input = document.querySelector('.form-control');
+=======
+let input = document.getElementById('search');
+console.log(input);
+>>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 input.addEventListener('keyup', function (e) {
     if (e.key === "Enter") {
         callDataByName();
@@ -43,9 +48,6 @@ function callDataByAmenityOverPass(amenityFromClient) {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "block";
 
-
-    // amenity = document.getElementById("search").value;
-
     fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
         .then((response) => {
             return response.json();
@@ -64,8 +66,6 @@ function mapBoundNomi() {
 
     let strLatLong = "" + latlong[0].lng + "," + latlong[0].lat + "," + latlong[1].lng + "," + latlong[1].lat;
     return strLatLong;
-
-
 }
 
 function mapBoundOverpass() {
@@ -74,7 +74,6 @@ function mapBoundOverpass() {
     latlong.push(myMap.getBounds()._northEast);
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     return strLatLong;
-
 }
 
 function callDataByName() {
@@ -106,6 +105,7 @@ function callDataByName() {
         });
 }
 
+<<<<<<< HEAD
 
 
 // let myMap = () => L.map('leaflet-map').setView([47.606209, -122.332069], 10).then(myMap => {
@@ -167,6 +167,8 @@ function callDataByName() {
 // }
 
 
+=======
+>>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 function renderMarker() {
     if (state.markers !== null) {
         myMap.eachLayer(function (layer) {
@@ -188,7 +190,7 @@ function populateInfo(e, info) {
         <div class="locationDetails info">
         <button type="button" id="back-button" onClick="toggleDisplayList()" class="btn btn-outline-primary rounded-pill">
         <i class="fas fa-chevron-left"></i>
-    </button> 
+    </button>
             <h2>` + info.name + `</h2>
             <h6 class="text-secondary">` + info.type + `</h6>
             <div class="flex info-details">
@@ -216,6 +218,7 @@ function populateInfo(e, info) {
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
     }
+<<<<<<< HEAD
     renderReviewBox();
     document.getElementById('review-input').addEventListener('input', function (input) {
         state.reviewText = input.target.value;
@@ -245,6 +248,11 @@ document.getElementById('write-review').addEventListener('click', function () {
 });
 
 
+=======
+
+        toggleDisplayInfo();
+}
+>>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
