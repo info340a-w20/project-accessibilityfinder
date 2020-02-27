@@ -18,12 +18,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiYW1pdDE3IiwiYSI6ImNrNnJibmF2bzA0ZXgzbG11dzNkcmh5YWsifQ.tfSRkB3YoUJPPIlc0UxuZQ'
 }).addTo(myMap);
 
-<<<<<<< HEAD
-let input = document.querySelector('.form-control');
-=======
 let input = document.getElementById('search');
-console.log(input);
->>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 input.addEventListener('keyup', function (e) {
     if (e.key === "Enter") {
         callDataByName();
@@ -105,70 +100,6 @@ function callDataByName() {
         });
 }
 
-<<<<<<< HEAD
-
-
-// let myMap = () => L.map('leaflet-map').setView([47.606209, -122.332069], 10).then(myMap => {
-//     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-//         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-//         maxZoom: 18,
-//         id: 'mapbox/streets-v11',
-//         tileSize: 512,
-//         zoomOffset: -1,
-//         accessToken: 'your.mapbox.access.token'
-//     }).addTo(mymap);
-// })
-
-// let map = document.getElementById("map-outer");
-// let leaflet = document.createElement('div');
-// leaflet.classList.add('leaflet-map');
-// map.appendChild(leaflet).
-
-// function displayDivs {
-//     $('a.showlink').click(function(){
-//         var toShow = this.id.substr(5);
-//         $('div.section:visible').fadeOut(600, function(){
-//             $('#' + toShow).fadeIn(600);
-//         });
-//     });
-// }
-
-// function convertJson(obj) {
-//     let convertedObj = {
-//         name: '',
-//         type: '',
-//         address: '',
-//         addressShort: '',
-//         wheelchair: '',
-//         website: '',
-//         phone: '',
-//         review: []
-//     };
-//     obj.forEach(function(e) {
-//         if(obj[0].license != null) {
-//             convertedObj.name = e.address.test;
-//             convertedObj.type = e.type;
-//             convertedObj.address = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
-//             convertedObj.addressShort = e.address.house_number + " " + e.address.road;
-//             convertedObj.wheelchair = e.extratags.wheelchair;
-//             convertedObj.website = e.extratags.website;
-//             convertedObj.phone = e.extratags.phone;
-//         } else {
-//             convertedObj.name = e.tags.name;
-//             convertedObj.type = e.tags.amenity;
-//             convertedObj.address = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
-//             convertedObj.addressShort = e.tags["addr:housenumber"] + " " + e.tags["addr:street"];
-//             convertedObj.wheelchair = e.tags.wheelchair;
-//             convertedObj.website = e.tags.website;
-//             convertedObj.phone = e.tags.phone;
-//         }
-//         state.displayedListItems.push(convertedObj);
-//     });
-// }
-
-
-=======
->>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 function renderMarker() {
     if (state.markers !== null) {
         myMap.eachLayer(function (layer) {
@@ -218,7 +149,6 @@ function populateInfo(e, info) {
         document.getElementById('mobility-icon-main-info').classList.remove('fa-times-circle');
         document.getElementById('mobility-icon-main-info').classList.add('fa-check-circle');
     }
-<<<<<<< HEAD
     renderReviewBox();
     document.getElementById('review-input').addEventListener('input', function (input) {
         state.reviewText = input.target.value;
@@ -248,11 +178,6 @@ document.getElementById('write-review').addEventListener('click', function () {
 });
 
 
-=======
-
-        toggleDisplayInfo();
-}
->>>>>>> 48531d459f2b7bdef4ab248bcec081fd6fbfc6a6
 function toggleDisplayInfo() {
     let listDiv = document.getElementById("left-view-list");
     listDiv.style.display = "none";
