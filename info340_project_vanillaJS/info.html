@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Amit Galitzky and Jill Nguyen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="This website will aggregate and display information regarding accessibile features in various venues">
+    <meta name="keywords" content="Accessibility, wheelchair, disability, ADA, impairment">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/projectStyle.css">
+    <link rel="icon" type="image/png" href="img/symbol.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/adcf7b8f7b.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Accessibility Finder</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar universal-nav">
+            <a class="navbar-brand mb-0 h1 text-white" href="index.html"><span id="name">Accessibility Finder</span><span id="acronym">Access</span></a>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="button">
+                        <i class="fa fa-search" aria-label="search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="left-view">
+            <div id="info-view info">
+                <div>
+                    <div class="infoHeader flex">
+                        <img class="infoImgPlaceholder" src="img/amc.jpg" alt="Card image cap">
+
+                        <div class="locationDetails info">
+                            <h2>AMC Seattle 10</h2>
+                            <h6 class="text-secondary">Movie Theater</h6>
+
+                            <div class="flex info-details">
+                                <i class="fa fa-home fa-fw margin-right" aria-hidden="true"></i>
+                                <a class="streched-link info-link" href="https://www.google.com/maps/place/AMC+Seattle+10/@47.6618936,-122.320221,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f55da571d9:0xdc5f2a50c18f0dea!8m2!3d47.6618936!4d-122.3180323">
+                                    4500 9th Ave NE, Seattle, WA 98105</a>
+                            </div>
+                            <div class="flex info-details"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                                <a class="info-link" href="https://www.amctheatres.com/movie-theatres/seattle-tacoma/amc-seattle-10">
+                                    website</a>
+                            </div>
+                            <div class="flex info-details"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+                                <a class="info-link" href="tel:206-633-0059">(206) 633-0059 </a>
+                            </div>
+                            <div class="flex hours-link info-details"><i class="fa fa-clock-o hours-link" aria-hidden="true"></i>
+                                Hours: <b>Closed</b> Opens 8 AM<i class="fa fa-angle-down dropDown" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="info">
+                        <div>
+                            <button type="button" id="edit" class="btn btn-outline-primary rounded-pill" data-toggle="modal" data-target="#editModal">
+                                Edit
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-center" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Title amit pls help</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul id="crowdsource">
+                                                <form>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-wheelchair fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-door-open fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-chair fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-braille fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-audio-description fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-closed-captioning fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="cs-checkbox">
+                                                            <input type="checkbox" />
+                                                            <span class="fa-stack fa-3x">
+                                                                <i class="fas fa-circle fa-stack-2x icon-background"></i>
+                                                                <i class="fas fa-assistive-listening-systems fa-stack-1x"></i>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal -->
+                            <div class="flex">
+                                <i class="fas fa-check-circle icon"></i>
+                                <h4>Mobility related assistance</h4>
+                            </div>
+                            <ul class="list-group list-group-flush nobackground">
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    Wheelchair accessible
+                                </li>
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    ADA Doorways
+                                </li>
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    Stadium seating
+                                </li>
+                            </ul>
+                            <div class="flex">
+                                <i class="fas fa-times-circle icon"></i>
+                                <h4>Vision related assistance</h4>
+                            </div>
+                            <ul class="list-group list-group-flush nobackground">
+                                <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
+                                    Descriptive Narration
+                                </li>
+                            </ul>
+                            <div class="flex">
+                                <i class="fas fa-check-circle icon"></i>
+                                <h4>Hearing related assistance</h4>
+                            </div>
+                            <ul class="list-group list-group-flush nobackground">
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    Audio Description
+                                </li>
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    Closed Caption
+                                </li>
+                                <li class="list-group-item nobackground"><i class="fas fa-check-circle"></i>
+                                    Assisted Listening Devices
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <div class="photos">
+                            <h4>Photos</h4>
+                            <div class="images">
+                                <img class="infoImg" src="img/placeholder.png" alt="Card image cap">
+                                <img class="infoImg" src="img/placeholder.png" alt="Card image cap">
+                                <img class="infoImg" src="img/placeholder.png" alt="Card image cap">
+                                <img class="infoImg" src="img/placeholder.png" alt="Card image cap">
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div>
+                            <div class="flex reviewHeader">
+                                <h4 class="reviews-title">Reviews</h4>
+                                <div class="flex reviews-buttons">
+                                    <div class="search-bar">
+                                        <form id="review-search">
+                                            <input type="search">
+                                            <i class="fa fa-search" aria-label="search"></i>
+                                        </form>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-primary rounded-pill">Write a Review</button>
+                                </div>
+
+                            </div>
+                            <!-- <div class="search-container">
+                            <form>
+                              <input type="text" placeholder="Search.." name="search">
+                              <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                          </div>  -->
+
+                            <div class="review">
+                                <div class="info">
+                                    <div class="flex reviewHeader">
+                                        <h5>Harshita Singh</h5>
+                                        <div class="tag">Mobility</div>
+                                    </div>
+                                    <p class="timestamp">a month ago</p>
+                                    <p>I have been trying to find a movie theather with wheelchair access and ADA seating in order
+                                        for me to go with my other friends who also need seating. There are both options along the third row
+                                        and along the last row. There were around 10 ADA seats in total.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="review">
+                                <div class="info">
+                                    <div class="flex reviewHeader">
+                                        <h5>Dan Jones</h5>
+                                        <div class="tag">Vision</div>
+                                    </div>
+                                    <p class="timestamp">a month ago</p>
+                                    <p>AMC Seattle movie theater unforuntely didn't have any sort of features to help me
+                                        with my vision impariment. I was hoping to find descriptive narration devices given by
+                                        the theaters but they didn't have any when I asked.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="review">
+                                <div class="info">
+                                    <div class="flex reviewHeader">
+                                        <h5>Jose Hernandez</h5>
+                                        <div class="tag">Hearing</div>
+                                    </div>
+                                    <p class="timestamp">October 21, 2019</p>
+                                    <p>I always prefer to go to this movie theter because ever since hearing ability has been
+                                        getting worse I have needed a close caption device to use in the theaters. I have am finally able
+                                        to go to the movies like I used too with the closed caption glasses that AMC gives out upon request.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
+            </footer>
+        </section>
+        <section id="map-outer">
+            <div id="map">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=theatres&key=AIzaSyD7DNlDKGbtHnFeypPF5N6wIkbCochxeE4" allowfullscreen></iframe>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
