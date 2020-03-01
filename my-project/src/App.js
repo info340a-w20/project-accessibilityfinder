@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Header from "./components/Header/Header";
-import HomePage from "./components/HomePage/HomePage";
 import Footer from "./components/Footer/Footer";
+import HomePage from "./components/HomePage/HomePage";
+import List from "./components/List/List";
 
 
 
@@ -16,16 +17,16 @@ export class App extends Component {
 
   render() {
     return (
-      <Router>
+      <div>
         <Header />
-        <main>
-        <Route name="home" path="/" component={HomePage} />
-        </main>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/list" component={List} />
+        </Switch>
         <Footer />
-      </Router>
+      </div>
     )
   }
-
 }
 
 // function App() {

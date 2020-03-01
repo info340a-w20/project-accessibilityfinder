@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import './HomePage.css'
 import { AmenityNav } from '../AmenityNav/AmenityNav';
-
-
-
+import { HashLink as Link } from 'react-router-hash-link';
 
 export class HomePage extends Component {
   constructor(props) {
@@ -18,16 +16,16 @@ export class HomePage extends Component {
         <nav class="navbar navbar-light bg-light navbar-expand index-nav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="#about"> Who We Are</a>
+              <Link to="#about" class="nav-link"> Who We Are</Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#mobility">Mobility</a>
+              <Link to="#mobility" class="nav-link">Mobility</Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#vision">Vision</a>
+              <Link to="#vision" class="nav-link">Vision</Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#hearing">Hearing</a>
+              <Link to="#hearing" class="nav-link">Hearing</Link>
             </li>
           </ul>
         </nav>
