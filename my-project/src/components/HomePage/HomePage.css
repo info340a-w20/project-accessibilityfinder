@@ -4,3 +4,10 @@
 #left-view-home {
     display: block;
 }
+.left-view {
+    width: 40%;
+    height: calc(100% - 40px);
+    overflow: auto;
+    margin:0px;
+  }
+  

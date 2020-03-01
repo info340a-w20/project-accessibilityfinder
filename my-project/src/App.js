@@ -4,6 +4,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Header from "./components/Header/Header";
+import Map from "./components/Map/Map"
+import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
 import HomePage from "./components/HomePage/HomePage";
 import List from "./components/List/List";
