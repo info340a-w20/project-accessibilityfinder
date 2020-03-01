@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import './HomePage.css'
+import { AmenityNav } from '../AmenityNav/AmenityNav';
+
 
 
 
@@ -12,7 +14,7 @@ export class HomePage extends Component {
 
   render() {
     return (
-      <div className="home-page-info left-view">
+      <div id="left-view-home" className="home-page-info left-view">
         <nav class="navbar navbar-light bg-light navbar-expand index-nav">
           <ul class="navbar-nav">
             <li class="nav-item active">
@@ -29,6 +31,7 @@ export class HomePage extends Component {
             </li>
           </ul>
         </nav>
+        <AmenityNav />
         <Container >
           <h2 id="about" class="mainPageHeader">Who We Are</h2>
           <p>

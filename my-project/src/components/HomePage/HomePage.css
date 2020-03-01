@@ -1,3 +1,6 @@
 .mainPageHeader {
     text-align: center;
 }
+#left-view-home {
+    display: block;
+}
