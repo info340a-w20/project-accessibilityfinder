@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container';
+import './Footer.css'
 
 
-export class Footer extends Component {
+
+class Footer extends Component {
     constructor(props) {
         super(props);
     }
@@ -18,3 +20,4 @@ export class Footer extends Component {
     }
 
 }
+export default Footer;

@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Layout } from './components/Layout/Layout.js';
+import { HashRouter as Router, Route, Link } from 'react-router-dom'
+import Header from "./components/Header/Header";
+import HomePage from "./components/HomePage/HomePage"
+import Footer from "./components/Footer/Footer";
+
 
 
 export class App extends Component {
@@ -12,9 +16,12 @@ export class App extends Component {
 
   render() {
     return (
-    <Layout>
-      Home Page
-    </Layout>)
+      <Router>
+        <Header />
+          <Route name="home" path="/" component={HomePage} />
+        <Footer />
+      </Router>
+    )
   }
 
 }
@@ -40,4 +47,4 @@ export class App extends Component {
 //   );
 // }
 
- export default App;
+export default App;

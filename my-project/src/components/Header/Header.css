@@ -1,0 +1,20 @@
+.universal-nav {
+    background-color: #34A4EB;
+}
+.input-group {
+    width: 45vw;
+}
+#acronym {
+    display: none;
+}
+
+/* 414px is iPhone+ */
+@media (max-width: 414px) {
+    #name {
+        display: none;
+    }
+
+    #acronym {
+        display: inline;
+    }
+}

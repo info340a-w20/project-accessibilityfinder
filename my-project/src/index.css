@@ -7,7 +7,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.left-view {
+  width: 40%;
+  height: calc(100% - 40px);
+  overflow: auto;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@media (max-width: 414px) {
+  main {
+    display: block;
+  }
+
+  .left-view {
+    width: 100%;
+    height: 40%;
+    overflow: auto
+  }
+
+  #map-outer {
+    width: 100%;
+    height: 60%;
+  }
+
+  #leaflet-map {
+    width: 100%;
+    height: 60%;
+  }
 }
