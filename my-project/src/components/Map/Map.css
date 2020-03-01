@@ -1,17 +1,18 @@
-
+/* 
 .leaflet-container {
     height: 100%;
     width: 60%;
     display: flex;
 
-  }
+  } */
 
-  #map {
-    height: 100%;
-    width: 60%;
-  }
+.map-display {
+    height:100%;
+    width: 40%;
+    display:flex;
+}
 
-  .outer-map{
-      height:100%;
-      width: 60%;
-  }
+#leaflet-map {
+    height:100%;
+    width:100%;
+}

@@ -3,6 +3,7 @@
 }
 #left-view-home {
     display: block;
+    float:left;
 }
 .left-view {
     width: 40%;

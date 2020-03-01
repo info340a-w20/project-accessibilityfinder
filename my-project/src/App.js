@@ -7,7 +7,6 @@ import Header from "./components/Header/Header";
 import Map from "./components/Map/Map"
 import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
-import HomePage from "./components/HomePage/HomePage";
 import List from "./components/List/List";
 
 
@@ -19,14 +18,15 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <main>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage}/>
           <Route path="/list" component={List} />
         </Switch>
+        <Map></Map>
         <Footer />
-      </div>
+      </main>
     )
   }
 }

@@ -18,23 +18,47 @@ export class MapDisplay extends Component {
             lat: 47.606209,
             lng: -122.332069,
             boundingbox: [],
-            position: [],
+            position: [47.606209, -122.332069],
         }
     }
 
     render() {
-        return (<div id="leaflet-map" className="leaflet-container" >
-            <Map
-                center={[this.state.lat, this.state.lng]}
-                zoom={this.state.zoom}
-            >
-                <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                />
+        // return (<div id="leaflet-map" className="leaflet-container" >
+        //     <Map
+        //         center={[this.state.lat, this.state.lng]}
+        //         zoom={this.state.zoom}
+        //     >
+        //         <TileLayer
+        //             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        //             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //         />
 
-            </Map>
-        </div>)
+        //     </Map>
+        // </div>)
+        return (
+            <div className="map-display">
+              <Map id="leaflet-map" center={this.state.position} zoom={13}>
+                  <TileLayer
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                </Map>
+            </div>
+  );
+
+// return (<Map center={[22.5774626732038, 114.04924392700197]} zoom={11}>
+//     <TileLayer
+//       url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+//       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//     />
+//     <CanvasMarkersLayer>
+//       <Marker position={[22.5774626732038, 114.04924392700197]} icon={defaultIcon}>
+//           <Popup>
+//             <div>hello !</div>
+//           </Popup>
+//       </Marker>
+//     </CanvasMarkersLayer>
+//   </Map>);
 
     }
 }
