@@ -21,9 +21,10 @@ export class App extends Component {
       <main>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage}/>
           <Route path="/list" component={List} />
         </Switch>
+        <Map></Map>
         <Footer />
       </main>
     )
