@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Layout } from './components/Layout/Layout.js';
+import { Footer } from './components/Footer/Footer';
+import { AmenityNav } from './components/AmenityNav/AmenityNav';
 
 
 export class App extends Component {
@@ -12,10 +13,13 @@ export class App extends Component {
 
   render() {
     return (
-    <Layout>
-      Home Page
-    </Layout>)
-  }
+      <div>
+        <AmenityNav />
+
+        <Footer />
+      </div>
+  )
+}
 
 }
 

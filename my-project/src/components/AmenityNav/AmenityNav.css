@@ -1,0 +1,20 @@
+#left-view-home {
+    display: block;
+}
+
+#category {
+    text-align: center;
+}
+
+#category button {
+    padding: 20px 0px;
+}
+
+#category .icon-background {
+    color: lightblue;
+}
+
+.no-background-btn{
+    border:none;
+    background-color:unset;
+}
