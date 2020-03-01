@@ -7,16 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.left-view {
-  width: 40%;
-  height: calc(100% - 40px);
-  overflow: auto;
-}
 
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+main {
+  display: flex;
+  height: 100vh;
+
 }
 
 

@@ -32,7 +32,6 @@ export class HomePage extends Component {
           </ul>
         </nav>
         <AmenityNav />
-        <Container >
           <h2 id="about" class="mainPageHeader">Who We Are</h2>
           <p>
             Accessibility Finder's goal is to give people the ability to enjoy and participate in activities
@@ -65,8 +64,8 @@ export class HomePage extends Component {
             difficulties with social interaction and at work. Hearing loss can be temporary or permanent.
                         <a href="https://en.wikipedia.org/wiki/Hearing_loss"> (source)</a>
           </p>
-        </Container>
       </div>
+      
     );
   }
 
