@@ -9,6 +9,10 @@ export class AmenityNav extends Component {
     super(props);
   }
 
+  callDataByAmenityOverPass() {
+
+  }
+
   render() {
     return (
       <div id="category">
@@ -56,5 +60,3 @@ export class AmenityNav extends Component {
     )
   }
 }
-
-//onclick=callDataByAmenityOverPass('')
