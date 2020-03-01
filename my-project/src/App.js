@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Footer } from './components/Footer/Footer';
+import { HashRouter as Router, Route, Link } from 'react-router-dom'
+import Header from "./components/Header/Header";
+import HomePage from "./components/HomePage/HomePage"
+import Footer from "./components/Footer/Footer";
 import { AmenityNav } from './components/AmenityNav/AmenityNav';
+
 
 
 export class App extends Component {
@@ -13,13 +17,14 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
-        <AmenityNav />
-
+      <Router>
+        <Header />
+          <AmenityNav />
+          <Route name="home" path="/" component={HomePage} />
         <Footer />
-      </div>
-  )
-}
+      </Router>
+    )
+  }
 
 }
 
@@ -44,4 +49,4 @@ export class App extends Component {
 //   );
 // }
 
- export default App;
+export default App;
