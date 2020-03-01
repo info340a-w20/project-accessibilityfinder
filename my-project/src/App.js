@@ -6,7 +6,6 @@ import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 import Footer from "./components/Footer/Footer";
-import { AmenityNav } from './components/AmenityNav/AmenityNav';
 
 
 
@@ -19,8 +18,9 @@ export class App extends Component {
     return (
       <Router>
         <Header />
-          <AmenityNav />
-          <Route name="home" path="/" component={HomePage} />
+        <main>
+        <Route name="home" path="/" component={HomePage} />
+        </main>
         <Footer />
       </Router>
     )
