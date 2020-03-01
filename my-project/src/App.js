@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Layout } from './components/Layout/Layout.js';
 
 
 export class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    return (
     <Layout>
       Home Page
-    </Layout>
-
+    </Layout>)
   }
 
 }
@@ -35,4 +40,4 @@ export class App extends Component {
 //   );
 // }
 
-// export default App;
+ export default App;
