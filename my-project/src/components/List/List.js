@@ -19,7 +19,8 @@ class List extends Component {
             <div id="left-view-home" className="home-page-info left-view">
                 <AmenityNav handleAmenitySearch={this.props.handleAmenitySearch} />
                 <div id="list" class="container">
-                    {this.createCards()}
+                    {this.props.noElements ? <div><p>No results were</p></div> :
+                        this.createCards()}}
                 </div>
             </div>
         );
