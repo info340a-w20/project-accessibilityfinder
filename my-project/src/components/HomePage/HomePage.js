@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import './HomePage.css'
 import { AmenityNav } from '../AmenityNav/AmenityNav';
-// import { HashLink as Link } from 'react-router-hash-link';
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import { HashLink as Link } from 'react-router-hash-link';
 
 export class HomePage extends Component {
   constructor(props) {
@@ -65,9 +63,7 @@ export class HomePage extends Component {
                       <a href="https://en.wikipedia.org/wiki/Hearing_loss"> (source)</a>
         </p>
       </div>
-
     );
   }
-
 }
 export default HomePage;

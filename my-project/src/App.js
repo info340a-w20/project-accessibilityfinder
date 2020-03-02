@@ -9,8 +9,6 @@ import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
 
-
-
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +22,7 @@ export class App extends Component {
           <Route exact path="/" component={HomePage}/>
           <Route path="/list" component={List} />
         </Switch>
-        <Map></Map>
+        <Map />
         <Footer />
       </main>
     )

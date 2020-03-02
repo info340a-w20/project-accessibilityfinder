@@ -32,41 +32,41 @@ export class AmenityNav extends Component {
   render() {
     return (
       <div id="category">
-        <button className="no-background-btn" type="button">
+        <button className="no-background-btn" type="button" onclick="callDataByAmenityOverPass('restaurant')">
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('restaurant')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faUtensils} className="fa-stack-1x" />
           </span>
           <br />
           <span>Restaurant</span>
         </button>
-        <button className="no-background-btn" type="button">
+        <button className="no-background-btn" type="button" onclick="callDataByAmenityOverPass('bar')">
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('bar')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faGlassMartini} className="fa-stack-1x" />
           </span>
           <br />
           <span>Bar</span>
         </button>
-        <button className="no-background-btn" type="button">
+        <button className="no-background-btn" type="button" onclick="callDataByAmenityOverPass('cafe')">
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('cafe')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faCoffee} className="fa-stack-1x" />
           </span>
           <br />
           <span>Cafe</span>
         </button>
-        <button className="no-background-btn" type="button">
+        <button className="no-background-btn" type="button" onclick="callDataByAmenityOverPass('cinema')">
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('cinema')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faFilm} className="fa-stack-1x" />
           </span>
           <br />
           <span>Movie</span>
         </button>
-        <button className="no-background-btn" type="button">
+        <button className="no-background-btn" type="button" onclick="callDataByAmenityOverPass('theatre')">
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('theatre')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faTheaterMasks} className="fa-stack-1x" />
           </span>
           <br />
