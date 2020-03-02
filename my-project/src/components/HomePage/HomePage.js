@@ -31,7 +31,7 @@ export class HomePage extends Component {
             </li>
           </ul>
         </nav>
-        <AmenityNav />
+        <AmenityNav handleAmenitySearch={this.props.handleAmenitySearch}/>
           <h2 id="about" class="mainPageHeader">Who We Are</h2>
           <p>
             Accessibility Finder's goal is to give people the ability to enjoy and participate in activities

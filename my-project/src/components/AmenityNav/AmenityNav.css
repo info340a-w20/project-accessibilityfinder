@@ -17,4 +17,7 @@
 .no-background-btn{
     border:none;
     background-color:unset;
+    text-decoration: none;
+    color:unset;
+    padding: 20px 0px;
 }
