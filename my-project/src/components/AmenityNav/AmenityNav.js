@@ -41,7 +41,7 @@ export class AmenityNav extends Component {
   render() {
     return (
       <div id="category">
-        <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("restaurant")}>
+        <Link to ="/list" className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("restaurant")}>
           <span className="fa-stack fa-3x">
             <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faUtensils} className="fa-stack-1x" />
@@ -49,7 +49,7 @@ export class AmenityNav extends Component {
           <br />
           <span>Restaurant</span>
         </Link>
-        <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("bar")}>
+        <Link to ="/list" className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("bar")}>
           <span className="fa-stack fa-3x">
             <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faGlassMartini} className="fa-stack-1x" />
@@ -57,7 +57,7 @@ export class AmenityNav extends Component {
           <br />
           <span>Bar</span>
         </Link>
-        <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("cafe")}>
+        <Link to ="/list" className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("cafe")}>
           <span className="fa-stack fa-3x">
             <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faCoffee} className="fa-stack-1x" />
@@ -73,7 +73,7 @@ export class AmenityNav extends Component {
           <br />
           <span>Movie</span>
         </Link>
-        <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("theatre")}>
+        <Link to ="/list" className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("theatre")}>
           <span className="fa-stack fa-3x">
             <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faTheaterMasks} className="fa-stack-1x" />

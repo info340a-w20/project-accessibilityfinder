@@ -8,7 +8,40 @@ import HomePage from '../HomePage/HomePage';
 class Header extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            inputtedText: "",
+        }
     }
+
+    handleChange = (e) => {
+        console.log(e.target.value);
+        this.setState({inputtedText: e.target.value});
+    }
+
+    handleSearch = (e) => {
+        e.preventDefault();
+        console.log(this.state);
+        this.props.handleSearch(this.state.inputtedText);
+    }
+
+    handleKeyPress = (e) => {
+        console.log(e);
+     if (e.key === 'Enter') { 
+        console.log(this.state);
+        this.props.handleSearch(this.state.inputtedText);
+    }
+} 
+
+//     let input = document.getElementById('search');
+// input.addEventListener('keyup', function (e) {
+//     if (e.key === "Enter") {
+//         callDataByName();
+//     }
+// });
+
+
+    
 
     render() {
         return (
@@ -19,12 +52,13 @@ class Header extends Component {
                 <span id="acronym">Access</span>
               </Link>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="search" placeholder="Search by name of place"/>
+                  <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
                   <div class="input-group-append">
-                    <button id="main-places-search" class="btn btn-outline-light" type="button" onclick="callDataByName()">
+                    <button id="main-places-search" class="btn btn-outline-light" type="button" onClick={this.handleSearch}>
                       <FontAwesomeIcon icon={faSearch} aria-label="search" />
                     </button>
                   </div>
+                  
                 </div>
             </nav>
           </header>

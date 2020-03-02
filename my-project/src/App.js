@@ -19,53 +19,58 @@ export class App extends Component {
 
     this.state = {
       displayedListItems: [],
-      fetching: false,
+      fetchingAmenity: false,
       amenity: "",
       strLatLong: "47.481002,-122.459696,47.734136,-122.224433",
       reDirect: false,
       noElements: false,
+      fetchingNominatim: false,
+      searchText: "",
     }
   }
 
 
   componentDidUpdate() {
-    if (this.state.fetching) {
+    if (this.state.fetchingAmenity) {
       fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + this.state.amenity + '](' + this.state.strLatLong + ');out%20meta;')
-        // .then((response) => {
-        //   return response.json();
-        // })
         .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        // .then((myJson) => {
-        //   console.log(myJson);
-          this.processData(data);
-          this.setState({ fetching: false });
+          this.processData(data.elements);
+          this.setState({ fetchingAmenity: false });
           this.setState({redirect: true});
-          // const history = createHistory();
-          // const listen = history.listen((location, action) => {
-          //   console.log(action, location.pathname, location.state);
-          // });
-          // this.redirect();
-        //   // renderMarker();
-        //   // populateList();
+          // renderMarker();
+          // populateList();
         });
-    //     history.push('/RouteToRedirectTo', { redirect: true });
-
-    //     //redirect to the route you want
-    //     history.go('/RouteToRedirectTo');
-    // }
-  }
+    }
+    if (this.state.fetchingNominatim) {
+      //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
+      fetch('https://nominatim.openstreetmap.org/search?q=' + this.state.searchText + '&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1&addressdetails=1')
+            .then((response) => {
+              return response.json();
+          })
+          .then((myJson) => {
+            console.log(myJson);
+            this.processData(myJson);
+            this.setState({fetchingNominatim: false});
+            this.setState({redirect: true})
+          })
+    }
 }
   
-
-  redirect = () => {
-    if (this.state.redirect) {
-      console.log("redirect method");
-      return <Redirect push to="/list" />;
-    }
-
+  handleSearchBar = (newSearch) => {
+    this.setState({
+      searchText: newSearch,
+      fetchingNominatim: true,
+    });
   }
+
+  // redirect = () => {
+  //   if (this.state.redirect) {
+  //     console.log("redirect method");
+  //     return <Redirect push to="/list" />;
+  //   }
+
+  
 
   processData = (json) => {
     if (json.length == 0) {
@@ -74,7 +79,7 @@ export class App extends Component {
     }
 
     let newItems = [];
-    json.elements.forEach(function (e, i) {
+    json.forEach(function (e, i) {
       // added limit to increase render speed
       if (i > 100) {
         return;
@@ -115,65 +120,33 @@ export class App extends Component {
       newItems.push(processedData);
     });
     this.setState({displayedListItems:newItems})
-    console.log(newItems);
   }
 
   handleAmenitySearch = (newAmenity) => {
     this.setState({
       amenity: newAmenity,
-      fetching: true,
+      fetchingAmenity: true,
     });
-  }
-
-
-  callDataByAmenityOverPass(amenityFromClient) {
-    // let strLatLong = mapBoundOverpass();
-    // let homeDiv = document.getElementById("left-view-home");
-    // homeDiv.style.display = "none";
-    //
-    // let amenity = amenityFromClient;
-    // let listDiv = document.getElementById("left-view-list");
-    // listDiv.style.display = "block";
   }
 
   render() {
     console.log(this.state);
     return (
       <main>
-        <Header />
+        <Header handleSearch={this.handleSearchBar}/>
         <Switch>
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
             itemsToDisplay={this.state.displayedListItems}
             handleAmenitySearch={this.handleAmenitySearch}
+            isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
           />} />
         </Switch>
         <Map />
         <Footer />
       </main>
-    )
+    );
   }
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
