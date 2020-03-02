@@ -8,8 +8,9 @@
 
 .map-display {
     height:100%;
-    width: 40%;
+    width: 60%;
     display:flex;
+    float:right
 }
 
 #leaflet-map {
