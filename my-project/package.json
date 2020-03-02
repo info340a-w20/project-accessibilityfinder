@@ -18,7 +18,7 @@
     "react-leaflet": "^2.6.1",
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {

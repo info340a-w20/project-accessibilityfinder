@@ -6,18 +6,17 @@
     text-align: center;
 }
 
-#category button {
-    padding: 20px 0px;
-}
-
 #category .icon-background {
     color: lightblue;
 }
 
-.no-background-btn{
-    border:none;
-    background-color:unset;
-    text-decoration: none;
-    color:unset;
-    padding: 20px 0px;
+#category a {
+  text-decoration: none;
+}
+
+.no-background-btn {
+  border:none;
+  background-color: unset;
+  color: unset;
+  padding: 20px 0px;
 }
