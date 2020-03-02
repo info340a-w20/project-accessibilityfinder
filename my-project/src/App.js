@@ -13,8 +13,6 @@ import createHistory from 'history/createBrowserHistory';
 
 
 
-
-
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -150,7 +148,7 @@ export class App extends Component {
             handleAmenitySearch={this.handleAmenitySearch}
           />} />
         </Switch>
-        <Map></Map>
+        <Map />
         <Footer />
       </main>
     )

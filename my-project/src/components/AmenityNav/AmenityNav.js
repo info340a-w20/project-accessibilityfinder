@@ -43,7 +43,7 @@ export class AmenityNav extends Component {
       <div id="category">
         <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("restaurant")}>
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('restaurant')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faUtensils} className="fa-stack-1x" />
           </span>
           <br />
@@ -51,7 +51,7 @@ export class AmenityNav extends Component {
         </Link>
         <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("bar")}>
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('bar')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faGlassMartini} className="fa-stack-1x" />
           </span>
           <br />
@@ -59,7 +59,7 @@ export class AmenityNav extends Component {
         </Link>
         <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("cafe")}>
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('cafe')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faCoffee} className="fa-stack-1x" />
           </span>
           <br />
@@ -67,7 +67,7 @@ export class AmenityNav extends Component {
         </Link>
         <Link to ="/list" className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("cinema")}>
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('cinema')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faFilm} className="fa-stack-1x" />
           </span>
           <br />
@@ -75,7 +75,7 @@ export class AmenityNav extends Component {
         </Link>
         <Link className="no-background-btn" type="button" onClick={(e) => this.props.handleAmenitySearch("theatre")}>
           <span className="fa-stack fa-3x">
-            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" onclick="callDataByAmenityOverPass('theatre')" />
+            <FontAwesomeIcon icon={faCircle} className="fa-stack-2x icon-background" />
             <FontAwesomeIcon icon={faTheaterMasks} className="fa-stack-1x" />
           </span>
           <br />

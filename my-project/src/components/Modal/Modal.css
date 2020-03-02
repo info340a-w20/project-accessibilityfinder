@@ -1,0 +1,43 @@
+#edit {
+  float: right;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+#crowdsource {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+  padding: 0;
+}
+
+.cs-checkbox {
+  width: 120px;
+}
+
+.cs-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* ty for help: https://markheath.net/post/font-awesome-circle-background */
+#crowdsource .icon-background {
+  color: lightgrey;
+}
+
+.cs-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
