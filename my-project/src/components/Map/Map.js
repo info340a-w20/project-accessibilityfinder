@@ -22,6 +22,19 @@ export class MapDisplay extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log(this.refs.map.leafletElement);
+    }
+
+      onMapMoveEnd(e) {
+        console.log('new bounds ', e.target.getBounds());
+   }  
+//    getCenter = () => {
+//        return.this.stat
+//    }
+    
+    
+
     render() {
         // return (<div id="leaflet-map" className="leaflet-container" >
         //     <Map
@@ -35,13 +48,26 @@ export class MapDisplay extends Component {
 
         //     </Map>
         // </div>)
+        // const center = this.getCenter();
+        // const zoom = this.getZoomLevel();
+        // const bounds = this.getBounds();
+        // const boundsOptions = this.getBoundsOptions();
         return (
+
             <div className="map-display">
-                <Map id="leaflet-map" center={this.state.position} zoom={13}>
+                <Map id="leaflet-map" center={this.state.position}
+                 zoom={13}
+                  ref="map"
+                  onMoveend={this.onMapMoveEnd}
+                // bounds={bounds}
+                // boundsOptions={boundsOptions}
+
+                  >
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
+                    
                     <Marker position={this.state.position}>
                         <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
                     </Marker>
