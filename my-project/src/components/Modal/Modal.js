@@ -12,38 +12,6 @@ import { faCircle, faWheelchair, faDoorOpen, faChair, faBraille, faHeadphonesAlt
 export class OurModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      modal1: false,
-      modal2: false
-    }
-  }
-
-  componentDidMount() {
-    this.setState({modal1: this.props.show1})
-  }
-
-  // toggleModal1 = () => {
-  //   this.setState({modal1: !this.state.modal1});
-  // }
-
-  toggleModal2 = () => {
-    this.setState({modal2: false});
-  }
-
-  // toggleBoth = () => {
-  //   this.toggleModal1();
-  //   this.toggleModal2();
-  // }
-
-  hideModal1 = () => {
-    console.log("show modal 2");
-    this.setState({modal1: false});
-  }
-
-  showModal2 = () => {
-    console.log("show modal 2");
-    this.setState({modal1: false});
-    this.setState({modal2: true});
   }
 
   render() {
