@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import './HomePage.css'
 import { AmenityNav } from '../AmenityNav/AmenityNav';
 import { HashLink as Link } from 'react-router-hash-link';
+import OurModal from '../Modal/Modal'
 
 export class HomePage extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ export class HomePage extends Component {
             difficulties with social interaction and at work. Hearing loss can be temporary or permanent.
                         <a href="https://en.wikipedia.org/wiki/Hearing_loss"> (source)</a>
           </p>
+          <OurModal />
         </Container>
       </div>
     );

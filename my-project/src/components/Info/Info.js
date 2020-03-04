@@ -55,7 +55,6 @@ class Info extends Component {
           </div>
           <div class="info">
             <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={this.toggleModal()}>Edit</Button>
-            {this.state.modal ? <OurModal /> : <> </>}
             <div className="flex">
                 <h4>
                     <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
