@@ -14,7 +14,7 @@ class List extends Component {
         let rows = [];
         let cols = [];
         this.props.itemsToDisplay.forEach((item, i) => {
-          cols.push(<Card key={item.name} item={item} id={i}/>);
+          cols.push(<Card key={item.name} item={item} id={item.id}/>);
           if (i % 3 == 2 || i == this.props.itemsToDisplay.length - 1) {
             rows.push(<div className="row">{cols}</div>);
             cols = [];

@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import Header from "./components/Header/Header";
-import Map from "./components/Map/Map"
+import MapDisplay from "./components/Map/Map"
 import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
@@ -24,8 +24,8 @@ export class App extends Component {
       displayedListItems: [],
       fetchingAmenity: false,
       amenity: "",
-      strLatLong: "47.481002,-122.459696,47.734136,-122.224433",
-      reDirect: false,
+      amenityLatLong: "47.481002,-122.459696,47.734136,-122.224433",
+      searchLatLong:"-122.459696,47.481002,-122.224433,47.734136",
       noElements: false,
       fetchingNominatim: false,
       searchText: "",
@@ -35,7 +35,7 @@ export class App extends Component {
 
   componentDidUpdate() {
     if (this.state.fetchingAmenity) {
-      fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + this.state.amenity + '](' + this.state.strLatLong + ');out%20meta;')
+      fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + this.state.amenity + '](' + this.state.amenityLatLong + ');out%20meta;')
         .then((res) => res.json())
       .then((data) => {
           this.processData(data.elements);
@@ -47,7 +47,7 @@ export class App extends Component {
     }
     if (this.state.fetchingNominatim) {
       //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
-      fetch('https://nominatim.openstreetmap.org/search?q=' + this.state.searchText + '&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1&extratags=1&addressdetails=1')
+      fetch('https://nominatim.openstreetmap.org/search?q=' + this.state.searchText + '&format=json&viewbox=' + this.state.searchLatLong + '&bounded=1&extratags=1&addressdetails=1')
             .then((response) => {
               return response.json();
           })
@@ -60,6 +60,10 @@ export class App extends Component {
     }
 }
 
+  renderLocation = () => {
+    this.setState({displayedListItems: []})
+  }
+
   handleSearchBar = (newSearch) => {
     this.setState({
       itemsToDisplay: [],
@@ -68,18 +72,36 @@ export class App extends Component {
     });
   }
 
-  // redirect = () => {
-  //   if (this.state.redirect) {
-  //     console.log("redirect method");
-  //     return <Redirect push to="/list" />;
-  //   }
-
   handleAmenitySearch = (newAmenity) => {
     this.setState({
       amenity: newAmenity,
       fetchingAmenity: true,
     });
   }
+
+  handleMapMovement  = (bounds) => {
+    console.log('new bounds ', bounds);
+    this.mapBoundNomi(bounds);
+    this.mapBoundOverpass(bounds);
+  }
+
+    mapBoundNomi = (bounds) => {
+      let latlong = [];
+      latlong.push(bounds._southWest);
+      latlong.push(bounds._northEast);
+      let strLatLong = "" + latlong[0].lng + "," + latlong[0].lat + "," + latlong[1].lng + "," + latlong[1].lat;
+      this.setState({searchLatLong: strLatLong});
+  }
+  
+   mapBoundOverpass = (bounds) => {
+      let latlong = [];
+      latlong.push(bounds._southWest);
+      latlong.push(bounds._northEast);
+      let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
+      this.setState({amenityLatLong: strLatLong});
+  }
+
+  
 
   processData = (json) => {
     if (json.length == 0) {
@@ -102,6 +124,9 @@ export class App extends Component {
         website: '',
         phone: '',
         hours: '',
+        lat: '',
+        lon: '',
+        id: '',
       }
 
       if (e.licence != null) {
@@ -114,6 +139,10 @@ export class App extends Component {
         processedData.phone = e.extratags.phone != null ? e.extratags.phone : "-";
         processedData.hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
         processedData.wheelchair = e.extratags.wheelchair;
+        processedData.lat = e.lat;
+        processedData.lon = e.lon;
+        processedData.id = i;
+
 
       } else {
         processedData.name = e.tags.name;
@@ -125,18 +154,20 @@ export class App extends Component {
         processedData.phone = e.tags.phone != null ? e.tags.phone : "--";
         processedData.hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
         processedData.wheelchair = e.tags.wheelchair;
+        processedData.lat = e.lat;
+        processedData.lon = e.lon;
+        processedData.id = i;
       }
       newItems.push(processedData);
     });
     this.setState({displayedListItems:newItems})
   }
 
-
-
   render() {
+    console.log(this.state);
     return (
       <main>
-        <Header handleSearch={this.handleSearchBar}/>
+        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation}/>
         <Switch>
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
@@ -146,7 +177,7 @@ export class App extends Component {
           />} />
           <Route path="/info/:id" render={(props) => <Info {...props} itemsToDisplay={this.state.displayedListItems}/>}/>
         </Switch>
-        <Map />
+        <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems}/>
         <Footer />
       </main>
     );
