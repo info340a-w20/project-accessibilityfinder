@@ -2,125 +2,143 @@ import React, { Component } from "react";
 import './Info.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faHome, faEnvelope, faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import Button from 'react-bootstrap/Button';
+import OurModal from '../Modal/Modal';
 
 class Info extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          item: this.props.itemsToDisplay[this.props.location.pathname[this.props.location.pathname.length-1]],
+          modal: false
+        }
+    }
+
+    mobilityCheck() {
+      return this.state.item.wheelchair ? faCheckCircle : faTimesCircle ;
+    }
+
+    toggleModal() {
+      this.setState({modal: !this.state.modal});
     }
 
     render() {
-      let len = this.props.location.pathname.length;
-      let item = this.props.itemsToDisplay[this.props.location.pathname[len-1]];
+      let item = this.state.item;
       return (
-        <div>
-          <div id="info-Header" class="left-view">
-            <img class="infoImgPlaceholder" src="/placeholder.png" alt="location" />
-            <div class="locationDetails info">
-              <button type="button" id="back-button" onClick="toggleDisplayList()" class="btn btn-outline-primary rounded-pill">
+        <div className="left-view" id="info-view">
+          <div className="infoHeader flex" id="info-Header" >
+            <img className="infoImgPlaceholder" src="/placeholder.png" alt="location" />
+            <div className="locationDetails info">
+              <Link to="/list" id="back-button" className="btn btn-outline-primary rounded-pill">
                 <FontAwesomeIcon icon={faChevronLeft} />
-              </button>
+              </Link>
               <h2>{item.name}</h2>
-              <h6 class="text-secondary">{item.type}</h6>
-              <div class="flex info-details">
-                <FontAwesomeIcon icon={faHome} className="fa-fw margin-right" aria-hidden="true" />
-                <a class="stretched-link info-link" href="">{item.longAddress}</a>
+              <h6 className="text-secondary">{item.type}</h6>
+              <div className="flex info-details">
+                <FontAwesomeIcon icon={faHome} className="fa-fw" aria-hidden="true" />
+                <a className="info-link" href="">{item.longAddress}</a>
               </div>
-              <div class="flex info-details">
+              <div className="flex info-details">
                 <FontAwesomeIcon icon={faEnvelope} className="fa-fw" aria-hidden="true" />
-                <a class="info-link" href="">{item.website}</a>
+                <a className="info-link" href="">{item.website}</a>
               </div>
-              <div class="flex info-details">
+              <div className="flex info-details">
                 <FontAwesomeIcon icon={faPhone} className="fa-fw" aria-hidden="true" />
-                <a class="info-link" href="">{item.phone}</a>
+                <a className="info-link" href="">{item.phone}</a>
               </div>
-              <div class="flex hours-link info-details">
-                <FontAwesomeIcon icon={faClock} className="hours-link" aria-hidden="true" />
+              <div className="flex hours-link info-details">
+                <FontAwesomeIcon icon={faClock} className="fa-fw" aria-hidden="true" />
                 Hours: {item.hours}
               </div>
             </div>
           </div>
-          <div class="flex">
-              <h4><i id="mobility-icon-main-info" class="fas fa-times-circle icon"></i>
-                  Mobility related assistance
-              </h4>
-          </div>
-          <ul class="list-group list-group-flush nobackground">
-              <li class="list-group-item nobackground"><i id="wheelchair-icon-main-info" class="fas fa-times-circle "></i>
-                  Wheelchair accessible
-              </li>
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  ADA doorways
-              </li>
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Stadium seating
-              </li>
-          </ul>
-          <div class="flex">
-              <h4><i class="fas fa-times-circle icon"></i>
-                  Vision related assistance
-              </h4>
-          </div>
-          <ul class="list-group list-group-flush nobackground">
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Braille
-              </li>
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Descriptive narration
-              </li>
-          </ul>
-          <div class="flex">
-              <h4><i class="fas fa-times-circle icon"></i>
-                  Hearing related assistance
-              </h4>
-          </div>
-          <ul class="list-group list-group-flush nobackground">
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Audio description
-              </li>
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Closed captioning
-              </li>
-              <li class="list-group-item nobackground"><i class="fas fa-times-circle"></i>
-                  Assisted listening devices
-              </li>
-          </ul>
-      </div>
-      <hr>
-      <div class="photos">
-          <h4>Photos</h4>
-          <div class="images">
-              <img class="infoImg" src="img/placeholder.png" alt="placeholder">
-              <img class="infoImg" src="img/placeholder.png" alt="placeholder">
-              <img class="infoImg" src="img/placeholder.png" alt="placeholder">
-              <img class="infoImg" src="img/placeholder.png" alt="placeholder">
-          </div>
-      </div>
-      <hr>
-      <div>
-          <div class="flex reviewHeader">
-              <h4 class="reviews-title">Reviews</h4>
-              <div class="flex reviews-buttons">
-                  <!-- <div class="search-bar">
-                      <form id="review-search">
-                          <input type="search">
-                          <i class="fa fa-search" aria-label="search"></i>
-                      </form>
-                  </div> -->
-                  <button type="button" class="btn btn-outline-primary rounded-pill" id="write-review">Write a Review</button>
-              </div>
-          </div>
-          <form id="review-form" style="display:none;">
-              <!-- <div class="form-group">
-                  <textarea class="form-control" rows="3" id="review-input"></textarea>
-                  <button type="button" class="btn btn-primary rounded-pill" id="review-submit">Submit</button>
-              </div> -->
-          </form>
-          <hr>
-          <div id="reviews">
-
-          </div>
+          <div class="info">
+            <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={this.toggleModal()}>Edit</Button>
+            {this.state.modal ? <OurModal /> : <> </>}
+            <div className="flex">
+                <h4>
+                    <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+                    Mobility related assistance
+                </h4>
+            </div>
+            <ul className="list-group list-group-flush nobackground">
+                <li className="list-group-item nobackground"
+                    ><FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+                    Wheelchair accessible
+                </li>
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    ADA doorways
+                </li>
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Stadium seating
+                </li>
+            </ul>
+            <div className="flex">
+                <h4>
+                    <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+                    Vision related assistance
+                </h4>
+            </div>
+            <ul className="list-group list-group-flush nobackground">
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Braille
+                </li>
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Descriptive narration
+                </li>
+            </ul>
+            <div className="flex">
+                <h4>
+                    <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+                    Hearing related assistance
+                </h4>
+            </div>
+            <ul className="list-group list-group-flush nobackground">
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Audio description
+                </li>
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Closed captioning
+                </li>
+                <li className="list-group-item nobackground">
+                    <FontAwesomeIcon icon={faTimesCircle} />
+                    Assisted listening devices
+                </li>
+            </ul>
+        <hr />
+        <div className="photos">
+            <h4>Photos</h4>
+            <div className="images">
+                <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+                <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+                <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+                <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+            </div>
         </div>
+        <hr />
+        <div>
+            <div className="flex reviewHeader">
+                <h4 className="reviews-title">Reviews</h4>
+                <div className="flex reviews-buttons">
+                    <button type="button" className="btn btn-outline-primary rounded-pill" id="write-review">Write a Review</button>
+                </div>
+            </div>
+            <form id="review-form" style={{display:'none'}}>
+            </form>
+            <hr />
+            <div id="reviews">
+
+            </div>
+          </div>
+      </div>
+    </div>
     );
   }
 }

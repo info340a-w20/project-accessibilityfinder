@@ -2,6 +2,11 @@
     padding: 5px;
 }
 
+.col a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .card-img-top {
     height: 125px;
     object-fit: cover;
