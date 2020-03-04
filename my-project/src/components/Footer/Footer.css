@@ -1,10 +1,12 @@
 .footer {
-    position: absolute;
-    bottom: 0;
-    text-align: end;
-    width: 40%;
-    height: 40px;
-    background-color: #f5f5f5;
+  position: absolute;
+  bottom: 0;
+  text-align: end;
+  width: 40%;
+  height: 40px;
+  background-color: #f5f5f5;
+  /*  TEMPORARY */
+  display: none;
 }
 
 /* I HATE FOOTER */

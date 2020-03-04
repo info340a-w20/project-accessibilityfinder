@@ -10,34 +10,6 @@ export class AmenityNav extends Component {
     super(props);
   }
 
-  callDataByAmenityOverPass(amenityFromClient) {
-      // let strLatLong = mapBoundOverpass();
-      // let homeDiv = document.getElementById("left-view-home");
-      // homeDiv.style.display = "none";
-      //
-      // let amenity = amenityFromClient;
-      // let listDiv = document.getElementById("left-view-list");
-      // listDiv.style.display = "block";
-      //
-      // fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + amenity + '](' + strLatLong + ');out%20meta;')
-      //     .then((response) => {
-      //         return response.json();
-      //     })
-      //     .then((myJson) => {
-      //         state.displayedListItems = myJson.elements;
-      //         renderMarker();
-      //         populateList();
-      //     });
-  }
-
-  // handleAmenitySearch = (amenity) => {
-  //   console.log("Passed all the way down");
-  //   this.props.handleAmenitySearch(amenity);
-  // }
-
-
-
-
   render() {
     return (
       <div id="category">

@@ -8,6 +8,7 @@ import Map from "./components/Map/Map"
 import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
+import Info from "./components/Info/Info";
 import 'whatwg-fetch';
 import createHistory from 'history/createBrowserHistory';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -143,6 +144,7 @@ export class App extends Component {
             handleAmenitySearch={this.handleAmenitySearch}
             isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
           />} />
+          <Route path="/info/:id" render={(props) => <Info {...props} itemsToDisplay={this.state.displayedListItems}/>}/>
         </Switch>
         <Map />
         <Footer />

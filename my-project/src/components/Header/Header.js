@@ -40,9 +40,6 @@ class Header extends Component {
 //     }
 // });
 
-
-
-
     render() {
         return (
           <header>
@@ -54,7 +51,7 @@ class Header extends Component {
                 <div class="input-group">
                   <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
                   <div class="input-group-append">
-                    <button id="main-places-search" class="btn btn-outline-light" type="button" onClick={this.handleSearch}>
+                    <button to="/list" id="main-places-search" class="btn btn-outline-light" type="button" onClick={this.handleSearch}>
                       <FontAwesomeIcon icon={faSearch} aria-label="search" />
                     </button>
                   </div>
