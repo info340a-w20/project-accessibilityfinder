@@ -10,10 +10,6 @@ class Card extends Component {
     super(props);
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     let str = "/info/" + this.props.id
     return (

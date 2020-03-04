@@ -7,8 +7,6 @@ import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, ModalDi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faWheelchair, faDoorOpen, faChair, faBraille, faHeadphonesAlt, faAudioDescription, faClosedCaptioning, faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
 
-
-
 export class OurModal extends Component {
   constructor(props) {
     super(props);

@@ -122,6 +122,15 @@
     color: gray;
 }
 
+#review-form {
+    display: none;
+    margin-top: 16px;
+}
+
+#review-form button {
+    margin-top: 16px;
+}
+
 /* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
 /***********************************************************************/
 #review-search {
