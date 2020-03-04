@@ -4,7 +4,6 @@ import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-route
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom'
-import Info from '../Info/Info';
 
 class Card extends Component {
   constructor(props) {
