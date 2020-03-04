@@ -7,6 +7,11 @@
 float:right;
 }
 
+#info-Header {
+  display: block;
+  float: left;
+}
+
 .infoHeader {
     border-bottom: 1px solid darkgray;
 }
