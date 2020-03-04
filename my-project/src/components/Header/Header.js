@@ -6,39 +6,43 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import HomePage from '../HomePage/HomePage';
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            inputtedText: "",
-        }
+    this.state = {
+      inputtedText: "",
     }
+  }
 
-    handleChange = (e) => {
-        console.log(e.target.value);
-        this.setState({inputtedText: e.target.value});
+  handleChange = (e) => {
+    this.setState({ inputtedText: e.target.value });
+  }
+
+  handleSearch = (e) => {
+    console.log("done");
+    e.preventDefault();
+    this.props.handleSearch(this.state.inputtedText);
+    this.setState({
+      inputtedText: ''
+    });
+    this.props.history.push('/list');
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.props.handleSearch(this.state.inputtedText);
+      this.setState({
+        inputtedText: ''
+      });
     }
+  }
 
-    handleSearch = (e) => {
-        e.preventDefault();
-        console.log(this.state);
-        this.props.handleSearch(this.state.inputtedText);
-    }
-
-    handleKeyPress = (e) => {
-        console.log(e);
-     if (e.key === 'Enter') {
-        console.log(this.state);
-        this.props.handleSearch(this.state.inputtedText);
-    }
-}
-
-//     let input = document.getElementById('search');
-// input.addEventListener('keyup', function (e) {
-//     if (e.key === "Enter") {
-//         callDataByName();
-//     }
-// });
+  //     let input = document.getElementById('search');
+  // input.addEventListener('keyup', function (e) {
+  //     if (e.key === "Enter") {
+  //         callDataByName();
+  //     }
+  // });
 
     render() {
         return (
@@ -56,11 +60,11 @@ class Header extends Component {
                     </button>
                   </div>
 
-                </div>
-            </nav>
-          </header>
-      );
-    }
+          </div>
+        </nav>
+      </header>
+    );
+  }
 }
 
 export default Header;

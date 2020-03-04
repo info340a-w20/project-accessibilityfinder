@@ -3,6 +3,8 @@ import './Card.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import Info from "../Info/Info"
+import { withRouter } from 'react-router-dom'
 // import placeholder from "../../../public/placeholder.png"
 import Info from '../Info/Info';
 
@@ -42,4 +44,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default withRouter(Card);
