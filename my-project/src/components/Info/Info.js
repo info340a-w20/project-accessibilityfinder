@@ -10,15 +10,10 @@ class Info extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          item: {},
+          item: this.props.itemsToDisplay[this.props.location.pathname[this.props.location.pathname.length-1]],
           show1: false,
           show2: false
         }
-    }
-
-    componentDidMount() {
-      let num = this.props.location.pathname.split("/")[2];
-      this.setState({item: this.props.itemsToDisplay[num]});
     }
 
     mobilityCheck() {
@@ -59,11 +54,11 @@ class Info extends Component {
   toggleModal2 = () => {
     this.setState({show2: !this.state.show2})
   }
-
+  
 
     render() {
+      console.log(this.state);
       let item = this.state.item;
-      console.log(item);
       return (
         <div className="left-view" id="info-view">
           <div className="infoHeader flex" id="info-Header" >
@@ -178,7 +173,6 @@ class Info extends Component {
             </form>
             <hr />
             <div id="reviews">
-
             </div>
           </div>
       </div>
