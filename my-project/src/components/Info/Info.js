@@ -11,7 +11,8 @@ class Info extends Component {
         super(props);
         this.state = {
           item: this.props.itemsToDisplay[this.props.location.pathname[this.props.location.pathname.length-1]],
-          modal: false
+          show1: false,
+          show2: false
         }
     }
 
@@ -19,11 +20,44 @@ class Info extends Component {
       return this.state.item.wheelchair ? faCheckCircle : faTimesCircle ;
     }
 
-    toggleModal() {
-      this.setState({modal: !this.state.modal});
+    // toggleModal() {
+    //   this.setState({modal: !this.state.modal});
+    // }
+
+    // showModal1 = () => {
+    //   this.setState({ show1: true });
+    // };
+
+    // showModal2 = () => {
+    //   this.setState({ show1: false });
+    //   this.setState({show2:true})
+    // }
+    // hideModal1 = () => {
+    //   this.setState({ show1: false });
+    // };
+
+    hideModal2 = () => {
+      this.setState({show2:false})
     }
+    toggleBoth = () => {
+      console.log("toggleboth");
+      this.toggleModal1();
+      this.toggleModal2();
+    }
+    // hideModal = () => {
+    //   this.setState({ show: false });
+    // };
+     toggleModal1 = () => {
+    this.setState({show1: !this.state.show1});
+  }
+
+  toggleModal2 = () => {
+    this.setState({show2: !this.state.show2})
+  }
+  
 
     render() {
+      console.log(this.state);
       let item = this.state.item;
       return (
         <div className="left-view" id="info-view">
@@ -54,8 +88,13 @@ class Info extends Component {
             </div>
           </div>
           <div class="info">
-            <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={this.toggleModal()}>Edit</Button>
-            {this.state.modal ? <OurModal /> : <> </>}
+            <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={() => this.toggleModal1()}>Edit</Button>
+            <OurModal show1={this.state.show1}
+            show2={this.state.show2}
+                      toggleModal1 ={this.toggleModal1}
+                      toggleModal2={this.toggleModal2}
+                      toggleBoth={this.toggleBoth}
+            />
             <div className="flex">
                 <h4>
                     <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />

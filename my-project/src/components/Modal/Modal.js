@@ -13,29 +13,45 @@ export class OurModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal1: true,
+      modal1: false,
       modal2: false
     }
   }
 
-  toggleModal1 = () => {
-    this.setState({modal1: !this.state.modal1});
+  componentDidMount() {
+    this.setState({modal1: this.props.show1})
   }
+
+  // toggleModal1 = () => {
+  //   this.setState({modal1: !this.state.modal1});
+  // }
 
   toggleModal2 = () => {
-    this.setState({modal2: !this.state.modal2});
+    this.setState({modal2: false});
   }
 
-  toggleBoth = () => {
-    this.toggleModal1();
-    this.toggleModal2();
+  // toggleBoth = () => {
+  //   this.toggleModal1();
+  //   this.toggleModal2();
+  // }
+
+  hideModal1 = () => {
+    console.log("show modal 2");
+    this.setState({modal1: false});
+  }
+
+  showModal2 = () => {
+    console.log("show modal 2");
+    this.setState({modal1: false});
+    this.setState({modal2: true});
   }
 
   render() {
     console.log("hello");
+    console.log(this.props);
     return (
       <div>
-        <Modal id="editModal" show={this.state.modal1} onHide={this.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
+        <Modal id="editModal" show={this.props.show1} onHide={this.props.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
           <Modal.Header closeButton>
             <Modal.Title id="editModalLabel">Submit an edit</Modal.Title>
           </Modal.Header>
@@ -114,13 +130,13 @@ export class OurModal extends Component {
                 <span>Assistive listening systems</span>
               </label>
             <Modal.Footer>
-              <Button id="cs-submit" disabled="disabled" variant="primary" onClick={this.toggleBoth}>Submit</Button>
+              <Button id="cs-submit" variant="primary" onClick={(e) => this.props.toggleBoth()}>Submit</Button>
             </Modal.Footer>
           </form>
         </Modal.Body>
       </Modal>
 
-      <Modal id="thankModal" show={this.state.modal2} onHide={this.toggleModal2} aria-labelledby="thankModalLabel" aria-hidden="true" centered>
+      <Modal id="thankModal" show={this.props.show2} onHide={this.props.toggleModal2} aria-labelledby="thankModalLabel" aria-hidden="true" centered>
         <Modal.Header closeButton>
           <Modal.Title id="thankModalLabel">Thanks for the help!</Modal.Title>
         </Modal.Header>

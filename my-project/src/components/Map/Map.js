@@ -14,6 +14,7 @@ import { HashRouter as Router, Switch, Route, Link, Redirect, withRouter } from 
 export class MapDisplay extends Component {
     constructor(props) {
         super(props);
+        this.popup = React.createRef();
 
         this.state = {
             zoom: 13,
@@ -30,6 +31,8 @@ export class MapDisplay extends Component {
 
 
     onMapMoveEnd = (e) => {
+        this.popup.current.leafletElement.options.leaflet.map.closePopup();
+        console.log()
         this.props.handleMapMovement(e.target.getBounds());
     }
 
@@ -45,6 +48,7 @@ export class MapDisplay extends Component {
     }
 
     open = (e) => {
+        console.log(this.refs.map.leafletElement);
         console.log(e);
     }
 
@@ -66,7 +70,7 @@ export class MapDisplay extends Component {
                     />
                     {this.props.itemsToDisplay ? this.props.itemsToDisplay.map((location, id) =>
                         <Marker position={[location.lat, location.lon]}>
-                            <Popup onOpen={(e) => this.open()}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
+                            <Popup ref={this.popup} onOpen={(e) => this.open()}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
                         </Marker> ) : <Marker position={this.state.center}></Marker>}
                   
                 </Map>
