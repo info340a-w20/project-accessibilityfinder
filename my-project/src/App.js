@@ -85,14 +85,14 @@ export class App extends Component {
     this.mapBoundOverpass(bounds);
   }
 
-    mapBoundNomi = (bounds) => {
+  mapBoundNomi = (bounds) => {
       let latlong = [];
       latlong.push(bounds._southWest);
       latlong.push(bounds._northEast);
       let strLatLong = "" + latlong[0].lng + "," + latlong[0].lat + "," + latlong[1].lng + "," + latlong[1].lat;
       this.setState({searchLatLong: strLatLong});
   }
-  
+
    mapBoundOverpass = (bounds) => {
       let latlong = [];
       latlong.push(bounds._southWest);
@@ -101,7 +101,7 @@ export class App extends Component {
       this.setState({amenityLatLong: strLatLong});
   }
 
-  
+
 
   processData = (json) => {
     if (json.length == 0) {
