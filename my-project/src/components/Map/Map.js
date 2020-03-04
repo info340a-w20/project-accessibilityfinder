@@ -5,6 +5,8 @@ import './Map.css'
 import render from 'react-dom'
 import { AmenityNav } from '../AmenityNav/AmenityNav';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { HashRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+
 
 
 
@@ -12,13 +14,14 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 export class MapDisplay extends Component {
     constructor(props) {
         super(props);
+        this.popup = React.createRef();
 
         this.state = {
-            zoom: 18,
+            zoom: 13,
             lat: 47.606209,
             lng: -122.332069,
             boundingbox: [],
-            position: [47.606209, -122.332069],
+            center: [47.606209, -122.332069],
         }
     }
 
@@ -26,69 +29,52 @@ export class MapDisplay extends Component {
         console.log(this.refs.map.leafletElement);
     }
 
-      onMapMoveEnd(e) {
-        console.log('new bounds ', e.target.getBounds());
-   }  
-//    getCenter = () => {
-//        return.this.stat
-//    }
-    
-    
+
+    onMapMoveEnd = (e) => {
+        console.log()
+        this.props.handleMapMovement(e.target.getBounds());
+    }
+
+    componentDidUpdate() {
+
+    }
+    createMarkers = () => {
+        this.props.itemsToDisplay.forEach((location, i) => {
+            return (<Marker position={location.lat, location.lon}>
+                <Popup>{location.name}.<br />{location.name}</Popup>
+            </Marker>);
+        });
+    }
+
+    open = (e) => {
+        console.log(this.refs.map.leafletElement);
+        console.log(e);
+    }
 
     render() {
-        // return (<div id="leaflet-map" className="leaflet-container" >
-        //     <Map
-        //         center={[this.state.lat, this.state.lng]}
-        //         zoom={this.state.zoom}
-        //     >
-        //         <TileLayer
-        //             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        //             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        //         />
-
-        //     </Map>
-        // </div>)
-        // const center = this.getCenter();
-        // const zoom = this.getZoomLevel();
-        // const bounds = this.getBounds();
-        // const boundsOptions = this.getBoundsOptions();
+        console.log(this.props)
         return (
 
             <div className="map-display">
-                <Map id="leaflet-map" center={this.state.position}
-                 zoom={13}
-                  ref="map"
-                  onMoveend={this.onMapMoveEnd}
-                // bounds={bounds}
-                // boundsOptions={boundsOptions}
+                <Map id="leaflet-map" center={this.state.center}
+                    zoom={this.state.zoom}
+                    ref="map"
+                    onMoveend={this.onMapMoveEnd}
+                    items = {this.props.itemsToDisplay}
 
-                  >
+                >
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    
-                    <Marker position={this.state.position}>
-                        <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-                    </Marker>
+                    {this.props.itemsToDisplay ? this.props.itemsToDisplay.map((location, id) =>
+                        <Marker position={[location.lat, location.lon]}>
+                            <Popup ref={this.popup} onOpen={(e) => this.open()}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
+                        </Marker> ) : <Marker position={this.state.center}></Marker>}
+
                 </Map>
             </div>
         );
-
-        // return (<Map center={[22.5774626732038, 114.04924392700197]} zoom={11}>
-        //     <TileLayer
-        //       url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-        //       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        //     />
-        //     <CanvasMarkersLayer>
-        //       <Marker position={[22.5774626732038, 114.04924392700197]} icon={defaultIcon}>
-        //           <Popup>
-        //             <div>hello !</div>
-        //           </Popup>
-        //       </Marker>
-        //     </CanvasMarkersLayer>
-        //   </Map>);
-
     }
 }
 export default MapDisplay;

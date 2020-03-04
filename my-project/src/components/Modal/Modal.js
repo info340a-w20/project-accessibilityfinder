@@ -30,20 +30,20 @@ export class OurModal extends Component {
     this.setState(obj);
   }
 
+  // fix later. also toggle checked
   toggleSubmit() {
-    Object.values(this.state).forEach((item, i) => {
-      if (item == true) {
-        return false;
-      }
-    });
-    return true;
+    return false;
+    // Object.values(this.state).forEach((item, i) => {
+    //   if (item == false) {
+    //     return false;
+    //   } else {return true;}
+    // });
   }
 
   render() {
     return (
       <div>
-      <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={this.toggleModal1}>Edit</Button>
-        <Modal id="editModal" show={this.state.modal1} onHide={this.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
+        <Modal id="editModal" show={this.props.show1} onHide={this.props.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
           <Modal.Header closeButton>
             <Modal.Title id="editModalLabel">Submit an edit</Modal.Title>
           </Modal.Header>
@@ -122,13 +122,13 @@ export class OurModal extends Component {
                 <span>Assistive listening systems</span>
               </label>
             <Modal.Footer>
-              <Button id="cs-submit" disabled={this.toggleSubmit()} variant="primary" onClick={this.toggleBoth}>Submit</Button>
+              <Button id="cs-submit" disabled={this.toggleSubmit()} variant="primary" onClick={(e) => this.props.toggleBoth()}>Submit</Button>
             </Modal.Footer>
           </form>
         </Modal.Body>
       </Modal>
 
-      <Modal id="thankModal" show={this.state.modal2} onHide={this.toggleModal2} aria-labelledby="thankModalLabel" aria-hidden="true" centered>
+      <Modal id="thankModal" show={this.props.show2} onHide={this.props.toggleModal2} aria-labelledby="thankModalLabel" aria-hidden="true" centered>
         <Modal.Header closeButton>
           <Modal.Title id="thankModalLabel">Thanks for the help!</Modal.Title>
         </Modal.Header>
