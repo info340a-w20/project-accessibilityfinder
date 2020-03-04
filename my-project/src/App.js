@@ -10,6 +10,8 @@ import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
 import 'whatwg-fetch';
 import createHistory from 'history/createBrowserHistory';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -56,7 +58,7 @@ export class App extends Component {
           })
     }
 }
-  
+
   handleSearchBar = (newSearch) => {
     this.setState({
       searchText: newSearch,
@@ -70,7 +72,7 @@ export class App extends Component {
   //     return <Redirect push to="/list" />;
   //   }
 
-  
+
 
   processData = (json) => {
     if (json.length == 0) {
@@ -94,12 +96,12 @@ export class App extends Component {
         phone: '',
         hours: '',
       }
-      
+
       if (e.licence != null) {
         processedData.name = e.address[Object.keys(e.address)[0]];
         processedData.type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
         processedData.addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
-        processedData.mobilityCheck = e.extratags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        processedData.mobilityCheck = e.extratags.wheelchair != null ? <FontAwesomeIcon icon={faCheckCircle} /> : <FontAwesomeIcon icon={faTimesCircle} />;
         processedData.longAddress = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
         processedData.website = e.extratags.website != null ? e.extratags.website : "-";
         processedData.phone = e.extratags.phone != null ? e.extratags.phone : "-";
@@ -110,7 +112,7 @@ export class App extends Component {
         processedData.name = e.tags.name;
         processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
         processedData.addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
-        processedData.mobilityCheck = e.tags.wheelchair != null ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>";
+        processedData.mobilityCheck = e.tags.wheelchair != null ? <FontAwesomeIcon icon={faCheckCircle} /> : <FontAwesomeIcon icon={faTimesCircle} />;
         processedData.longAddress = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
         processedData.website = e.tags.website != null ? e.tags.website : "--";
         processedData.phone = e.tags.phone != null ? e.tags.phone : "--";

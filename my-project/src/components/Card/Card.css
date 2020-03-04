@@ -1,0 +1,49 @@
+.col {
+    padding: 5px;
+}
+
+.card-img-top {
+    height: 125px;
+    object-fit: cover;
+}
+
+.card {
+    font-size: .75em;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.features {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.card svg {
+    margin: auto 0px;
+    padding-right: 2.5px;
+}
+
+.fa-check-circle {
+    color: blue;
+}
+
+.fa-times-circle {
+    color: gray;
+}
+
+.card-title, .card-text {
+    margin-bottom: 2px;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.list-link, .list-link:hover {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}

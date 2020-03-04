@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -27,11 +27,11 @@ class Header extends Component {
 
     handleKeyPress = (e) => {
         console.log(e);
-     if (e.key === 'Enter') { 
+     if (e.key === 'Enter') {
         console.log(this.state);
         this.props.handleSearch(this.state.inputtedText);
     }
-} 
+}
 
 //     let input = document.getElementById('search');
 // input.addEventListener('keyup', function (e) {
@@ -41,7 +41,7 @@ class Header extends Component {
 // });
 
 
-    
+
 
     render() {
         return (
@@ -58,7 +58,7 @@ class Header extends Component {
                       <FontAwesomeIcon icon={faSearch} aria-label="search" />
                     </button>
                   </div>
-                  
+
                 </div>
             </nav>
           </header>

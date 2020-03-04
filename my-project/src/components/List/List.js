@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './List.css';
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { AmenityNav } from '../AmenityNav/AmenityNav';
 import Spinner from 'react-bootstrap/Spinner'
 import Card from '../Card/Card'
@@ -12,13 +12,14 @@ class List extends Component {
 
     createCards = () => {
         let rows = [];
-        for (let i = 0; i < this.props.itemsToDisplay.length; i += 3) {
-            rows.push(<div className="row">
-                <Card key={this.props.itemsToDisplay[i].name} item={this.props.itemsToDisplay[i]}>  </Card>
-                <Card key={this.props.itemsToDisplay[i + 1].name} item={this.props.itemsToDisplay[i + 1]}>  </Card>
-                <Card key={this.props.itemsToDisplay[1+2].name} item={this.props.itemsToDisplay[1+2]}>  </Card>
-            </div>)
-        }
+        let cols = [];
+        this.props.itemsToDisplay.forEach((item, i) => {
+          cols.push(<Card key={item.name} item={item} />);
+          if (i % 3 == 2) {
+            rows.push(<div className="row">{cols}</div>);
+            cols = [];
+          }
+        });
         return rows;
     }
 

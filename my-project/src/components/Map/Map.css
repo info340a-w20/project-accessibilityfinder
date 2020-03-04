@@ -1,4 +1,4 @@
-/* 
+/*
 .leaflet-container {
     height: 100%;
     width: 60%;
@@ -11,10 +11,23 @@
     width: 60%;
     display:flex;
     float:right;
-    
+
 }
 
 #leaflet-map {
     height: 100%;
     width:100%;
+}
+
+/* 414px is iPhone+ */
+@media (max-width: 414px) {
+  .map-display {
+    width: 100%;
+    height: 50%;
+  }
+
+  #leaflet-map {
+    width: 100%;
+    height: 100%;
+  }
 }

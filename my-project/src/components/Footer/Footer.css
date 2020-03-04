@@ -6,3 +6,10 @@
     height: 40px;
     background-color: #f5f5f5;
 }
+
+/* I HATE FOOTER */
+@media (max-width: 414px) {
+  .footer {
+    display: none;
+  }
+}
