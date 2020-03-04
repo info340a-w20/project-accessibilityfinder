@@ -8,6 +8,7 @@ import Map from "./components/Map/Map"
 import HomePage from "./components/HomePage/HomePage"
 import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
+import Info from "./components/Info/Info"
 import 'whatwg-fetch';
 import createHistory from 'history/createBrowserHistory';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -61,6 +62,7 @@ export class App extends Component {
 
   handleSearchBar = (newSearch) => {
     this.setState({
+      itemsToDisplay: [],
       searchText: newSearch,
       fetchingNominatim: true,
     });
@@ -72,7 +74,12 @@ export class App extends Component {
   //     return <Redirect push to="/list" />;
   //   }
 
-
+  handleAmenitySearch = (newAmenity) => {
+    this.setState({
+      amenity: newAmenity,
+      fetchingAmenity: true,
+    });
+  }
 
   processData = (json) => {
     if (json.length == 0) {
@@ -124,15 +131,9 @@ export class App extends Component {
     this.setState({displayedListItems:newItems})
   }
 
-  handleAmenitySearch = (newAmenity) => {
-    this.setState({
-      amenity: newAmenity,
-      fetchingAmenity: true,
-    });
-  }
+
 
   render() {
-    console.log(this.state);
     return (
       <main>
         <Header handleSearch={this.handleSearchBar}/>
