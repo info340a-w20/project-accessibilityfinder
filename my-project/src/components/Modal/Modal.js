@@ -13,7 +13,7 @@ export class OurModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal1: false,
+      modal1: true,
       modal2: false
     }
   }
@@ -35,9 +35,6 @@ export class OurModal extends Component {
     console.log("hello");
     return (
       <div>
-        {/*THIS BUTTON WILL BE IN INFO*/}
-        <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={this.toggleModal1}>Edit</Button>
-
         <Modal id="editModal" show={this.state.modal1} onHide={this.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
           <Modal.Header closeButton>
             <Modal.Title id="editModalLabel">Submit an edit</Modal.Title>
@@ -117,8 +114,7 @@ export class OurModal extends Component {
                 <span>Assistive listening systems</span>
               </label>
             <Modal.Footer>
-              {/*DISABLE THIS BUTTON*/}
-              <Button id="cs-submit" variant="primary" onClick={this.toggleBoth}>Submit</Button>
+              <Button id="cs-submit" disabled="disabled" variant="primary" onClick={this.toggleBoth}>Submit</Button>
             </Modal.Footer>
           </form>
         </Modal.Body>

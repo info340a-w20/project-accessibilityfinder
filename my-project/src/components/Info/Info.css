@@ -1,13 +1,21 @@
+.info svg {
+  margin-right: 8px;
+}
+
 .infoImgPlaceholder {
     width: 30%;
     object-fit: cover;
 }
 
 #back-button {
-float:right;
+  float:right;
 }
 
-#info-Header {
+#edit {
+  float: right;
+}
+
+#info-view {
   display: block;
   float: left;
 }
@@ -104,6 +112,14 @@ float:right;
 
 .mainPageHeader {
     text-align: center;
+}
+
+.fa-check-circle {
+    color: blue;
+}
+
+.fa-times-circle {
+    color: gray;
 }
 
 /* following css code is from: https://codepen.io/menelaosly/pen/rZddyb with changes */
