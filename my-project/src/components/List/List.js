@@ -8,23 +8,24 @@ import Card from '../Card/Card'
 class List extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+        }
     }
 
     createCards = () => {
         let rows = [];
         let cols = [];
         this.props.itemsToDisplay.forEach((item, i) => {
-          cols.push(<Card key={item.name} item={item} id={item.id}/>);
+          cols.push(<Card reviewList={this.state.reviewList} key={item.name} item={item} id={item.id}/>);
           if (i % 3 == 2 || i == this.props.itemsToDisplay.length - 1) {
             rows.push(<div className="row">{cols}</div>);
             cols = [];
           }
         });
         return rows;
-    }
+    } 
 
     render() {
-        console.log(this.props);
         return (
             <div id="left-view-home" className="home-page-info left-view">
                 <AmenityNav handleAmenitySearch={this.props.handleAmenitySearch} />

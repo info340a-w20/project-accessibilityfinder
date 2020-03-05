@@ -16,21 +16,22 @@ class Info extends Component {
       show2: false,
       showTextbox: false,
       reviewText: '',
-      reviewList: []
+      locationReviews: []
     }
   }
 
   componentDidMount() {
     let num = this.props.location.pathname.split("/")[2];
-    this.setState({item: this.props.itemsToDisplay[num]});
+    this.setState({ item: this.props.itemsToDisplay[num] });
+
   }
 
   mobilityCheck() {
-    return this.state.item.wheelchair ? faCheckCircle : faTimesCircle ;
+    return this.state.item.wheelchair ? faCheckCircle : faTimesCircle;
   }
 
   hideModal2 = () => {
-    this.setState({show2:false});
+    this.setState({ show2: false });
   }
 
   toggleBoth = () => {
@@ -39,39 +40,48 @@ class Info extends Component {
   }
 
   toggleModal1 = () => {
-    this.setState({show1: !this.state.show1});
+    this.setState({ show1: !this.state.show1 });
   }
 
   toggleModal2 = () => {
-    this.setState({show2: !this.state.show2});
+    this.setState({ show2: !this.state.show2 });
   }
 
   toggleReview = () => {
-    this.setState({showTextbox: !this.state.showTextbox});
+    this.setState({ showTextbox: !this.state.showTextbox });
   }
 
   handleChange = (e) => {
-    this.setState({reviewText: e.target.value});
+    this.setState({ reviewText: e.target.value });
+  }
+
+  handleReviews = () => {
+
+
   }
 
   addReview = () => {
-    let obj = {}
-    obj[this.state.item.name] = this.state.reviewText;
-    this.setState(prevState => ({
-      reviewList: [obj, ...prevState.reviewList]
-    }));
-    this.setState({reviewText: ''});
+    let review = this.state.reviewText;
+    this.setState({
+      locationReviews: [review, ...this.state.locationReviews],
+    }, () => {
+      this.props.handleReviews(this.state.locationReviews, this.state.item.name);
+    });
+    this.setState({ reviewText: '' });
   }
 
   //prolly a better way to access key/value but it is late so brain is dead
   renderReviews() {
-    let reviews = [];
-    this.state.reviewList.forEach((item, i) => {
-      if (Object.keys(item)[0] == this.state.item.name) {
-        reviews.push(<Review text={Object.values(item)[0]} />);
-      }
-    });
-    return reviews;
+    let showReviews = []
+    console.log(this.props.reviewList)
+    let name = this.state.item.name;
+    let reviews = this.props.reviewList[name];
+    if (reviews) {
+      reviews.forEach((item, i) => {
+        showReviews.push(<Review id={i} text={item} />)
+      })
+    }
+    return showReviews;
   }
 
   render() {
@@ -107,100 +117,100 @@ class Info extends Component {
         <div class="info">
           <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={() => this.toggleModal1()}>Edit</Button>
           <OurModal show1={this.state.show1}
-                    show2={this.state.show2}
-                    toggleModal1={this.toggleModal1}
-                    toggleModal2={this.toggleModal2}
-                    toggleBoth={this.toggleBoth}
+            show2={this.state.show2}
+            toggleModal1={this.toggleModal1}
+            toggleModal2={this.toggleModal2}
+            toggleBoth={this.toggleBoth}
           />
           <div className="flex">
-              <h4>
-                  <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
-                  Mobility related assistance
+            <h4>
+              <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+              Mobility related assistance
               </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
-              <li className="list-group-item nobackground"
-                  ><FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
-                  Wheelchair accessible
+            <li className="list-group-item nobackground"
+            ><FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+              Wheelchair accessible
               </li>
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  ADA doorways
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              ADA doorways
               </li>
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Stadium seating
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Stadium seating
               </li>
           </ul>
           <div className="flex">
-              <h4>
-                  <FontAwesomeIcon icon={faTimesCircle} className="icon" />
-                  Vision related assistance
+            <h4>
+              <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+              Vision related assistance
               </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Braille
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Braille
               </li>
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Descriptive narration
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Descriptive narration
               </li>
           </ul>
           <div className="flex">
-              <h4>
-                  <FontAwesomeIcon icon={faTimesCircle} className="icon" />
-                  Hearing related assistance
+            <h4>
+              <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+              Hearing related assistance
               </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Audio description
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Audio description
               </li>
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Closed captioning
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Closed captioning
               </li>
-              <li className="list-group-item nobackground">
-                  <FontAwesomeIcon icon={faTimesCircle} />
-                  Assisted listening devices
+            <li className="list-group-item nobackground">
+              <FontAwesomeIcon icon={faTimesCircle} />
+              Assisted listening devices
               </li>
           </ul>
-      <hr />
-      <div className="photos">
-          <h4>Photos</h4>
-          <div className="images">
+          <hr />
+          <div className="photos">
+            <h4>Photos</h4>
+            <div className="images">
               <img className="infoImg" src="/placeholder.png" alt="placeholder" />
               <img className="infoImg" src="/placeholder.png" alt="placeholder" />
               <img className="infoImg" src="/placeholder.png" alt="placeholder" />
               <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+            </div>
           </div>
-      </div>
-      <hr />
-      <div>
-          <div className="flex reviewHeader">
+          <hr />
+          <div>
+            <div className="flex reviewHeader">
               <h4 className="reviews-title">Reviews</h4>
               <div className="flex reviews-buttons">
-                  <button type="button" className="btn btn-outline-primary rounded-pill" id="write-review" onClick={this.toggleReview}>Write a Review</button>
+                <button type="button" className="btn btn-outline-primary rounded-pill" id="write-review" onClick={this.toggleReview}>Write a Review</button>
               </div>
-          </div>
-          <form id="review-form" style={this.state.showTextbox ? {display:"block"} : {display:"none"}}>
+            </div>
+            <form id="review-form" style={this.state.showTextbox ? { display: "block" } : { display: "none" }}>
               <div class="form-group">
-                  <textarea class="form-control" rows="3" id="review-input" onChange={this.handleChange} value={this.state.reviewText}></textarea>
-                  <button type="button" class="btn btn-primary rounded-pill" id="review-submit" onClick={this.addReview} disabled={this.state.reviewText == '' ? true : false}>Submit</button>
+                <textarea class="form-control" rows="3" id="review-input" onChange={this.handleChange} value={this.state.reviewText}></textarea>
+                <button type="button" class="btn btn-primary rounded-pill" id="review-submit" onClick={this.addReview} disabled={this.state.reviewText == '' ? true : false}>Submit</button>
               </div>
-          </form>
-          <hr />
-          <div id="reviews">
-            {this.renderReviews()}
+            </form>
+            <hr />
+            <div id="reviews">
+              {this.renderReviews()}
+            </div>
           </div>
         </div>
-    </div>
-  </div>
-  );
-}
+      </div>
+    );
+  }
 }
 
 export default Info;

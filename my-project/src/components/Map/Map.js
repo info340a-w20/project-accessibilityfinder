@@ -26,12 +26,11 @@ export class MapDisplay extends Component {
     }
 
     componentDidMount() {
-        console.log(this.refs.map.leafletElement);
+        // console.log(this.refs.map.leafletElement);
     }
 
 
     onMapMoveEnd = (e) => {
-        console.log()
         this.props.handleMapMovement(e.target.getBounds());
     }
 
@@ -47,8 +46,8 @@ export class MapDisplay extends Component {
     }
 
     open = (e) => {
-        console.log(this.refs.map.leafletElement);
-        console.log(e);
+        // console.log(this.refs.map.leafletElement);
+        // console.log(e);
     }
 
     render() {

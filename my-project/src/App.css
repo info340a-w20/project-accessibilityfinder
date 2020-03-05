@@ -41,6 +41,7 @@ main {
     height: calc(100% - 40px);
     overflow: auto;
     margin:0px;
+    padding-bottom:80px;
   }
 
 

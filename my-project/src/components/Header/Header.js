@@ -19,7 +19,6 @@ class Header extends Component {
   }
 
   handleSearch = (e) => {
-    console.log("done");
     e.preventDefault();
     this.props.handleSearch(this.state.inputtedText);
     this.setState({

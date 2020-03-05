@@ -25,22 +25,33 @@ export class App extends Component {
       fetchingAmenity: false,
       amenity: "",
       amenityLatLong: "47.481002,-122.459696,47.734136,-122.224433",
-      searchLatLong:"-122.459696,47.481002,-122.224433,47.734136",
+      searchLatLong: "-122.459696,47.481002,-122.224433,47.734136",
       noElements: false,
       fetchingNominatim: false,
       searchText: "",
+      googleFetch: true,
+      reviewList: {},
     }
   }
 
 
   componentDidUpdate() {
+    // if (this.state.googleFetch) {
+    //   fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     this.setState({googleFetch: false});
+    //   });
+
+
     if (this.state.fetchingAmenity) {
       fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + this.state.amenity + '](' + this.state.amenityLatLong + ');out%20meta;')
         .then((res) => res.json())
-      .then((data) => {
+        .then((data) => {
           this.processData(data.elements);
           this.setState({ fetchingAmenity: false });
-          this.setState({redirect: true});
+          this.setState({ redirect: true });
           // renderMarker();
           // populateList();
         });
@@ -48,20 +59,19 @@ export class App extends Component {
     if (this.state.fetchingNominatim) {
       //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
       fetch('https://nominatim.openstreetmap.org/search?q=' + this.state.searchText + '&format=json&viewbox=' + this.state.searchLatLong + '&bounded=1&extratags=1&addressdetails=1')
-            .then((response) => {
-              return response.json();
-          })
-          .then((myJson) => {
-            console.log(myJson);
-            this.processData(myJson);
-            this.setState({fetchingNominatim: false});
-            this.setState({redirect: true})
-          })
+        .then((response) => {
+          return response.json();
+        })
+        .then((myJson) => {
+          this.processData(myJson);
+          this.setState({ fetchingNominatim: false });
+          this.setState({ redirect: true })
+        })
     }
-}
+  }
 
   renderLocation = () => {
-    this.setState({displayedListItems: []})
+    this.setState({ displayedListItems: [] })
   }
 
   handleSearchBar = (newSearch) => {
@@ -72,6 +82,16 @@ export class App extends Component {
     });
   }
 
+  handleReviews = (reviews, key) => {
+    this.setState(prevState => ({
+      reviewList: {                   // object that we want to update
+        ...prevState.reviewList,    // keep all other key-value pairs
+        [key]: reviews       // update the value of specific key
+      }
+    }))
+
+  }
+
   handleAmenitySearch = (newAmenity) => {
     this.setState({
       amenity: newAmenity,
@@ -79,26 +99,25 @@ export class App extends Component {
     });
   }
 
-  handleMapMovement  = (bounds) => {
-    console.log('new bounds ', bounds);
+  handleMapMovement = (bounds) => {
     this.mapBoundNomi(bounds);
     this.mapBoundOverpass(bounds);
   }
 
   mapBoundNomi = (bounds) => {
-      let latlong = [];
-      latlong.push(bounds._southWest);
-      latlong.push(bounds._northEast);
-      let strLatLong = "" + latlong[0].lng + "," + latlong[0].lat + "," + latlong[1].lng + "," + latlong[1].lat;
-      this.setState({searchLatLong: strLatLong});
+    let latlong = [];
+    latlong.push(bounds._southWest);
+    latlong.push(bounds._northEast);
+    let strLatLong = "" + latlong[0].lng + "," + latlong[0].lat + "," + latlong[1].lng + "," + latlong[1].lat;
+    this.setState({ searchLatLong: strLatLong });
   }
 
-   mapBoundOverpass = (bounds) => {
-      let latlong = [];
-      latlong.push(bounds._southWest);
-      latlong.push(bounds._northEast);
-      let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
-      this.setState({amenityLatLong: strLatLong});
+  mapBoundOverpass = (bounds) => {
+    let latlong = [];
+    latlong.push(bounds._southWest);
+    latlong.push(bounds._northEast);
+    let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
+    this.setState({ amenityLatLong: strLatLong });
   }
 
 
@@ -160,14 +179,14 @@ export class App extends Component {
       }
       newItems.push(processedData);
     });
-    this.setState({displayedListItems:newItems})
+    this.setState({ displayedListItems: newItems })
   }
 
   render() {
     console.log(this.state);
     return (
       <main>
-        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation}/>
+        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} />
         <Switch>
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
@@ -175,9 +194,11 @@ export class App extends Component {
             handleAmenitySearch={this.handleAmenitySearch}
             isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
           />} />
-          <Route path="/info/:id" render={(props) => <Info {...props} itemsToDisplay={this.state.displayedListItems}/>}/>
+          <Route path="/info/:id" render={(props) => <Info {...props} handleReviews={this.handleReviews}
+            reviewList={this.state.reviewList}
+            itemsToDisplay={this.state.displayedListItems} />} />
         </Switch>
-        <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems}/>
+        <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} />
         <Footer />
       </main>
     );

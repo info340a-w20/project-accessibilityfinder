@@ -13,9 +13,7 @@ class Footer extends Component {
   render() {
     return (
       <footer class="footer">
-        <Container>
           <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
-        </Container>
       </footer>
     );
   }
