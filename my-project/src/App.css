@@ -14,7 +14,7 @@
 }
 
 main {
-  display: flex;
+  display: block;
 }
 
 .App-header {
