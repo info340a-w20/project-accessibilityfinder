@@ -34,9 +34,7 @@ export class MapDisplay extends Component {
         this.props.handleMapMovement(e.target.getBounds());
     }
 
-    componentDidUpdate() {
 
-    }
     createMarkers = () => {
         this.props.itemsToDisplay.forEach((location, i) => {
             return (<Marker position={location.lat, location.lon}>
@@ -45,13 +43,8 @@ export class MapDisplay extends Component {
         });
     }
 
-    open = (e) => {
-        // console.log(this.refs.map.leafletElement);
-        // console.log(e);
-    }
-
+  
     render() {
-        console.log(this.props)
         return (
 
             <div className="map-display">

@@ -4,6 +4,10 @@ import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import HomePage from '../HomePage/HomePage';
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import firebase from "firebase";
+
+
 
 class Header extends Component {
   constructor(props) {
@@ -26,6 +30,7 @@ class Header extends Component {
     });
   }
 
+
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.props.handleSearch(this.state.inputtedText);
@@ -44,6 +49,13 @@ class Header extends Component {
                 <span id="name">Accessibility Finder</span>
                 <span id="acronym">Access</span>
               </Link>
+              {this.props.isSignedIn ? <button onClick={() => this.props.handleSignOut()} class="navbar-nav text-black">Sign-out</button> :
+              <Link to="/signin" class="navbar-nav mb-0 text-white" onClick={(e) => this.props.renderLocations()}>
+              Sign In
+              </Link>}
+              
+               
+                
                 <div class="input-group">
                   <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
                   <div class="input-group-append">

@@ -10,10 +10,42 @@ import Footer from "./components/Footer/Footer";
 import List from "./components/List/List";
 import Info from "./components/Info/Info";
 import 'whatwg-fetch';
+import LogIn from "./components/Login/Login"
 import createHistory from 'history/createBrowserHistory';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
+// Import firebase and StyledFirebaseAuth
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+
+
+var firebaseConfig = {
+  apiKey: "AIzaSyC5PS9Zb6WY-lcoIAC5KkdeAkFuozlYkYw",
+  authDomain: "accessibility-finder.firebaseapp.com",
+  databaseURL: "https://accessibility-finder.firebaseio.com",
+  projectId: "accessibility-finder",
+  storageBucket: "accessibility-finder.appspot.com",
+  messagingSenderId: "781510677391",
+  appId: "1:781510677391:web:25b4d030e7615decc731fa",
+  measurementId: "G-BCRK4KDM9V"
+};
+
+
+// Initialize your application with the given configuration
+firebase.initializeApp(firebaseConfig);
+
+// Set UI config for sign in (see: https://github.com/firebase/firebaseui-web-react)
+const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: 'popup',
+  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+  signInSuccessUrl: '',
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ]
+};
 
 
 export class App extends Component {
@@ -29,9 +61,25 @@ export class App extends Component {
       noElements: false,
       fetchingNominatim: false,
       searchText: "",
-      googleFetch: true,
+      googleFetch: false,
       reviewList: {},
+      isSignedIn: false,
+      onSignInPage: false,
+      userName: "Anonymous",
     }
+  }
+
+  // See: https://github.com/firebase/firebaseui-web-react#using-firebaseauth-with-local-state
+  componentDidMount() {
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
+      this.setState({userName: user.displayName})
+      this.setState({ isSignedIn: !!user , onSignInPage: false, usern: user});
+    });
+    console.log(this.props);
+  }
+
+  handleSignOut = () => {
+    firebase.auth().signOut();
   }
 
 
@@ -119,6 +167,9 @@ export class App extends Component {
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     this.setState({ amenityLatLong: strLatLong });
   }
+   isLoggingIn = () => {
+    this.setState({onSignInPage: true})
+    }
 
 
 
@@ -182,12 +233,21 @@ export class App extends Component {
     this.setState({ displayedListItems: newItems })
   }
 
+ 
+
   render() {
+    // If the state is not currently signed in, return a simple sign in screen
+    // See: https://github.com/firebase/firebaseui-web-react#using-styledfirebaseauth-with-a-redirect  
     console.log(this.state);
+
     return (
       <main>
-        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} />
+        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth} 
+        isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut}/>
+        {this.state.isSignedIn ? <div> YOU ARE SIGNED IN RIGHT NOW</div> : <> </>}
         <Switch>
+          <Route path="/signin"> {!!firebase.auth().currentUser ? <Redirect to="/" /> : <LogIn login={this.isLoggingIn} uiConfig ={uiConfig} fbAuth = {firebase.auth}/> } </Route>
+
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
             itemsToDisplay={this.state.displayedListItems}
@@ -196,9 +256,14 @@ export class App extends Component {
           />} />
           <Route path="/info/:id" render={(props) => <Info {...props} handleReviews={this.handleReviews}
             reviewList={this.state.reviewList}
-            itemsToDisplay={this.state.displayedListItems} />} />
+            itemsToDisplay={this.state.displayedListItems} 
+            username={this.state.userName}/>} />
         </Switch>
-        <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} />
+        {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
+        <>
+        </>
+        }
+        
         <Footer />
       </main>
     );
