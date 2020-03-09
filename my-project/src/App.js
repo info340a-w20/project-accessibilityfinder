@@ -79,7 +79,9 @@ export class App extends Component {
   }
 
   handleSignOut = () => {
+    console.log("Hello");
     firebase.auth().signOut();
+    this.setState({isSignedIn: false});
   }
 
 

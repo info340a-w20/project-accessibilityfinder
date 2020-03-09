@@ -61,7 +61,26 @@ class Info extends Component {
   }
 
   addReview = () => {
-    let review = this.state.reviewText;
+    let n = new Date();
+    let y = n.getFullYear();
+    let m = n.getMonth() + 1;
+    let d = n.getDate();
+    let h = n.getHours() > 12 ? n.getHours() - 12 : n.getHours();
+    let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
+    let ampm = n.getHours() >= 12 ? "PM" : "AM";
+    let currentDate = "" + m + "/" + d + "/" + y + " " + h + ":" + min + ampm;
+    let currentUser = "";
+    if (!this.props.username) {
+      currentUser = "Anonymous"
+    } else {
+      currentUser = this.props.username;
+    }
+    let review = {
+      reviewContent: this.state.reviewText,
+      username: currentUser,
+      date:currentDate
+    }
+    console.log(review);
     this.setState({
       locationReviews: [review, ...this.state.locationReviews],
     }, () => {
@@ -76,9 +95,10 @@ class Info extends Component {
     console.log(this.props.reviewList)
     let name = this.state.item.name;
     let reviews = this.props.reviewList[name];
+  
     if (reviews) {
       reviews.forEach((item, i) => {
-        showReviews.push(<Review id={i} text={item} />)
+        showReviews.push(<Review id={i} text={item.reviewContent} date={item.date} username={item.username} />)
       })
     }
     return showReviews;

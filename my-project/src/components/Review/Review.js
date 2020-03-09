@@ -18,9 +18,9 @@ class Review extends Component {
       <div className="review">
         <div class="info">
             <div class="flex reviewHeader">
-                <h5>Anonymous</h5>
+                <h5>{this.props.username}</h5>
             </div>
-            <p class="timestamp">{m}/{d}/{y} {h}:{min} {ampm}</p>
+            <p class="timestamp">{this.props.date}</p>
             <p class="reviewContent">{this.props.text}</p>
         </div>
       </div>

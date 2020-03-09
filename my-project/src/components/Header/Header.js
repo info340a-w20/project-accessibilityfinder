@@ -49,7 +49,7 @@ class Header extends Component {
                 <span id="name">Accessibility Finder</span>
                 <span id="acronym">Access</span>
               </Link>
-              {this.props.isSignedIn ? <button onClick={() => this.props.handleSignOut()} class="navbar-nav text-black">Sign-out</button> :
+              {this.props.isSignedIn ? <button onClick={this.props.handleSignOut} class="navbar-nav text-black">Sign-out</button> :
               <Link to="/signin" class="navbar-nav mb-0 text-white" onClick={(e) => this.props.renderLocations()}>
               Sign In
               </Link>}
