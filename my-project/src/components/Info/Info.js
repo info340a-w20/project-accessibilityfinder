@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import OurModal from '../Modal/Modal';
-import Review from '../Review/Review'
+import Review from '../Review/Review';
+import firebase from "firebase";
 
 class Info extends Component {
   constructor(props) {
@@ -80,7 +81,24 @@ class Info extends Component {
       username: currentUser,
       date:currentDate
     }
-    console.log(review);
+    let placeID = this.state.item.uniqueID;
+    console.log(placeID);
+    let placeRef = firebase.database().ref('reviews/' + placeID);
+    // let placeRef = this.props.reviewRev..ref(placeID); //an object of tasks
+    // let place = this.props.reviewRef.child(placeID)
+    // let placeRef = firebase.database().ref(place)
+
+    
+
+    placeRef.push({
+      reviewContent: this.state.reviewText,
+      username: currentUser,
+      datePosted: currentDate,
+      time:firebase.database.ServerValue.TIMESTAMP, 
+      likes:0,
+      locationName: this.state.item.name
+  });
+
     this.setState({
       locationReviews: [review, ...this.state.locationReviews],
     }, () => {
@@ -92,17 +110,44 @@ class Info extends Component {
   //prolly a better way to access key/value but it is late so brain is dead
   renderReviews() {
     let showReviews = []
-    console.log(this.props.reviewList)
-    let name = this.state.item.name;
-    let reviews = this.props.reviewList[name];
-  
-    if (reviews) {
-      reviews.forEach((item, i) => {
-        showReviews.push(<Review id={i} text={item.reviewContent} date={item.date} username={item.username} />)
-      })
-    }
-    return showReviews;
+    // let name = this.state.item.name;
+    // let reviews = this.props.reviewList[name];
+    let reviews = this.props.reviews;
+
+
+
+    let reviewKeys = Object.keys(reviews);
+    {reviews && Object.keys(reviews).map((d, i) => {
+      if (d == this.state.item.uniqueID) {
+        Object.keys(d).forEach((r, i) => {
+          Object.values(r).forEach((k, i) => {
+            console.log(k);
+          })
+          //showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
+        })
+      }
+    })
   }
+  return showReviews;
+}
+    
+      // let likes = props.svgs[d].likes ? Object.keys(props.svgs[d].likes).length : 0;
+      // return (<Container style={{textAlign:"center", marginTop:"40px"}} key={i}>
+      //             <InlineSVG src={props.svgs[d].svg} />                            
+      //             {props.showLikes && 
+      //                 <span onClick = {() => props.onClick(d)}><FaHeart fill="red" style={{cursor:"pointer"}}/><span>{likes}</span></span>}
+  //     //         </Container>)
+  // })}
+
+
+
+  //   if (reviews) {
+  //     reviews.forEach((item, i) => {
+  //       showReviews.push(<Review id={i} text={item.reviewContent} date={item.date} username={item.username} />)
+  //     })
+  //   }
+  //   return showReviews;
+  // }
 
   render() {
     let item = this.state.item;

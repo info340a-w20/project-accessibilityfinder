@@ -17,6 +17,7 @@ import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 // Import firebase and StyledFirebaseAuth
 import firebase from "firebase";
+import 'firebase/database';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 
@@ -67,21 +68,42 @@ export class App extends Component {
       onSignInPage: false,
       userName: "Anonymous",
     }
+    // Store references to 'favories' and 'public'
+    this.favoritesRef = firebase.database().ref("favorites");
+    this.reviewsRef = firebase.database().ref("reviews");
+
+    this.reviewsRef.on("value", (snapshot) => {
+      console.log("something changed on firebase, so I will reset state")
+      this.setState({ reviews: snapshot.val() })
+    })
+    //this.like = this.like.bind(this);
   }
+
+
+
 
   // See: https://github.com/firebase/firebaseui-web-react#using-firebaseauth-with-local-state
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
-      this.setState({userName: user.displayName})
-      this.setState({ isSignedIn: !!user , onSignInPage: false, usern: user});
-    });
-    console.log(this.props);
+      if (user) {
+        const userRef = this.favoritesRef.child(user.uid);
+        userRef.on("value", (snapshot) => {
+          console.log("the value of favorites/userid changed, so i reset the state")
+          this.setState({ favorites: snapshot.val() })
+        })
+      }
+      this.setState({ userName: user.displayName })
+      this.setState({ isSignedIn: !!user, onSignInPage: false, usern: user })
+    })
   }
 
   handleSignOut = () => {
-    console.log("Hello");
     firebase.auth().signOut();
-    this.setState({isSignedIn: false});
+    this.setState({ isSignedIn: false });
+  }
+
+  componentWillUnmount() {
+    this.unregisterAuthObserver();
   }
 
 
@@ -102,8 +124,6 @@ export class App extends Component {
           this.processData(data.elements);
           this.setState({ fetchingAmenity: false });
           this.setState({ redirect: true });
-          // renderMarker();
-          // populateList();
         });
     }
     if (this.state.fetchingNominatim) {
@@ -169,9 +189,9 @@ export class App extends Component {
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     this.setState({ amenityLatLong: strLatLong });
   }
-   isLoggingIn = () => {
-    this.setState({onSignInPage: true})
-    }
+  isLoggingIn = () => {
+    this.setState({ onSignInPage: true })
+  }
 
 
 
@@ -199,6 +219,7 @@ export class App extends Component {
         lat: '',
         lon: '',
         id: '',
+        uniqueID: '',
       }
 
       if (e.licence != null) {
@@ -214,6 +235,7 @@ export class App extends Component {
         processedData.lat = e.lat;
         processedData.lon = e.lon;
         processedData.id = i;
+        processedData.uniqueID = e.osm_id;
 
 
       } else {
@@ -229,13 +251,14 @@ export class App extends Component {
         processedData.lat = e.lat;
         processedData.lon = e.lon;
         processedData.id = i;
+        processedData.uniqueID = e.id;
       }
       newItems.push(processedData);
     });
     this.setState({ displayedListItems: newItems })
   }
 
- 
+
 
   render() {
     // If the state is not currently signed in, return a simple sign in screen
@@ -244,11 +267,11 @@ export class App extends Component {
 
     return (
       <main>
-        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth} 
-        isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut}/>
+        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth}
+          isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut} />
         {this.state.isSignedIn ? <div> YOU ARE SIGNED IN RIGHT NOW</div> : <> </>}
         <Switch>
-          <Route path="/signin"> {!!firebase.auth().currentUser ? <Redirect to="/" /> : <LogIn login={this.isLoggingIn} uiConfig ={uiConfig} fbAuth = {firebase.auth}/> } </Route>
+          <Route path="/signin"> {!!firebase.auth().currentUser ? <Redirect to="/" /> : <LogIn login={this.isLoggingIn} uiConfig={uiConfig} fbAuth={firebase.auth} />} </Route>
 
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
@@ -258,14 +281,16 @@ export class App extends Component {
           />} />
           <Route path="/info/:id" render={(props) => <Info {...props} handleReviews={this.handleReviews}
             reviewList={this.state.reviewList}
-            itemsToDisplay={this.state.displayedListItems} 
-            username={this.state.userName}/>} />
+            itemsToDisplay={this.state.displayedListItems}
+            username={this.state.userName}
+            reviewRef={this.reviewsRef}
+            reviews={this.state.reviews} />} />
         </Switch>
         {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
-        <>
-        </>
+          <>
+          </>
         }
-        
+
         <Footer />
       </main>
     );
