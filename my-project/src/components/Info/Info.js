@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import OurModal from '../Modal/Modal';
 import Review from '../Review/Review';
 import firebase from "firebase";
+import placeholder from "../../placeholder.png"
+
 
 class Info extends Component {
   constructor(props) {
@@ -110,20 +112,14 @@ class Info extends Component {
   //prolly a better way to access key/value but it is late so brain is dead
   renderReviews() {
     let showReviews = []
-    // let name = this.state.item.name;
-    // let reviews = this.props.reviewList[name];
     let reviews = this.props.reviews;
 
-
-
-    let reviewKeys = Object.keys(reviews);
-    {reviews && Object.keys(reviews).map((d, i) => {
-      if (d == this.state.item.uniqueID) {
-        Object.keys(d).forEach((r, i) => {
-          Object.values(r).forEach((k, i) => {
-            console.log(k);
-          })
-          //showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
+    //There has to be a better way to do this! a lot of looping going on!
+    // There was some explanation in info340 book but I couldn't understand
+    {reviews && Object.entries(reviews).map((d, i) => {
+      if (d[0] == this.state.item.uniqueID) {
+        Object.values(d[1]).forEach((r, i) => {
+          showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
         })
       }
     })
@@ -131,30 +127,12 @@ class Info extends Component {
   return showReviews;
 }
     
-      // let likes = props.svgs[d].likes ? Object.keys(props.svgs[d].likes).length : 0;
-      // return (<Container style={{textAlign:"center", marginTop:"40px"}} key={i}>
-      //             <InlineSVG src={props.svgs[d].svg} />                            
-      //             {props.showLikes && 
-      //                 <span onClick = {() => props.onClick(d)}><FaHeart fill="red" style={{cursor:"pointer"}}/><span>{likes}</span></span>}
-  //     //         </Container>)
-  // })}
-
-
-
-  //   if (reviews) {
-  //     reviews.forEach((item, i) => {
-  //       showReviews.push(<Review id={i} text={item.reviewContent} date={item.date} username={item.username} />)
-  //     })
-  //   }
-  //   return showReviews;
-  // }
-
   render() {
     let item = this.state.item;
     return (
       <div className="left-view" id="info-view">
         <div className="infoHeader flex" id="info-Header" >
-          <img className="infoImgPlaceholder" src="/placeholder.png" alt="location" />
+          <img className="infoImgPlaceholder" src={placeholder} alt="location" />
           <div className="locationDetails info">
             <Link to="/list" id="back-button" className="btn btn-outline-primary rounded-pill">
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -247,10 +225,10 @@ class Info extends Component {
           <div className="photos">
             <h4>Photos</h4>
             <div className="images">
-              <img className="infoImg" src="/placeholder.png" alt="placeholder" />
-              <img className="infoImg" src="/placeholder.png" alt="placeholder" />
-              <img className="infoImg" src="/placeholder.png" alt="placeholder" />
-              <img className="infoImg" src="/placeholder.png" alt="placeholder" />
+              <img className="infoImg" src={placeholder} alt="placeholder" />
+              <img className="infoImg" src={placeholder} alt="placeholder" />
+              <img className="infoImg" src={placeholder} alt="placeholder" />
+              <img className="infoImg" src={placeholder} alt="placeholder" />
             </div>
           </div>
           <hr />

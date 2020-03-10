@@ -74,6 +74,7 @@ export class App extends Component {
 
     this.reviewsRef.on("value", (snapshot) => {
       console.log("something changed on firebase, so I will reset state")
+      
       this.setState({ reviews: snapshot.val() })
     })
     //this.like = this.like.bind(this);

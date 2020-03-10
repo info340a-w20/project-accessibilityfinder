@@ -4,6 +4,7 @@ import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-route
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom'
+import placeholder from "../../placeholder.png"
 
 class Card extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Card extends Component {
       <div className="col">
         <Link to={str}>
           <div className="card">
-            <img class="card-img-top" src="/placeholder.png" alt="location" />
+            <img class="card-img-top" src={placeholder} alt="location" />
             <div class="card-body">
               <h5 class="card-title">{this.props.item.name}</h5>
               <p class="card-text text-secondary">
