@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Modal from 'react-bootstrap/Modal'
 import { ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, ModalDialog } from 'react-bootstrap';
-import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
 export class ModalAuth extends Component {
   constructor(props) {
@@ -14,12 +14,15 @@ export class ModalAuth extends Component {
     }
   }
 
+  handleSignIn = () => {
+    this.props.renderLocations();
+    this.props.history.push("/signin");
+  }
 
 
   render() {
-    console.log(this.props.authModal)
     return (
-      <Modal id="authModal" show={this.props.authModal} onHide={this.props.hideAuthModal} aria-labelledby="authModal" aria-hidden="true" centered>>
+      <Modal id="authModal" show={this.props.authModal} onHide={this.props.hideAuthModal} aria-labelledby="authModal" aria-hidden="true" centered>
         <Modal.Header closeButton>
           <Modal.Title id="signUpModalLabel">Thank you for intiative to give back feedback!</Modal.Title>
         </Modal.Header>
@@ -33,17 +36,12 @@ export class ModalAuth extends Component {
             Close
           </Button>
           {/* <Button as="Link" to="/signin">Sign In</Button> */}
-          <Link to="/signin">
-            <button type="button">
-              Sign In
-            </button>
-          </Link>}
-          {/* <Button variant="primary" onClick={this.handleSignIn}>
+          <Button variant="primary" onClick={this.handleSignIn}>
             Sign In
-          </Button> */}
+          </Button>
         </Modal.Footer>
       </Modal>)
   }
 }
 
-export default ModalAuth;
+export default withRouter(ModalAuth);

@@ -89,11 +89,11 @@ export class App extends Component {
         userRef.on("value", (snapshot) => {
           console.log("the value of favorites/userid changed, so i reset the state")
           this.setState({ favorites: snapshot.val() })
-        })
+        });
       }
       this.setState({ userName: user.displayName })
       this.setState({ isSignedIn: !!user, onSignInPage: false, usern: user })
-    })
+    });
   }
 
   handleSignOut = () => {
@@ -126,11 +126,13 @@ export class App extends Component {
           this.processData(myJson);
           this.setState({ fetchingNominatim: false });
           this.setState({ redirect: true })
+          this.setState({searchText: ""})
         })
     }
   }
 
   handleSearchBar = (newSearch) => {
+    this.setState({ onSignInPage: false })
     this.setState({
       itemsToDisplay: [],
       searchText: newSearch,
@@ -148,6 +150,7 @@ export class App extends Component {
   //clears all location if user presses on nav link to home page
   renderLocation = () => {
     this.setState({ displayedListItems: [] })
+    this.setState({ onSignInPage: false })
   }
 
   //adds reviews added to the state of the item as a name-of-place:review pair
@@ -274,7 +277,8 @@ export class App extends Component {
             username={this.state.userName}
             reviewRef={this.reviewsRef}
             reviews={this.state.reviews}
-            fbAuth={firebase.auth()} />} />
+            fbAuth={firebase.auth()}
+            renderLocations={this.renderLocation} />} />
         </Switch>
         {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
           <>

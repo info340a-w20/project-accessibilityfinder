@@ -42,6 +42,14 @@ class Info extends Component {
     this.toggleModal2();
   }
 
+  crowdSourceAuth = () => {
+    if (!!this.props.fbAuth.currentUser) {
+      this.toggleModal1();
+    } else {
+      this.setState({ authModal: true })
+    }
+  }
+
   toggleModal1 = () => {
     this.setState({ show1: !this.state.show1 });
   }
@@ -127,7 +135,6 @@ class Info extends Component {
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
-    console.log(this.props.fbAuth.currentUser);
 
     //maybe store this somewhere else
     let placeID = this.state.item.uniqueID;
@@ -167,7 +174,11 @@ class Info extends Component {
           </div>
         </div>
         <div class="info">
-          <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={() => this.toggleModal1()}>Edit</Button>
+          <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={() => this.crowdSourceAuth()}>Edit</Button>
+          <ModalAuth authModal={this.state.authModal}
+                  hideAuthModal={this.hideAuthModal}
+                  renderLocations={this.props.renderLocations}
+          />
           <OurModal show1={this.state.show1}
             show2={this.state.show2}
             toggleModal1={this.toggleModal1}
@@ -248,6 +259,7 @@ class Info extends Component {
                 <button type="button" className="btn btn-outline-primary rounded-pill" id="write-review" onClick={this.toggleReview}>Write a Review</button>
                 <ModalAuth authModal={this.state.authModal}
                   hideAuthModal={this.hideAuthModal}
+                  renderLocations={this.props.renderLocations}
           />
               </div>
             </div>
