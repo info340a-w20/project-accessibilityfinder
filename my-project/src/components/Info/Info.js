@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import './Info.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faBookmark, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import OurModal from '../Modal/Modal';
 import Review from '../Review/Review';
 import firebase from "firebase";
-import placeholder from "../../placeholder.png"
-
+import placeholder from '../../placeholder.png';
 
 class Info extends Component {
   constructor(props) {
@@ -58,11 +57,6 @@ class Info extends Component {
     this.setState({ reviewText: e.target.value });
   }
 
-  handleReviews = () => {
-
-
-  }
-
   addReview = () => {
     let n = new Date();
     let y = n.getFullYear();
@@ -73,33 +67,30 @@ class Info extends Component {
     let ampm = n.getHours() >= 12 ? "PM" : "AM";
     let currentDate = "" + m + "/" + d + "/" + y + " " + h + ":" + min + ampm;
     let currentUser = "";
+
     if (!this.props.username) {
       currentUser = "Anonymous"
     } else {
       currentUser = this.props.username;
     }
+
     let review = {
       reviewContent: this.state.reviewText,
       username: currentUser,
       date:currentDate
     }
-    let placeID = this.state.item.uniqueID;
-    console.log(placeID);
-    let placeRef = firebase.database().ref('reviews/' + placeID);
-    // let placeRef = this.props.reviewRev..ref(placeID); //an object of tasks
-    // let place = this.props.reviewRef.child(placeID)
-    // let placeRef = firebase.database().ref(place)
 
-    
+    let placeID = this.state.item.uniqueID;
+    let placeRef = firebase.database().ref('reviews/' + placeID);
 
     placeRef.push({
       reviewContent: this.state.reviewText,
       username: currentUser,
       datePosted: currentDate,
-      time:firebase.database.ServerValue.TIMESTAMP, 
+      time:firebase.database.ServerValue.TIMESTAMP,
       likes:0,
       locationName: this.state.item.name
-  });
+    });
 
     this.setState({
       locationReviews: [review, ...this.state.locationReviews],
@@ -109,7 +100,6 @@ class Info extends Component {
     this.setState({ reviewText: '' });
   }
 
-  //prolly a better way to access key/value but it is late so brain is dead
   renderReviews() {
     let showReviews = []
     let reviews = this.props.reviews;
@@ -122,13 +112,24 @@ class Info extends Component {
           showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
         })
       }
-    })
+    })}
+    return showReviews;
   }
-  return showReviews;
-}
-    
+
   render() {
     let item = this.state.item;
+    let addrLink = "http://maps.google.com/?q=" + item.longAddress;
+    let telLink = "tel:" + item.phone;
+
+    //maybe store this somewhere else
+    let placeID = this.state.item.uniqueID;
+    let bookmarkRef = firebase.database().ref('bookmarks/' + placeID);
+    bookmarkRef.push({
+      time:firebase.database.ServerValue.TIMESTAMP,
+      bookmarked: false,
+      locationName: this.state.item.name
+    });
+
     return (
       <div className="left-view" id="info-view">
         <div className="infoHeader flex" id="info-Header" >
@@ -137,22 +138,22 @@ class Info extends Component {
             <Link to="/list" id="back-button" className="btn btn-outline-primary rounded-pill">
               <FontAwesomeIcon icon={faChevronLeft} />
             </Link>
-            <h2>{item.name}</h2>
+            <h2>{item.name} <FontAwesomeIcon icon={faBookmark} type="button" onClick={""} style={""} aria-label="bookmark"/></h2>
             <h6 className="text-secondary">{item.type}</h6>
             <div className="flex info-details">
-              <FontAwesomeIcon icon={faHome} className="fa-fw" aria-hidden="true" />
-              <a className="info-link" href="">{item.longAddress}</a>
+              <FontAwesomeIcon icon={faHome} className="fa-fw" aria-label="address" />
+              <a className="info-link" href={addrLink}>{item.longAddress}</a>
             </div>
             <div className="flex info-details">
-              <FontAwesomeIcon icon={faEnvelope} className="fa-fw" aria-hidden="true" />
-              <a className="info-link" href="">{item.website}</a>
+              <FontAwesomeIcon icon={faEnvelope} className="fa-fw" aria-label="website" />
+              <a className="info-link" href={item.website}>{item.website}</a>
             </div>
             <div className="flex info-details">
-              <FontAwesomeIcon icon={faPhone} className="fa-fw" aria-hidden="true" />
-              <a className="info-link" href="">{item.phone}</a>
+              <FontAwesomeIcon icon={faPhone} className="fa-fw" aria-label="phone" />
+              <a className="info-link" href={telLink}>{item.phone}</a>
             </div>
             <div className="flex hours-link info-details">
-              <FontAwesomeIcon icon={faClock} className="fa-fw" aria-hidden="true" />
+              <FontAwesomeIcon icon={faClock} className="fa-fw" aria-label="hours" />
               Hours: {item.hours}
             </div>
           </div>
@@ -167,13 +168,13 @@ class Info extends Component {
           />
           <div className="flex">
             <h4>
-              <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+              <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" aria-hidden="true" />
               Mobility related assistance
               </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground"
-            ><FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
+            ><FontAwesomeIcon icon={this.mobilityCheck()} />
               Wheelchair accessible
               </li>
             <li className="list-group-item nobackground">

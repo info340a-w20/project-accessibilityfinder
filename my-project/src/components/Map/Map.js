@@ -43,7 +43,7 @@ export class MapDisplay extends Component {
         });
     }
 
-  
+
     render() {
         return (
 
@@ -61,7 +61,7 @@ export class MapDisplay extends Component {
                     />
                     {this.props.itemsToDisplay ? this.props.itemsToDisplay.map((location, id) =>
                         <Marker position={[location.lat, location.lon]}>
-                            <Popup ref={this.popup} onOpen={(e) => this.open()}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
+                            <Popup ref={this.popup}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
                         </Marker> ) : <Marker position={this.state.center}></Marker>}
 
                 </Map>

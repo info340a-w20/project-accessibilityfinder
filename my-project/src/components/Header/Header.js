@@ -41,31 +41,31 @@ class Header extends Component {
     }
   }
 
-    render() {
-        return (
-          <header>
-            <nav class="navbar universal-nav">
-              <Link to="/" class="navbar-brand mb-0 h1 text-white" onClick={(e) => this.props.renderLocations()}>
-                <span id="name">Accessibility Finder</span>
-                <span id="acronym">Access</span>
+  render() {
+    return (
+      <header>
+        <nav class="navbar universal-nav">
+          <div id="nav-link">
+            <Link to="/" class="navbar-brand mb-0 h1 text-white" onClick={(e) => this.props.renderLocations()}>
+              <span id="name">Accessibility Finder</span>
+              <span id="acronym">Access</span>
+            </Link>
+            {this.props.isSignedIn ?
+              <span>
+                <Link to="/bookmarks" class="nav-item text-white">Bookmarks</Link>
+                <Link to="/" onClick={this.props.handleSignOut} class="nav-item text-white">Sign Out</Link>
+              </span> :
+              <Link to="/signin" class="nav-item text-white" onClick={(e) => this.props.renderLocations()}>Sign In</Link>}
+          </div>
+          <div class="input-group">
+            <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
+            <div class="input-group-append">
+              <Link to="/list" id="main-places-search" class="btn btn-outline-light" type="button" onClick={(e) => {
+                  this.props.handleSearch(this.state.inputtedText); this.setState({inputtedText: ''}); }
+              } >
+                <FontAwesomeIcon icon={faSearch} aria-label="search" />
               </Link>
-              {this.props.isSignedIn ? <button onClick={this.props.handleSignOut} class="navbar-nav text-black">Sign-out</button> :
-              <Link to="/signin" class="navbar-nav mb-0 text-white" onClick={(e) => this.props.renderLocations()}>
-              Sign In
-              </Link>}
-              
-               
-                
-                <div class="input-group">
-                  <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
-                  <div class="input-group-append">
-                    <Link to="/list" id="main-places-search" class="btn btn-outline-light" type="button" onClick={(e) => {
-                        this.props.handleSearch(this.state.inputtedText); this.setState({inputtedText: ''}); }
-                    } >
-                      <FontAwesomeIcon icon={faSearch} aria-label="search" />
-                    </Link>
-                  </div>
-
+            </div>
           </div>
         </nav>
       </header>

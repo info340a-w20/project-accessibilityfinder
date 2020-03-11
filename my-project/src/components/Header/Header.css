@@ -1,20 +1,31 @@
 .universal-nav {
-    background-color: #34A4EB;
+  background-color: #34A4EB;
 }
+
 .input-group {
-    width: 45vw;
+  width: 45vw;
 }
+
 #acronym {
-    display: none;
+  display: none;
+}
+
+#nav-link {
+  display: block;
+  padding: 0;
+}
+
+span a {
+  padding-right: 10px;
 }
 
 /* 414px is iPhone+ */
 @media (max-width: 414px) {
-    #name {
-        display: none;
-    }
+  #name {
+    display: none;
+  }
 
-    #acronym {
-        display: inline;
-    }
+  #acronym {
+    display: inline;
+  }
 }
