@@ -62,19 +62,17 @@ export class App extends Component {
       noElements: false,
       fetchingNominatim: false,
       searchText: "",
-      googleFetch: false,
       reviewList: {},
       isSignedIn: false,
       onSignInPage: false,
       userName: "Anonymous",
     }
-    // Store references to 'favories' and 'public'
+    // Store references to 'favorites' and 'public'
     this.favoritesRef = firebase.database().ref("favorites");
     this.reviewsRef = firebase.database().ref("reviews");
 
     this.reviewsRef.on("value", (snapshot) => {
       console.log("something changed on firebase, so I will reset state")
-      
       this.setState({ reviews: snapshot.val() })
     })
     //this.like = this.like.bind(this);
@@ -108,16 +106,8 @@ export class App extends Component {
   }
 
 
+  //fetching from api according to state change(whether searching by name or clicking on an amenity)
   componentDidUpdate() {
-    // if (this.state.googleFetch) {
-    //   fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     this.setState({googleFetch: false});
-    //   });
-
-
     if (this.state.fetchingAmenity) {
       fetch('https://www.overpass-api.de/api/interpreter?data=[timeout:1][out:json];node[amenity=' + this.state.amenity + '](' + this.state.amenityLatLong + ');out%20meta;')
         .then((res) => res.json())
@@ -128,7 +118,6 @@ export class App extends Component {
         });
     }
     if (this.state.fetchingNominatim) {
-      //https://nominatim.openstreetmap.org/search?q=target&format=json&viewbox=-122.459696,47.481002,-122.224433,47.734136&bounded=1
       fetch('https://nominatim.openstreetmap.org/search?q=' + this.state.searchText + '&format=json&viewbox=' + this.state.searchLatLong + '&bounded=1&extratags=1&addressdetails=1')
         .then((response) => {
           return response.json();
@@ -141,10 +130,6 @@ export class App extends Component {
     }
   }
 
-  renderLocation = () => {
-    this.setState({ displayedListItems: [] })
-  }
-
   handleSearchBar = (newSearch) => {
     this.setState({
       itemsToDisplay: [],
@@ -153,6 +138,19 @@ export class App extends Component {
     });
   }
 
+  handleAmenitySearch = (newAmenity) => {
+    this.setState({
+      amenity: newAmenity,
+      fetchingAmenity: true,
+    });
+  }
+
+  //clears all location if user presses on nav link to home page
+  renderLocation = () => {
+    this.setState({ displayedListItems: [] })
+  }
+
+  //adds reviews added to the state of the item as a name-of-place:review pair
   handleReviews = (reviews, key) => {
     this.setState(prevState => ({
       reviewList: {                   // object that we want to update
@@ -163,12 +161,9 @@ export class App extends Component {
 
   }
 
-  handleAmenitySearch = (newAmenity) => {
-    this.setState({
-      amenity: newAmenity,
-      fetchingAmenity: true,
-    });
-  }
+  /*
+   * Next 3 methods are for interacting with the leaflet map
+   */
 
   handleMapMovement = (bounds) => {
     this.mapBoundNomi(bounds);
@@ -190,12 +185,14 @@ export class App extends Component {
     let strLatLong = "" + latlong[0].lat + "," + latlong[0].lng + "," + latlong[1].lat + "," + latlong[1].lng;
     this.setState({ amenityLatLong: strLatLong });
   }
+
+  //to check whether user is on sign in page
   isLoggingIn = () => {
     this.setState({ onSignInPage: true })
   }
 
-
-
+  //Proccesses the data from either overpass or nominatim api calls
+  //Organizes the data into simple objects with all the info we need extracted
   processData = (json) => {
     if (json.length == 0) {
       this.setState({ noElements: true })
@@ -237,8 +234,6 @@ export class App extends Component {
         processedData.lon = e.lon;
         processedData.id = i;
         processedData.uniqueID = e.osm_id;
-
-
       } else {
         processedData.name = e.tags.name;
         processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
@@ -259,13 +254,7 @@ export class App extends Component {
     this.setState({ displayedListItems: newItems })
   }
 
-
-
   render() {
-    // If the state is not currently signed in, return a simple sign in screen
-    // See: https://github.com/firebase/firebaseui-web-react#using-styledfirebaseauth-with-a-redirect  
-    console.log(this.state);
-
     return (
       <main>
         <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth}
@@ -273,7 +262,6 @@ export class App extends Component {
         {this.state.isSignedIn ? <div> YOU ARE SIGNED IN RIGHT NOW</div> : <> </>}
         <Switch>
           <Route path="/signin"> {!!firebase.auth().currentUser ? <Redirect to="/" /> : <LogIn login={this.isLoggingIn} uiConfig={uiConfig} fbAuth={firebase.auth} />} </Route>
-
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
           <Route path="/list" render={(props) => <List {...props}
             itemsToDisplay={this.state.displayedListItems}
@@ -285,13 +273,13 @@ export class App extends Component {
             itemsToDisplay={this.state.displayedListItems}
             username={this.state.userName}
             reviewRef={this.reviewsRef}
-            reviews={this.state.reviews} />} />
+            reviews={this.state.reviews}
+            fbAuth={firebase.auth()} />} />
         </Switch>
         {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
           <>
           </>
         }
-
         <Footer />
       </main>
     );

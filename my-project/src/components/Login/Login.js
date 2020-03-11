@@ -13,7 +13,6 @@ class LogIn extends Component{
           this.props.login();
       }
 
-
       render () {
         return (
             <div>

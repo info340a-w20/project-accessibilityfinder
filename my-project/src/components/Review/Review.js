@@ -7,13 +7,6 @@ class Review extends Component {
   }
 
   render() {
-    let n = new Date();
-    let y = n.getFullYear();
-    let m = n.getMonth() + 1;
-    let d = n.getDate();
-    let h = n.getHours() > 12 ? n.getHours() - 12 : n.getHours();
-    let min = n.getMinutes() < 10 ? "0" + n.getMinutes() : n.getMinutes();
-    let ampm = n.getHours() >= 12 ? "PM" : "AM";
     return(
       <div className="review">
         <div class="info">

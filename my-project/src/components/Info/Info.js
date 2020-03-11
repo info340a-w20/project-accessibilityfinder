@@ -8,6 +8,7 @@ import OurModal from '../Modal/Modal';
 import Review from '../Review/Review';
 import firebase from "firebase";
 import placeholder from '../../placeholder.png';
+import ModalAuth from "../ModalAuth/ModalAuth"
 
 class Info extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Info extends Component {
       item: {},
       show1: false,
       show2: false,
+      authModal: false,
       showTextbox: false,
       reviewText: '',
       locationReviews: []
@@ -25,7 +27,6 @@ class Info extends Component {
   componentDidMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-
   }
 
   mobilityCheck() {
@@ -50,7 +51,15 @@ class Info extends Component {
   }
 
   toggleReview = () => {
-    this.setState({ showTextbox: !this.state.showTextbox });
+    if (!!this.props.fbAuth.currentUser) {
+      this.setState({ showTextbox: !this.state.showTextbox })
+    } else {
+      this.setState({ authModal: true })
+    }
+  }
+
+  hideAuthModal = () => {
+    this.setState({authModal: false})
   }
 
   handleChange = (e) => {
@@ -101,12 +110,10 @@ class Info extends Component {
   }
 
   renderReviews() {
-    let showReviews = []
-    let reviews = this.props.reviews;
-
+    let showReviews = [];
     //There has to be a better way to do this! a lot of looping going on!
     // There was some explanation in info340 book but I couldn't understand
-    {reviews && Object.entries(reviews).map((d, i) => {
+    {this.props.reviews && Object.entries(this.props.reviews).map((d, i) => {
       if (d[0] == this.state.item.uniqueID) {
         Object.values(d[1]).forEach((r, i) => {
           showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
@@ -120,15 +127,16 @@ class Info extends Component {
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
+    console.log(this.props.fbAuth.currentUser);
 
     //maybe store this somewhere else
     let placeID = this.state.item.uniqueID;
-    let bookmarkRef = firebase.database().ref('bookmarks/' + placeID);
-    bookmarkRef.push({
-      time:firebase.database.ServerValue.TIMESTAMP,
-      bookmarked: false,
-      locationName: this.state.item.name
-    });
+    // let bookmarkRef = firebase.database().ref('bookmarks/' + placeID);
+    // bookmarkRef.push({
+    //   time:firebase.database.ServerValue.TIMESTAMP,
+    //   bookmarked: false,
+    //   locationName: this.state.item.name
+    // });
 
     return (
       <div className="left-view" id="info-view">
@@ -238,6 +246,9 @@ class Info extends Component {
               <h4 className="reviews-title">Reviews</h4>
               <div className="flex reviews-buttons">
                 <button type="button" className="btn btn-outline-primary rounded-pill" id="write-review" onClick={this.toggleReview}>Write a Review</button>
+                <ModalAuth authModal={this.state.authModal}
+                  hideAuthModal={this.hideAuthModal}
+          />
               </div>
             </div>
             <form id="review-form" style={this.state.showTextbox ? { display: "block" } : { display: "none" }}>

@@ -8,14 +8,10 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import { HashRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
 
-
-
-
 export class MapDisplay extends Component {
     constructor(props) {
         super(props);
         this.popup = React.createRef();
-
         this.state = {
             zoom: 13,
             lat: 47.606209,
@@ -25,24 +21,9 @@ export class MapDisplay extends Component {
         }
     }
 
-    componentDidMount() {
-        // console.log(this.refs.map.leafletElement);
-    }
-
-
     onMapMoveEnd = (e) => {
         this.props.handleMapMovement(e.target.getBounds());
     }
-
-
-    createMarkers = () => {
-        this.props.itemsToDisplay.forEach((location, i) => {
-            return (<Marker position={location.lat, location.lon}>
-                <Popup>{location.name}.<br />{location.name}</Popup>
-            </Marker>);
-        });
-    }
-
 
     render() {
         return (
