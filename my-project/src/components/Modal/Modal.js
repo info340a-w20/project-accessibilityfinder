@@ -7,6 +7,16 @@ import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, ModalDi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faWheelchair, faDoorOpen, faChair, faBraille, faHeadphonesAlt, faAudioDescription, faClosedCaptioning, faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
 
+const initialState = {
+  wheelchair: false,
+  ada: false,
+  stadium: false,
+  braille: false,
+  dn: false,
+  ad: false,
+  cc: false,
+  als: false
+};
 export class OurModal extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +36,13 @@ export class OurModal extends Component {
     let obj = {};
     obj[key] = !this.state[key];
     this.setState(obj);
+  }
+
+  getCrowdsource = () => {
+    let crowdsource = this.state;
+    this.props.handleCrowdsource(crowdsource);
+    this.props.toggleBoth();        
+    this.setState(initialState);
   }
 
   // fix later. also toggle checked
@@ -120,7 +137,7 @@ export class OurModal extends Component {
                 <span>Assistive listening systems</span>
               </label>
             <Modal.Footer>
-              <Button id="cs-submit" disabled={this.toggleSubmit()} variant="primary" onClick={(e) => this.props.toggleBoth()}>Submit</Button>
+              <Button id="cs-submit" disabled={this.toggleSubmit()} variant="primary" onClick={(e) => this.getCrowdsource()}>Submit</Button>
             </Modal.Footer>
           </form>
         </Modal.Body>

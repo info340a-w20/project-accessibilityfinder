@@ -24,9 +24,37 @@ class Info extends Component {
     }
   }
 
+  componentWillMount() {
+    let num = this.props.location.pathname.split("/")[2];
+    this.setState({ item: this.props.itemsToDisplay[num] });
+    console.log(this.props.crowdsourcingData)
+    {Object.entries(this.props.crowdsourcingData).map((d, i) => {
+      if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
+        Object.entries(d[1]).forEach((r, i) => {
+          this.setState({[r[0]]: Object.keys(r[1]).length})
+        })
+      }
+    })}
+  }
+
   componentDidMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
+  }
+
+  handleCrowdsource = (crowdsource) => {
+    console.log(crowdsource);
+    Object.entries(crowdsource).forEach((c, i) => {
+      let placeID = this.state.item.uniqueID;
+      let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
+      const crowdsourceRef = placeRef.child(c[0] + "/" + firebase.auth().currentUser.uid);        
+      crowdsourceRef.once('value').then(function(snap) {
+          if(c[1] === true) {
+            crowdsourceRef.set({val:1})
+          }      
+      })
+    })
+    
   }
 
   mobilityCheck() {
@@ -135,6 +163,7 @@ class Info extends Component {
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
+    console.log(this.state);
 
     //maybe store this somewhere else
     let placeID = this.state.item.uniqueID;
@@ -184,6 +213,8 @@ class Info extends Component {
             toggleModal1={this.toggleModal1}
             toggleModal2={this.toggleModal2}
             toggleBoth={this.toggleBoth}
+            handleCrowdsource={this.handleCrowdsource}
+
           />
           <div className="flex">
             <h4>
