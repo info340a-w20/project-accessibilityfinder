@@ -68,8 +68,12 @@ export class App extends Component {
       userName: "Anonymous",
     }
     // Store references to 'favorites' and 'public'
-    this.favoritesRef = firebase.database().ref("favorites");
+    this.crowdsourcingRef = firebase.database().ref("crowdsourcing");
     this.reviewsRef = firebase.database().ref("reviews");
+    this.crowdsourcingRef.on("value", (snapshot) => {
+      console.log("something changed on firebase, so I will reset state")
+      this.setState({ crowdsourcing: snapshot.val() })
+    })
 
     this.reviewsRef.on("value", (snapshot) => {
       console.log("something changed on firebase, so I will reset state")
@@ -258,6 +262,7 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <main>
         <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth}
@@ -278,7 +283,8 @@ export class App extends Component {
             reviewRef={this.reviewsRef}
             reviews={this.state.reviews}
             fbAuth={firebase.auth()}
-            renderLocations={this.renderLocation} />} />
+            renderLocations={this.renderLocation}
+            crowdsourcingData={this.state.crowdsourcing} />} />
         </Switch>
         {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
           <>
