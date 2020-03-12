@@ -27,7 +27,6 @@ class Info extends Component {
   componentWillMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    console.log(this.props.crowdsourcingData)
     {Object.entries(this.props.crowdsourcingData).map((d, i) => {
       if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
         Object.entries(d[1]).forEach((r, i) => {
@@ -43,7 +42,6 @@ class Info extends Component {
   }
 
   handleCrowdsource = (crowdsource) => {
-    console.log(crowdsource);
     Object.entries(crowdsource).forEach((c, i) => {
       let placeID = this.state.item.uniqueID;
       let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
@@ -51,17 +49,18 @@ class Info extends Component {
       crowdsourceRef.once('value').then(function(snap) {
           if(c[1] === true) {
             crowdsourceRef.set({val:1})
+          } else {
+            crowdsourceRef.remove()
           }
       })
     })
-
   }
 
   mobilityCheck() {
     if (this.state.item.wheelchair) {
       return faCheckCircle;
     } else if (this.state.wheelchair || this.state.ada || this.state.stadium) {
-      return faCheckCircle; 
+      return faCheckCircle;
     } else {
       return faTimesCircle;
     }
@@ -175,7 +174,6 @@ class Info extends Component {
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
-    console.log(this.state);
 
     //maybe store this somewhere else
     let placeID = this.state.item.uniqueID;
@@ -226,7 +224,8 @@ class Info extends Component {
             toggleModal2={this.toggleModal2}
             toggleBoth={this.toggleBoth}
             handleCrowdsource={this.handleCrowdsource}
-
+            crowdsourcingData={this.props.crowdsourcingData}
+            uniqueID={this.state.item.uniqueID}
           />
           <div className="flex">
             <h4>
@@ -236,7 +235,7 @@ class Info extends Component {
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={this.state.wheelchair ? faCheckCircle : faTimesCircle} />
+              <FontAwesomeIcon icon={this.mobilityCheck()} />
               Wheelchair accessible
               {this.state.wheelchair ? <div class="cs-num">{this.state.wheelchair} person(s) endorsed this </div> : <></>}
             </li>

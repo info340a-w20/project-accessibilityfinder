@@ -7,19 +7,10 @@ import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, ModalDi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faWheelchair, faDoorOpen, faChair, faBraille, faHeadphonesAlt, faAudioDescription, faClosedCaptioning, faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
 
-const initialState = {
-  wheelchair: false,
-  ada: false,
-  stadium: false,
-  braille: false,
-  dn: false,
-  ad: false,
-  cc: false,
-  als: false
-};
 export class OurModal extends Component {
   constructor(props) {
     super(props);
+    this.submitted = false;
     this.state = {
       wheelchair: false,
       ada: false,
@@ -32,6 +23,19 @@ export class OurModal extends Component {
     }
   }
 
+  componentWillMount() {
+    if (this.props.crowdsourcingData) {
+      {Object.entries(this.props.crowdsourcingData).map((d, i) => {
+        if (d[0] == this.props.uniqueID) {
+          Object.entries(d[1]).forEach((r, i) => {
+            this.setState({[r[0]]: true})
+          })
+          this.submitted = true;
+        }
+      })}
+    }
+  }
+
   color(key) {
     let obj = {};
     obj[key] = !this.state[key];
@@ -41,8 +45,7 @@ export class OurModal extends Component {
   getCrowdsource = () => {
     let crowdsource = this.state;
     this.props.handleCrowdsource(crowdsource);
-    this.props.toggleBoth();        
-    this.setState(initialState);
+    this.props.toggleBoth();
   }
 
   // fix later. also toggle checked
@@ -60,7 +63,7 @@ export class OurModal extends Component {
       <div>
         <Modal id="editModal" show={this.props.show1} onHide={this.props.toggleModal1} aria-labelledby="editModalLabel" aria-hidden="true" centered>
           <Modal.Header closeButton>
-            <Modal.Title id="editModalLabel">Submit an edit</Modal.Title>
+            <Modal.Title id="editModalLabel">{this.submitted ? "Edit your submission" : "Submit an edit"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form id="crowdsource">

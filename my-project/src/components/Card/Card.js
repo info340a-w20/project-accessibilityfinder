@@ -28,7 +28,7 @@ class Card extends Component {
     if (this.props.item.mobilityCheck) {
       return <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>;
     } else if (this.state.wheelchair || this.state.ada || this.state.stadium) {
-      return <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>; 
+      return <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>;
     } else {
       return <FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon>;
     }
