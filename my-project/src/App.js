@@ -68,6 +68,7 @@ export class App extends Component {
       userName: "Anonymous",
     }
     // Store references to 'favorites' and 'public'
+    this.favoritesRef = firebase.database().ref("favorites");
     this.crowdsourcingRef = firebase.database().ref("crowdsourcing");
     this.reviewsRef = firebase.database().ref("reviews");
     this.crowdsourcingRef.on("value", (snapshot) => {

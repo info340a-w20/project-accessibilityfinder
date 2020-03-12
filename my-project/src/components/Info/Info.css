@@ -1,11 +1,13 @@
-li .fa-layers-text {
-  font-size: 100%;
+.cs-num {
+  margin-left: 34px;
+  font-size: 90%;
 }
 
-li span {
-  font-size: 110%;
+.list-group-item {
+  padding: 8px 20px;
 }
 
+/*bookmark*/
 h2 svg {
   color: lightgrey;
   margin-left: 8px;
@@ -129,10 +131,6 @@ h2 svg {
 
 .fa-check-circle {
     color: blue;
-}
-
-.fa-circle {
-    color: gray;
 }
 
 #review-form {

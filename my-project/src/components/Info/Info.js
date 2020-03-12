@@ -226,7 +226,7 @@ class Info extends Component {
             <h4>
               <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" aria-hidden="true" />
               Mobility related assistance
-              </h4>
+            </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
@@ -249,7 +249,7 @@ class Info extends Component {
             <h4>
               <FontAwesomeIcon icon={faTimesCircle} className="icon" />
               Vision related assistance
-              </h4>
+            </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
@@ -267,7 +267,7 @@ class Info extends Component {
             <h4>
               <FontAwesomeIcon icon={faTimesCircle} className="icon" />
               Hearing related assistance
-              </h4>
+            </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
@@ -305,7 +305,7 @@ class Info extends Component {
                 <ModalAuth authModal={this.state.authModal}
                   hideAuthModal={this.hideAuthModal}
                   renderLocations={this.props.renderLocations}
-          />
+                />
               </div>
             </div>
             <form id="review-form" style={this.state.showTextbox ? { display: "block" } : { display: "none" }}>

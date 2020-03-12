@@ -18,7 +18,6 @@ class LogIn extends Component{
         return (
             <Container>
                 <h1>Sign In To Make A Difference!</h1>
-            
             <div>
                 <StyledFirebaseAuth uiConfig={this.props.uiConfig} firebaseAuth={this.props.fbAuth()} />
             </div>
