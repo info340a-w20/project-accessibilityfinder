@@ -51,7 +51,7 @@ class Header extends Component {
             </Link>
             {this.props.isSignedIn ?
               <span>
-                <Link to="/bookmarks" class="nav-item text-white">Bookmarks</Link>
+                <div class="initial">{this.props.user[0]}</div>
                 <Link to="/" onClick={this.props.handleSignOut} class="nav-item text-white">Sign Out</Link>
               </span> :
               <Link to="/signin" class="nav-item text-white" onClick={(e) => this.props.renderLocations()}>Sign In</Link>}

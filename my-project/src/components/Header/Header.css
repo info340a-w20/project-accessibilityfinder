@@ -29,3 +29,14 @@ span a {
     display: inline;
   }
 }
+
+.initial {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: grey;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  color: white;
+  margin-right: 16px;
+}

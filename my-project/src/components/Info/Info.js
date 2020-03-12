@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './Info.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faChevronLeft, faBookmark, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faChevronLeft, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import OurModal from '../Modal/Modal';
 import Review from '../Review/Review';
@@ -192,7 +192,7 @@ class Info extends Component {
             <Link to="/list" id="back-button" className="btn btn-outline-primary rounded-pill">
               <FontAwesomeIcon icon={faChevronLeft} />
             </Link>
-            <h2>{item.name} <FontAwesomeIcon icon={faBookmark} type="button" onClick={""} style={""} aria-label="bookmark"/></h2>
+            <h2>{item.name}</h2>
             <h6 className="text-secondary">{item.type}</h6>
             <div className="flex info-details">
               <FontAwesomeIcon icon={faHome} className="fa-fw" aria-label="address" />

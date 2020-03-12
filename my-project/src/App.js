@@ -263,11 +263,15 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.state.displayedListItems);
     return (
       <main>
-        <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth}
-          isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut} />
-        {this.state.isSignedIn ? <div> YOU ARE SIGNED IN RIGHT NOW</div> : <> </>}
+        <Header handleSearch={this.handleSearchBar}
+                renderLocations={this.renderLocation}
+                uiConfig={uiConfig} fbAuth={firebase.auth}
+                isSignedIn={this.state.isSignedIn}
+                handleSignOut={this.handleSignOut}
+                user={this.state.userName} />
         <Switch>
           <Route path="/signin"> {!!firebase.auth().currentUser ? <Redirect to="/" /> : <LogIn login={this.isLoggingIn} uiConfig={uiConfig} fbAuth={firebase.auth} />} </Route>
           <Route exact path="/" render={(props) => <HomePage {...props} handleAmenitySearch={this.handleAmenitySearch} />} />
