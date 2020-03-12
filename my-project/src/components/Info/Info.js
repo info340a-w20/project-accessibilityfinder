@@ -47,14 +47,14 @@ class Info extends Component {
     Object.entries(crowdsource).forEach((c, i) => {
       let placeID = this.state.item.uniqueID;
       let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
-      const crowdsourceRef = placeRef.child(c[0] + "/" + firebase.auth().currentUser.uid);        
+      const crowdsourceRef = placeRef.child(c[0] + "/" + firebase.auth().currentUser.uid);
       crowdsourceRef.once('value').then(function(snap) {
           if(c[1] === true) {
             crowdsourceRef.set({val:1})
-          }      
+          }
       })
     })
-    
+
   }
 
   mobilityCheck() {
@@ -159,6 +159,12 @@ class Info extends Component {
     return showReviews;
   }
 
+  // <span class="cs-text">Wheelchair accessible</span>
+  // <span class="fa-layers fa-fw">
+  //   <FontAwesomeIcon icon={faCircle} />
+  //   <span class="fa-layers-text fa-inverse" style={{fontWeight:"500"}}>1</span>
+  // </span>
+
   render() {
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
@@ -224,19 +230,19 @@ class Info extends Component {
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
-              <span class="fa-layers fa-fw">
-                <FontAwesomeIcon icon={faCircle} />
-                <span class="fa-layers-text fa-inverse" style={{fontWeight:"500"}}>1</span>
-              </span>
-                <span class="cs-text">Wheelchair accessible</span>
+              <FontAwesomeIcon icon={this.state.wheelchair ? faCheckCircle : faTimesCircle} />
+              Wheelchair accessible
+              {this.state.wheelchair ? <div class="cs-num">{this.state.wheelchair} person(s) endorsed this </div> : <></>}
             </li>
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.ada ? faCheckCircle : faTimesCircle} />
               ADA doorways
+              {this.state.ada ? <div class="cs-num">{this.state.ada} person(s) endorsed this </div> : <></>}
               </li>
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.stadium ? faCheckCircle : faTimesCircle} />
               Stadium seating
+              {this.state.stadium ? <div class="cs-num">{this.state.stadium} person(s) endorsed this </div> : <></>}
               </li>
           </ul>
           <div className="flex">
@@ -247,12 +253,14 @@ class Info extends Component {
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.braille ? faCheckCircle : faTimesCircle} />
               Braille
+              {this.state.braille ? <div class="cs-num">{this.state.braille} person(s) endorsed this </div> : <></>}
               </li>
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.dn ? faCheckCircle : faTimesCircle} />
               Descriptive narration
+              {this.state.dn ? <div class="cs-num">{this.state.dn} person(s) endorsed this </div> : <></>}
               </li>
           </ul>
           <div className="flex">
@@ -263,16 +271,19 @@ class Info extends Component {
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.ad ? faCheckCircle : faTimesCircle} />
               Audio description
+              {this.state.ad ? <div class="cs-num">{this.state.ad} person(s) endorsed this </div> : <></>}
               </li>
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.cc ? faCheckCircle : faTimesCircle} />
               Closed captioning
+              {this.state.cc ? <div class="cs-num">{this.state.cc} person(s) endorsed this </div> : <></>}
               </li>
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={faTimesCircle} />
+              <FontAwesomeIcon icon={this.state.als ? faCheckCircle : faTimesCircle} />
               Assisted listening devices
+              {this.state.als ? <div class="cs-num">{this.state.als} person(s) endorsed this </div> : <></>}
               </li>
           </ul>
           <hr />
