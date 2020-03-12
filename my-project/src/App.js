@@ -231,7 +231,7 @@ export class App extends Component {
         processedData.name = e.address[Object.keys(e.address)[0]];
         processedData.type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
         processedData.addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
-        processedData.mobilityCheck = e.extratags.wheelchair != null ? <FontAwesomeIcon icon={faCheckCircle} /> : <FontAwesomeIcon icon={faTimesCircle} />;
+        processedData.mobilityCheck = e.extratags.wheelchair != null ? true : false;
         processedData.longAddress = e.address.house_number + " " + e.address.road + ", " + e.address.city + ", " + e.address.state + " " + e.address.postcode;
         processedData.website = e.extratags.website != null ? e.extratags.website : "-";
         processedData.phone = e.extratags.phone != null ? e.extratags.phone : "-";
@@ -245,7 +245,7 @@ export class App extends Component {
         processedData.name = e.tags.name;
         processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
         processedData.addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
-        processedData.mobilityCheck = e.tags.wheelchair != null ? <FontAwesomeIcon icon={faCheckCircle} /> : <FontAwesomeIcon icon={faTimesCircle} />;
+        processedData.mobilityCheck = e.tags.wheelchair != null ? true : false;
         processedData.longAddress = e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " + e.tags["addr:city"] + " " + e.tags["addr:postcode"];
         processedData.website = e.tags.website != null ? e.tags.website : "--";
         processedData.phone = e.tags.phone != null ? e.tags.phone : "--";
@@ -262,7 +262,6 @@ export class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <main>
         <Header handleSearch={this.handleSearchBar} renderLocations={this.renderLocation} uiConfig={uiConfig} fbAuth={firebase.auth}
@@ -275,6 +274,7 @@ export class App extends Component {
             itemsToDisplay={this.state.displayedListItems}
             handleAmenitySearch={this.handleAmenitySearch}
             isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
+            crowdsourcingData={this.state.crowdsourcing}
           />} />
           <Route path="/info/:id" render={(props) => <Info {...props} handleReviews={this.handleReviews}
             reviewList={this.state.reviewList}
