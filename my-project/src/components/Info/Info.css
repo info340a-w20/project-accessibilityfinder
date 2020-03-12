@@ -1,3 +1,11 @@
+li .fa-layers-text {
+  font-size: 100%;
+}
+
+li span {
+  font-size: 110%;
+}
+
 h2 svg {
   color: lightgrey;
   margin-left: 8px;
@@ -123,7 +131,7 @@ h2 svg {
     color: blue;
 }
 
-.fa-times-circle {
+.fa-circle {
     color: gray;
 }
 

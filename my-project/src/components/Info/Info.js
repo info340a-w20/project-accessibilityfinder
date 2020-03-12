@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './Info.css';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faBookmark, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faChevronLeft, faBookmark, faHome, faEnvelope, faPhone, faClock, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import OurModal from '../Modal/Modal';
 import Review from '../Review/Review';
@@ -192,10 +192,13 @@ class Info extends Component {
               </h4>
           </div>
           <ul className="list-group list-group-flush nobackground">
-            <li className="list-group-item nobackground"
-            ><FontAwesomeIcon icon={this.mobilityCheck()} />
-              Wheelchair accessible
-              </li>
+            <li className="list-group-item nobackground">
+              <span class="fa-layers fa-fw">
+                <FontAwesomeIcon icon={faCircle} />
+                <span class="fa-layers-text fa-inverse" style={{fontWeight:"500"}}>1</span>
+              </span>
+                <span class="cs-text">Wheelchair accessible</span>
+            </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={faTimesCircle} />
               ADA doorways
