@@ -41,7 +41,7 @@ class Info extends Component {
     this.setState({ item: this.props.itemsToDisplay[num] });
   }
 
-  handleCrowdsource = (crowdsource) => {
+  handleCrowdsource = (crowdsource, f) => {
     Object.entries(crowdsource).forEach((c, i) => {
       let placeID = this.state.item.uniqueID;
       let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
@@ -52,8 +52,10 @@ class Info extends Component {
           } else {
             crowdsourceRef.remove()
           }
+         
       })
     })
+   f = () => this.setState({state:this.state});
   }
 
   mobilityCheck() {
@@ -237,7 +239,8 @@ class Info extends Component {
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.mobilityCheck()} />
               Wheelchair accessible
-              {this.state.wheelchair ? <div class="cs-num">{this.state.wheelchair} person(s) endorsed this </div> : <></>}
+              {this.state.wheelchair && this.state.item.wheelchair ? <div class="cs-num">OpenStreetMap and {this.state.wheelchair} person(s) endorsed this </div> : this.state.wheelchair ?
+               <div class= "cs-num"> {this.state.wheelchair} person(s) endorsed this </div> : this.state.item.wheelchair ? <div class= "cs-num"> OpenStreetMap endorsed this </div> : <></>}
             </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.ada ? faCheckCircle : faTimesCircle} />

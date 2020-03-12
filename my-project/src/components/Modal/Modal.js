@@ -36,6 +36,10 @@ export class OurModal extends Component {
     }
   }
 
+  // componentWillUnmount() {
+  //   this.props.render();
+  // }
+
   color(key) {
     let obj = {};
     obj[key] = !this.state[key];
