@@ -58,7 +58,13 @@ class Info extends Component {
   }
 
   mobilityCheck() {
-    return this.state.item.wheelchair ? faCheckCircle : faTimesCircle;
+    if (this.state.item.wheelchair) {
+      return faCheckCircle;
+    } else if (this.state.wheelchair || this.state.ada || this.state.stadium) {
+      return faCheckCircle; 
+    } else {
+      return faTimesCircle;
+    }
   }
 
   hideModal2 = () => {
@@ -247,7 +253,7 @@ class Info extends Component {
           </ul>
           <div className="flex">
             <h4>
-              <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+              <FontAwesomeIcon icon={this.state.braille || this.state.dn ? faCheckCircle : faTimesCircle} className="icon" />
               Vision related assistance
             </h4>
           </div>
@@ -265,7 +271,7 @@ class Info extends Component {
           </ul>
           <div className="flex">
             <h4>
-              <FontAwesomeIcon icon={faTimesCircle} className="icon" />
+              <FontAwesomeIcon icon={this.state.ad || this.state.cc || this.state.als ? faCheckCircle : faTimesCircle} className="icon" />
               Hearing related assistance
             </h4>
           </div>
