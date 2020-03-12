@@ -19,6 +19,7 @@ span a {
   padding-right: 10px;
 }
 
+
 /* 414px is iPhone+ */
 @media (max-width: 414px) {
   #name {
