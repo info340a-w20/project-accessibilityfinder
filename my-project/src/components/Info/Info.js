@@ -41,21 +41,33 @@ class Info extends Component {
     this.setState({ item: this.props.itemsToDisplay[num] });
   }
 
+  updateCrowdsourcing = () => {
+    console.log(this.props.crowdsourcingData)
+    //reset crowdsourcing state
+    let num = this.props.location.pathname.split("/")[2];
+    this.setState({ item: this.props.itemsToDisplay[num] });
+    {Object.entries(this.props.crowdsourcingData).map((d, i) => {
+      if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
+        Object.entries(d[1]).forEach((r, i) => {
+          this.setState({[r[0]]: Object.keys(r[1]).length})
+        })
+      }
+    })}
+  }
+
   handleCrowdsource = (crowdsource, f) => {
     Object.entries(crowdsource).forEach((c, i) => {
       let placeID = this.state.item.uniqueID;
       let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
       const crowdsourceRef = placeRef.child(c[0] + "/" + firebase.auth().currentUser.uid);
       crowdsourceRef.once('value').then(function(snap) {
-          if(c[1] === true) {
-            crowdsourceRef.set({val:1})
-          } else {
-            crowdsourceRef.remove()
-          }
-         
+        if(c[1] === true) {
+          crowdsourceRef.set({val:1})
+        } else {
+          crowdsourceRef.remove()
+        }
       })
     })
-   f = () => this.setState({state:this.state});
   }
 
   mobilityCheck() {
@@ -159,7 +171,7 @@ class Info extends Component {
     {this.props.reviews && Object.entries(this.props.reviews).map((d, i) => {
       if (d[0] == this.state.item.uniqueID) {
         Object.values(d[1]).forEach((r, i) => {
-          showReviews.push(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
+          showReviews.unshift(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
         })
       }
     })}
@@ -173,6 +185,8 @@ class Info extends Component {
   // </span>
 
   render() {
+    console.log(this.state);
+    console.log(this.props.crowdsourcingData)
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
@@ -228,6 +242,7 @@ class Info extends Component {
             handleCrowdsource={this.handleCrowdsource}
             crowdsourcingData={this.props.crowdsourcingData}
             uniqueID={this.state.item.uniqueID}
+            updateCrowdsourcing={this.updateCrowdsourcing}
           />
           <div className="flex">
             <h4>

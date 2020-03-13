@@ -159,6 +159,7 @@ export class App extends Component {
   }
 
   //adds reviews added to the state of the item as a name-of-place:review pair
+  //deprecated?
   handleReviews = (reviews, key) => {
     this.setState(prevState => ({
       reviewList: {                   // object that we want to update
@@ -308,9 +309,10 @@ export class App extends Component {
             itemsToDisplay={this.state.displayedListItems}
             handleAmenitySearch={this.handleAmenitySearch}
             isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
-            crowdsourcingData={this.state.crowdsourcing}
-          />} />
-          <Route path="/info/:id" render={(props) => <Info {...props} handleReviews={this.handleReviews}
+            crowdsourcingData={this.state.crowdsourcing} />}
+          />
+          <Route path="/info/:id" render={(props) => <Info {...props}
+            handleReviews={this.handleReviews}
             reviewList={this.state.reviewList}
             itemsToDisplay={this.state.displayedListItems}
             username={this.state.userName}
@@ -318,7 +320,9 @@ export class App extends Component {
             reviews={this.state.reviews}
             fbAuth={firebase.auth()}
             renderLocations={this.renderLocation}
-            crowdsourcingData={this.state.crowdsourcing} />} />
+            crowdsourcingRef={this.crowdsourcingRef}
+            crowdsourcingData={this.state.crowdsourcing} />}
+          />
         </Switch>
         {!this.state.onSignInPage ? <MapDisplay handleMapMovement={this.handleMapMovement} itemsToDisplay={this.state.displayedListItems} /> :
           <>
