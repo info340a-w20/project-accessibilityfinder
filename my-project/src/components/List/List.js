@@ -21,7 +21,7 @@ class List extends Component {
           }
         });
         return rows;
-    } 
+    }
 
     render() {
         return (
@@ -32,7 +32,7 @@ class List extends Component {
                         ? <Spinner animation="border" role="status">
                             <span className="sr-only">Loading...</span>
                         </Spinner> :
-                        this.props.noElements ? <div><p>No results were</p></div> :
+                        this.props.noElements ? <div><p>No results were found</p></div> :
                             this.createCards()}
                 </div>
             </div>
