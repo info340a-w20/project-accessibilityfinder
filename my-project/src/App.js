@@ -205,75 +205,69 @@ export class App extends Component {
   processData = (json) => {
     if (json.length == 0) {
       this.setState({ noElements: true })
-      return;
+    } else {
+      this.setState({ noElements: false })
+      let newItems = [];
+      json.forEach( (e, i) => {
+        // added limit to increase render speed
+        if (i > 100) {
+          return;
+        }
+
+        let processedData = {
+          name: '',
+          type: '',
+          addr: '',
+          mobilityCheck: '',
+          longAddress: '',
+          website: '',
+          phone: '',
+          hours: '',
+          lat: '',
+          lon: '',
+          id: '',
+          uniqueID: '',
+          photoURL:'',
+        }
+
+        if (e.licence != null) {
+          processedData.name = e.address[Object.keys(e.address)[0]];
+          processedData.type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
+          processedData.addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
+          processedData.mobilityCheck = e.extratags.wheelchair != null ? true : false;
+          processedData.longAddress = e.address.house_number != null ? e.address.house_number + " " + e.address.road + ", " +
+              e.address.city + ", " + e.address.state + " " + e.address.postcode : "Address unavailable";
+          processedData.website = e.extratags.website != null ? e.extratags.website : "-";
+          processedData.phone = e.extratags.phone != null ? e.extratags.phone : "-";
+          processedData.hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
+          processedData.wheelchair = e.extratags.wheelchair;
+          processedData.lat = e.lat;
+          processedData.lon = e.lon;
+          processedData.id = i;
+          processedData.uniqueID = e.osm_id;
+        } else {
+          processedData.name = e.tags.name;
+          processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
+          processedData.addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
+          processedData.mobilityCheck = e.tags.wheelchair != null ? true : false;
+          processedData.longAddress = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " +
+              e.tags["addr:city"] + " " + e.tags["addr:postcode"] : "Address unavailable";
+          processedData.website = e.tags.website != null ? e.tags.website : "--";
+          processedData.phone = e.tags.phone != null ? e.tags.phone : "--";
+          processedData.hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
+          processedData.wheelchair = e.tags.wheelchair;
+          processedData.lat = e.lat;
+          processedData.lon = e.lon;
+          processedData.id = i;
+          processedData.uniqueID = e.id;
+        }
+
+        // processedData.imageURL = this.googleFetch(processedData.name);
+
+        newItems.push(processedData);
+      });
+      this.setState({ displayedListItems: newItems })
     }
-
-    let newItems = [];
-    json.forEach( (e, i) => {
-      // added limit to increase render speed
-      if (i > 100) {
-        return;
-      }
-
-
-
-      let processedData = {
-        name: '',
-        type: '',
-        addr: '',
-        mobilityCheck: '',
-        longAddress: '',
-        website: '',
-        phone: '',
-        hours: '',
-        lat: '',
-        lon: '',
-        id: '',
-        uniqueID: '',
-        photoURL:'',
-      }
-
-      if (e.licence != null) {
-        processedData.name = e.address[Object.keys(e.address)[0]];
-        processedData.type = (e.type.charAt(0).toUpperCase() + e.type.substring(1)).replace(/_/g, ' ');
-        processedData.addr = e.address.house_number != null ? e.address.house_number + " " + e.address.road : "Address unavailable";
-        processedData.mobilityCheck = e.extratags.wheelchair != null ? true : false;
-        processedData.longAddress = e.address.house_number != null ? e.address.house_number + " " + e.address.road + ", " +
-            e.address.city + ", " + e.address.state + " " + e.address.postcode : "Address unavailable";
-        processedData.website = e.extratags.website != null ? e.extratags.website : "-";
-        processedData.phone = e.extratags.phone != null ? e.extratags.phone : "-";
-        processedData.hours = e.extratags.opening_hours != null ? e.extratags.opening_hours : "-";
-        processedData.wheelchair = e.extratags.wheelchair;
-        processedData.lat = e.lat;
-        processedData.lon = e.lon;
-        processedData.id = i;
-        processedData.uniqueID = e.osm_id;
-      } else {
-        processedData.name = e.tags.name;
-        processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
-        processedData.addr = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] : "Address unavailable";
-        processedData.mobilityCheck = e.tags.wheelchair != null ? true : false;
-        processedData.longAddress = e.tags["addr:housenumber"] != null ? e.tags["addr:housenumber"] + " " + e.tags["addr:street"] + ", " +
-            e.tags["addr:city"] + " " + e.tags["addr:postcode"] : "Address unavailable";
-        processedData.website = e.tags.website != null ? e.tags.website : "--";
-        processedData.phone = e.tags.phone != null ? e.tags.phone : "--";
-        processedData.hours = e.tags.opening_hours != null ? e.tags.opening_hours : "  --";
-        processedData.wheelchair = e.tags.wheelchair;
-        processedData.lat = e.lat;
-        processedData.lon = e.lon;
-        processedData.id = i;
-        processedData.uniqueID = e.id;
-      }
-
-      // processedData.imageURL = this.googleFetch(processedData.name);
-     
-
-
-
-
-      newItems.push(processedData);
-    });
-    this.setState({ displayedListItems: newItems })
   }
 
   // googleFetch = (name) => {
@@ -281,16 +275,16 @@ export class App extends Component {
 
   //   fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=' + name + '&inputtype=textquery&fields=photos&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
   //   .then((res) => res.json())
-    
+
   //   .then((data) => {
   //     console.log(data);
   //   })
-    
+
     // fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + photoRef + '&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
     // .then((res) => res.json())
     // .then((data) => {
     //   console.log(data);
-      
+
   // }
 
   render() {
@@ -309,7 +303,8 @@ export class App extends Component {
             itemsToDisplay={this.state.displayedListItems}
             handleAmenitySearch={this.handleAmenitySearch}
             isFetching={this.state.fetchingAmenity || this.state.fetchingNominatim}
-            crowdsourcingData={this.state.crowdsourcing} />}
+            crowdsourcingData={this.state.crowdsourcing}
+            noElements={this.state.noElements}/>}
           />
           <Route path="/info/:id" render={(props) => <Info {...props}
             handleReviews={this.handleReviews}
