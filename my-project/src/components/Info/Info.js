@@ -45,7 +45,7 @@ class Info extends Component {
   componentWillMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    {
+    { this.props.crowdsourcingData &&
       Object.entries(this.props.crowdsourcingData).map((d, i) => {
         if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
           Object.entries(d[1]).forEach((r, i) => {
@@ -90,7 +90,7 @@ class Info extends Component {
     //reset crowdsourcing state
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    {
+    {this.props.crowdsourcingData &&
       Object.entries(this.props.crowdsourcingData).map((d, i) => {
         if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
           Object.entries(d[1]).forEach((r, i) => {
