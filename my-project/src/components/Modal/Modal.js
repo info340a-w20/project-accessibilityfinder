@@ -37,7 +37,8 @@ export class OurModal extends Component {
   }
 
   // componentWillUnmount() {
-  //   this.props.render();
+  //   console.log("unmounting");
+  //   this.props.updateCrowdsourcing();
   // }
 
   color(key) {
@@ -155,7 +156,7 @@ export class OurModal extends Component {
           <Modal.Title id="thankModalLabel">Thanks for the help!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Thank you for your submission! You'll get an email when it has been reviewed.
+          Thank you for your contribution! It has been added to our database.
         </Modal.Body>
       </Modal>
     </div>
