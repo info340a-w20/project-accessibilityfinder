@@ -29,7 +29,7 @@ export class ModalAuth extends Component {
           However in order to become an active
           member of our community you need to sign in with a Google acount.
           Click on the button below in order to start the sign up process.
-                </Modal.Body>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={this.props.hideAuthModal}>
             Close

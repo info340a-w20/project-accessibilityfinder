@@ -211,7 +211,7 @@ class Info extends Component {
           <img className="infoImgPlaceholder" src={placeholder} alt="location" />
           <div className="locationDetails info">
             <Link to="/list" id="back-button" className="btn btn-outline-primary rounded-pill">
-              <FontAwesomeIcon icon={faChevronLeft} />
+              <FontAwesomeIcon icon={faChevronLeft} aria-label="back"/>
             </Link>
             <h2>{item.name}</h2>
             <h6 className="text-secondary">{item.type}</h6>
@@ -252,7 +252,7 @@ class Info extends Component {
           />
           <div className="flex">
             <h4>
-              <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={this.mobilityCheck()} className="icon" />
               Mobility related assistance
             </h4>
           </div>
