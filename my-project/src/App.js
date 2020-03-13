@@ -208,11 +208,14 @@ export class App extends Component {
     }
 
     let newItems = [];
-    json.forEach(function (e, i) {
+    json.forEach( (e, i) => {
       // added limit to increase render speed
       if (i > 100) {
         return;
       }
+
+
+
       let processedData = {
         name: '',
         type: '',
@@ -226,6 +229,7 @@ export class App extends Component {
         lon: '',
         id: '',
         uniqueID: '',
+        photoURL:'',
       }
 
       if (e.licence != null) {
@@ -259,13 +263,36 @@ export class App extends Component {
         processedData.id = i;
         processedData.uniqueID = e.id;
       }
+
+      // processedData.imageURL = this.googleFetch(processedData.name);
+     
+
+
+
+
       newItems.push(processedData);
     });
     this.setState({ displayedListItems: newItems })
   }
 
+  // googleFetch = (name) => {
+  //   let photoRef ="";
+
+  //   fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=' + name + '&inputtype=textquery&fields=photos&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
+  //   .then((res) => res.json())
+    
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+    
+    // fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + photoRef + '&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
+    // .then((res) => res.json())
+    // .then((data) => {
+    //   console.log(data);
+      
+  // }
+
   render() {
-    console.log(this.state.displayedListItems);
     return (
       <main>
         <Header handleSearch={this.handleSearchBar}
