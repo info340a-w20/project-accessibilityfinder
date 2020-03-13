@@ -258,10 +258,11 @@ class Info extends Component {
           </div>
           <ul className="list-group list-group-flush nobackground">
             <li className="list-group-item nobackground">
-              <FontAwesomeIcon icon={this.mobilityCheck()} />
+              <FontAwesomeIcon icon={this.state.wheelchair || this.state.item.wheelchair ? faCheckCircle : faTimesCircle} />
               Wheelchair accessible
-              {this.state.wheelchair && this.state.item.wheelchair ? <div class="cs-num">OpenStreetMap and {this.state.wheelchair} person(s) endorsed this </div> : this.state.wheelchair ?
-                <div class="cs-num"> {this.state.wheelchair} person(s) endorsed this </div> : this.state.item.wheelchair ? <div class="cs-num"> OpenStreetMap endorsed this </div> : <></>}
+              {this.state.wheelchair && this.state.item.wheelchair ? <div class="cs-num">OpenStreetMap and {this.state.wheelchair} person(s) endorsed this </div> :
+               this.state.wheelchair ? <div class="cs-num"> {this.state.wheelchair} person(s) endorsed this </div> :
+               this.state.item.wheelchair ? <div class="cs-num"> OpenStreetMap endorsed this </div> : <></>}
             </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.ada ? faCheckCircle : faTimesCircle} />
