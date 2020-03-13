@@ -17,8 +17,7 @@
   height: calc(95vh - 20px);
   margin: 0;
   padding-top: 17vh;
-  background:linear-gradient(0deg, rgba(9,198,249, 0.6), rgba(4,93,233, 0.6)), url('../../seattle.jpg');
-  /* background:linear-gradient(0deg, rgba(171,233,205, 0.6), rgba(62,173,207, 0.6)), url('../../seattle.jpg'); */
+  background: linear-gradient(0deg, rgba(9, 198, 249, 0.6), rgba(4, 93, 233, 0.6)), url('../../seattle.jpg');
   background-size: cover;
 }
 

@@ -1,13 +1,13 @@
 #left-view-home {
-    display: block;
+  display: block;
 }
 
 #category {
-    text-align: center;
+  text-align: center;
 }
 
 #category .icon-background {
-    color: lightblue;
+  color: lightblue;
 }
 
 #category a {
@@ -15,7 +15,7 @@
 }
 
 .no-background-btn {
-  border:none;
+  border: none;
   background-color: unset;
   color: unset;
   padding: 20px 0px;

@@ -27,14 +27,12 @@ export class MapDisplay extends Component {
 
     render() {
         return (
-
             <div className="map-display">
                 <Map id="leaflet-map" center={this.state.center}
                     zoom={this.state.zoom}
                     ref="map"
                     onMoveend={this.onMapMoveEnd}
-                    items = {this.props.itemsToDisplay}
-
+                    items={this.props.itemsToDisplay}
                 >
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -43,8 +41,7 @@ export class MapDisplay extends Component {
                     {this.props.itemsToDisplay ? this.props.itemsToDisplay.map((location, id) =>
                         <Marker position={[location.lat, location.lon]}>
                             <Popup ref={this.popup}>{location.name}<br /><Link to={"/info/" + location.id}>Display {location.name} full info</Link></Popup>
-                        </Marker> ) : <Marker position={this.state.center}></Marker>}
-
+                        </Marker>) : <Marker position={this.state.center}></Marker>}
                 </Map>
             </div>
         );

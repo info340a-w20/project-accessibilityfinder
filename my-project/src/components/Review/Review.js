@@ -7,14 +7,14 @@ class Review extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="review">
         <div class="info">
-            <div class="flex reviewHeader">
-                <h5>{this.props.username}</h5>
-            </div>
-            <p class="timestamp">{this.props.date}</p>
-            <p class="reviewContent">{this.props.text}</p>
+          <div class="flex reviewHeader">
+            <h5>{this.props.username}</h5>
+          </div>
+          <p class="timestamp">{this.props.date}</p>
+          <p class="reviewContent">{this.props.text}</p>
         </div>
       </div>
     );

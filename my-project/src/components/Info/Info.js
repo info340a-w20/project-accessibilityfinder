@@ -45,40 +45,27 @@ class Info extends Component {
   componentWillMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    { this.props.crowdsourcingData &&
-      Object.entries(this.props.crowdsourcingData).map((d, i) => {
-        if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
-          Object.entries(d[1]).forEach((r, i) => {
-            this.setState({ [r[0]]: Object.keys(r[1]).length })
-          })
-        }
-      })
+    {
+      this.props.crowdsourcingData &&
+        Object.entries(this.props.crowdsourcingData).map((d, i) => {
+          if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
+            Object.entries(d[1]).forEach((r, i) => {
+              this.setState({ [r[0]]: Object.keys(r[1]).length })
+            })
+          }
+        })
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.crowdsourcingData != this.props.crowdsourcingData) {
-      console.log("updating")
       this.setState(
         afterEditingState
-      , () => {
-        console.log(this.state);
+        , () => {
           this.updateCrowdsourcing();
         });
     }
   }
-
-  // componentWillReceiveProps(prevProps, prevState){ 
-  //   if(prevProps.crowdsourceRef != this.props.crowdsourceRef) {
-  //     console.log("update");
-  //     this.updateCrowdsourcing()
-  //   }
-  //   if(prevProps.crowdsourcingData != this.props.crowdsourcingData) {
-  //     console.log("update");
-  //     this.setState({state: this.state})
-  //   }
-  // }
-
 
   componentDidMount() {
     let num = this.props.location.pathname.split("/")[2];
@@ -86,11 +73,10 @@ class Info extends Component {
   }
 
   updateCrowdsourcing = () => {
-    // console.log(this.props.crowdsourcingData)
-    //reset crowdsourcing state
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    {this.props.crowdsourcingData &&
+    {
+      this.props.crowdsourcingData &&
       Object.entries(this.props.crowdsourcingData).map((d, i) => {
         if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
           Object.entries(d[1]).forEach((r, i) => {
@@ -99,7 +85,6 @@ class Info extends Component {
         }
       })
     }
-    console.log(this.state);
   }
 
   handleCrowdsource = (crowdsource, f) => {
@@ -178,7 +163,6 @@ class Info extends Component {
     let ampm = n.getHours() >= 12 ? "PM" : "AM";
     let currentDate = "" + m + "/" + d + "/" + y + " " + h + ":" + min + ampm;
     let currentUser = "";
-
     if (!this.props.username) {
       currentUser = "Anonymous"
     } else {
@@ -202,19 +186,11 @@ class Info extends Component {
       likes: 0,
       locationName: this.state.item.name
     });
-
-    this.setState({
-      locationReviews: [review, ...this.state.locationReviews],
-    }, () => {
-      this.props.handleReviews(this.state.locationReviews, this.state.item.name);
-    });
     this.setState({ reviewText: '' });
   }
 
   renderReviews() {
     let showReviews = [];
-    //There has to be a better way to do this! a lot of looping going on!
-    // There was some explanation in info340 book but I couldn't understand
     {
       this.props.reviews && Object.entries(this.props.reviews).map((d, i) => {
         if (d[0] == this.state.item.uniqueID) {
@@ -227,28 +203,8 @@ class Info extends Component {
     return showReviews;
   }
 
-  // <span class="cs-text">Wheelchair accessible</span>
-  // <span class="fa-layers fa-fw">
-  //   <FontAwesomeIcon icon={faCircle} />
-  //   <span class="fa-layers-text fa-inverse" style={{fontWeight:"500"}}>1</span>
-  // </span>
-
   render() {
-    // console.log(this.state);
-    // console.log(this.props.crowdsourcingData)
     let item = this.state.item;
-    let addrLink = "http://maps.google.com/?q=" + item.longAddress;
-    let telLink = "tel:" + item.phone;
-
-    //maybe store this somewhere else
-    let placeID = this.state.item.uniqueID;
-    // let bookmarkRef = firebase.database().ref('bookmarks/' + placeID);
-    // bookmarkRef.push({
-    //   time:firebase.database.ServerValue.TIMESTAMP,
-    //   bookmarked: false,
-    //   locationName: this.state.item.name
-    // });
-
     return (
       <div className="left-view" id="info-view">
         <div className="infoHeader flex" id="info-Header" >
@@ -261,7 +217,7 @@ class Info extends Component {
             <h6 className="text-secondary">{item.type}</h6>
             <div className="flex info-details">
               <FontAwesomeIcon icon={faHome} className="fa-fw" aria-label="address" />
-              <a className="info-link" href={addrLink}>{item.longAddress}</a>
+              <a className="info-link" href={"http://maps.google.com/?q=" + item.longAddress}>{item.longAddress}</a>
             </div>
             <div className="flex info-details">
               <FontAwesomeIcon icon={faEnvelope} className="fa-fw" aria-label="website" />
@@ -269,7 +225,7 @@ class Info extends Component {
             </div>
             <div className="flex info-details">
               <FontAwesomeIcon icon={faPhone} className="fa-fw" aria-label="phone" />
-              <a className="info-link" href={telLink}>{item.phone}</a>
+              <a className="info-link" href={"tel:" + item.phone}>{item.phone}</a>
             </div>
             <div className="flex hours-link info-details">
               <FontAwesomeIcon icon={faClock} className="fa-fw" aria-label="hours" />
@@ -292,6 +248,7 @@ class Info extends Component {
             crowdsourcingData={this.props.crowdsourcingData}
             uniqueID={this.state.item.uniqueID}
             updateCrowdsourcing={this.updateCrowdsourcing}
+            userID={firebase.auth().currentUser ? firebase.auth().currentUser.uid : ""}
           />
           <div className="flex">
             <h4>

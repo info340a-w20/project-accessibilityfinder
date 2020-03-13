@@ -33,16 +33,17 @@ main {
 }
 
 #left-view-home {
-    display: block;
-    float:left;
+  display: block;
+  float: left;
 }
+
 .left-view {
-    width: 40%;
-    height: calc(100% - 40px);
-    overflow: auto;
-    margin:0px;
-    padding-bottom:80px;
-  }
+  width: 40%;
+  height: calc(100% - 40px);
+  overflow: auto;
+  margin: 0px;
+  padding-bottom: 80px;
+}
 
 
 
@@ -50,6 +51,7 @@ main {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

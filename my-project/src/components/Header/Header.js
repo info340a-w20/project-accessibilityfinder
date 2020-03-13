@@ -3,16 +3,11 @@ import { HashRouter as Router, Switch, Route, Link, Redirect, withRouter } from 
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import HomePage from '../HomePage/HomePage';
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "firebase";
-
 
 
 class Header extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       inputtedText: "",
     }
@@ -57,10 +52,11 @@ class Header extends Component {
               <Link to="/signin" class="nav-item text-white" onClick={(e) => this.props.renderLocations()}>Sign In</Link>}
           </div>
           <div class="input-group">
-            <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place"/>
+            <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} onSubmit={this.handleSearch} value={this.state.inputtedText} class="form-control" id="search" placeholder="Search by name of place" />
             <div class="input-group-append">
               <Link to="/list" id="main-places-search" class="btn btn-outline-light" type="button" onClick={(e) => {
-                  this.props.handleSearch(this.state.inputtedText); this.setState({inputtedText: ''}); }
+                this.props.handleSearch(this.state.inputtedText); this.setState({ inputtedText: '' });
+              }
               } >
                 <FontAwesomeIcon icon={faSearch} aria-label="search" />
               </Link>

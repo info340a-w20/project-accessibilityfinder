@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
 import './Footer.css'
-
-
 
 class Footer extends Component {
   constructor(props) {
@@ -13,7 +10,7 @@ class Footer extends Component {
   render() {
     return (
       <footer class="footer">
-          <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
+        <p>© 2020 Copyright: Amit Galitzky & Jill Nguyen</p>
       </footer>
     );
   }

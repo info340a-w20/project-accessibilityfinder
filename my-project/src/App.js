@@ -14,12 +14,9 @@ import LogIn from "./components/Login/Login"
 import createHistory from 'history/createBrowserHistory';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
-// Import firebase and StyledFirebaseAuth
 import firebase from "firebase";
 import 'firebase/database';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-
 
 var firebaseConfig = {
   apiKey: "AIzaSyC5PS9Zb6WY-lcoIAC5KkdeAkFuozlYkYw",
@@ -32,27 +29,18 @@ var firebaseConfig = {
   measurementId: "G-BCRK4KDM9V"
 };
 
-
-// Initialize your application with the given configuration
 firebase.initializeApp(firebaseConfig);
-
-// Set UI config for sign in (see: https://github.com/firebase/firebaseui-web-react)
 const uiConfig = {
-  // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInSuccessUrl: '',
-  // We will display Google and Facebook as auth providers.
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ]
 };
 
-
 export class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       displayedListItems: [],
       fetchingAmenity: false,
@@ -62,37 +50,27 @@ export class App extends Component {
       noElements: false,
       fetchingNominatim: false,
       searchText: "",
-      reviewList: {},
       isSignedIn: false,
       onSignInPage: false,
       userName: "Anonymous",
     }
-    // Store references to 'favorites' and 'public'
     this.favoritesRef = firebase.database().ref("favorites");
     this.crowdsourcingRef = firebase.database().ref("crowdsourcing");
     this.reviewsRef = firebase.database().ref("reviews");
     this.crowdsourcingRef.on("value", (snapshot) => {
-      console.log("something changed on firebase, so I will reset state")
       this.setState({ crowdsourcing: snapshot.val() })
     })
 
     this.reviewsRef.on("value", (snapshot) => {
-      console.log("something changed on firebase, so I will reset state")
       this.setState({ reviews: snapshot.val() })
     })
-    //this.like = this.like.bind(this);
   }
 
-
-
-
-  // See: https://github.com/firebase/firebaseui-web-react#using-firebaseauth-with-local-state
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const userRef = this.favoritesRef.child(user.uid);
         userRef.on("value", (snapshot) => {
-          console.log("the value of favorites/userid changed, so i reset the state")
           this.setState({ favorites: snapshot.val() })
         });
       }
@@ -109,7 +87,6 @@ export class App extends Component {
   componentWillUnmount() {
     this.unregisterAuthObserver();
   }
-
 
   //fetching from api according to state change(whether searching by name or clicking on an amenity)
   componentDidUpdate() {
@@ -156,18 +133,6 @@ export class App extends Component {
   renderLocation = () => {
     this.setState({ displayedListItems: [] })
     this.setState({ onSignInPage: false })
-  }
-
-  //adds reviews added to the state of the item as a name-of-place:review pair
-  //deprecated?
-  handleReviews = (reviews, key) => {
-    this.setState(prevState => ({
-      reviewList: {                   // object that we want to update
-        ...prevState.reviewList,    // keep all other key-value pairs
-        [key]: reviews       // update the value of specific key
-      }
-    }))
-
   }
 
   /*
@@ -245,6 +210,7 @@ export class App extends Component {
           processedData.lon = e.lon;
           processedData.id = i;
           processedData.uniqueID = e.osm_id;
+          processedData.addrLink = "http://maps.google.com/?q=" + processedData.longAddress;
         } else {
           processedData.name = e.tags.name;
           processedData.type = e.tags.amenity.charAt(0).toUpperCase() + e.tags.amenity.substring(1);
@@ -260,32 +226,13 @@ export class App extends Component {
           processedData.lon = e.lon;
           processedData.id = i;
           processedData.uniqueID = e.id;
+          processedData.addrLink = "http://maps.google.com/?q=" + processedData.longAddress;
         }
-
-        // processedData.imageURL = this.googleFetch(processedData.name);
-
         newItems.push(processedData);
       });
       this.setState({ displayedListItems: newItems })
     }
   }
-
-  // googleFetch = (name) => {
-  //   let photoRef ="";
-
-  //   fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=' + name + '&inputtype=textquery&fields=photos&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
-  //   .then((res) => res.json())
-
-  //   .then((data) => {
-  //     console.log(data);
-  //   })
-
-    // fetch('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + photoRef + '&key=AIzaSyAWUFvN2FQTR7mneTxkpdGn7-IH-8fUDRc')
-    // .then((res) => res.json())
-    // .then((data) => {
-    //   console.log(data);
-
-  // }
 
   render() {
     return (
@@ -307,8 +254,6 @@ export class App extends Component {
             noElements={this.state.noElements}/>}
           />
           <Route path="/info/:id" render={(props) => <Info {...props}
-            handleReviews={this.handleReviews}
-            reviewList={this.state.reviewList}
             itemsToDisplay={this.state.displayedListItems}
             username={this.state.userName}
             reviewRef={this.reviewsRef}

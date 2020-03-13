@@ -6,6 +6,7 @@ import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import placeholder from "../../placeholder.png"
 
+
 class Card extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +17,13 @@ class Card extends Component {
 
   componentWillMount() {
     {this.props.crowdsourcingData && Object.entries(this.props.crowdsourcingData).map((d, i) => {
-      if (d[0] == this.props.item.uniqueID) {
-        Object.entries(d[1]).forEach((r, i) => {
-          this.setState({[r[0]]: Object.keys(r[1]).length})
-        })
-      }
-    })}
+        if (d[0] == this.props.item.uniqueID) {
+          Object.entries(d[1]).forEach((r, i) => {
+            this.setState({ [r[0]]: Object.keys(r[1]).length })
+          })
+        }
+      })
+    }
   }
 
   mobilityCheck() {

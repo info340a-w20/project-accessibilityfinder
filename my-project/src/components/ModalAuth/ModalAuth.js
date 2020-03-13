@@ -19,7 +19,6 @@ export class ModalAuth extends Component {
     this.props.history.push("/signin");
   }
 
-
   render() {
     return (
       <Modal id="authModal" show={this.props.authModal} onHide={this.props.hideAuthModal} aria-labelledby="authModal" aria-hidden="true" centered>
@@ -35,7 +34,6 @@ export class ModalAuth extends Component {
           <Button variant="secondary" onClick={this.props.hideAuthModal}>
             Close
           </Button>
-          {/* <Button as="Link" to="/signin">Sign In</Button> */}
           <Button variant="primary" onClick={this.handleSignIn}>
             Sign In
           </Button>

@@ -1,22 +1,14 @@
-/*
-.leaflet-container {
-    height: 100%;
-    width: 60%;
-    display: flex;
-
-  } */
-
 .map-display {
-    height: calc(100% - 40px);
-    width: 60%;
-    display:flex;
-    float:right;
+  height: calc(100% - 40px);
+  width: 60%;
+  display: flex;
+  float: right;
 
 }
 
 #leaflet-map {
-    height: 100%;
-    width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 /* 414px is iPhone+ */

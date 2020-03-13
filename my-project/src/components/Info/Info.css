@@ -1,20 +1,20 @@
 .cs-num {
-  margin-left: 34px;
-  font-size: 90%;
+    margin-left: 34px;
+    font-size: 90%;
 }
 
 .list-group-item {
-  padding: 8px 20px;
+    padding: 8px 20px;
 }
 
 /*bookmark*/
 h2 svg {
-  color: lightgrey;
-  margin-left: 8px;
+    color: lightgrey;
+    margin-left: 8px;
 }
 
 .info svg {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
 .infoImgPlaceholder {
@@ -23,16 +23,16 @@ h2 svg {
 }
 
 #back-button {
-  float:right;
+    float: right;
 }
 
 #edit {
-  float: right;
+    float: right;
 }
 
 #info-view {
-  display: block;
-  float: left;
+    display: block;
+    float: left;
 }
 
 .infoHeader {
@@ -160,7 +160,7 @@ h2 svg {
 }
 
 #about-us {
-    width:100%;
+    width: 100%;
 }
 
 input {
