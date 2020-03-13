@@ -10,6 +10,24 @@ import firebase from "firebase";
 import placeholder from '../../placeholder.png';
 import ModalAuth from "../ModalAuth/ModalAuth"
 
+const afterEditingState = {
+  item: {},
+  show1: false,
+  show2: false,
+  authModal: false,
+  showTextbox: false,
+  reviewText: '',
+  locationReviews: [],
+  wheelchair: false,
+  ada: false,
+  stadium: false,
+  braille: false,
+  dn: false,
+  ad: false,
+  cc: false,
+  als: false
+}
+
 class Info extends Component {
   constructor(props) {
     super(props);
@@ -27,14 +45,40 @@ class Info extends Component {
   componentWillMount() {
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    {Object.entries(this.props.crowdsourcingData).map((d, i) => {
-      if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
-        Object.entries(d[1]).forEach((r, i) => {
-          this.setState({[r[0]]: Object.keys(r[1]).length})
-        })
-      }
-    })}
+    {
+      Object.entries(this.props.crowdsourcingData).map((d, i) => {
+        if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
+          Object.entries(d[1]).forEach((r, i) => {
+            this.setState({ [r[0]]: Object.keys(r[1]).length })
+          })
+        }
+      })
+    }
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.crowdsourcingData != this.props.crowdsourcingData) {
+      console.log("updating")
+      this.setState(
+        afterEditingState
+      , () => {
+        console.log(this.state);
+          this.updateCrowdsourcing();
+        });
+    }
+  }
+
+  // componentWillReceiveProps(prevProps, prevState){ 
+  //   if(prevProps.crowdsourceRef != this.props.crowdsourceRef) {
+  //     console.log("update");
+  //     this.updateCrowdsourcing()
+  //   }
+  //   if(prevProps.crowdsourcingData != this.props.crowdsourcingData) {
+  //     console.log("update");
+  //     this.setState({state: this.state})
+  //   }
+  // }
+
 
   componentDidMount() {
     let num = this.props.location.pathname.split("/")[2];
@@ -42,17 +86,20 @@ class Info extends Component {
   }
 
   updateCrowdsourcing = () => {
-    console.log(this.props.crowdsourcingData)
+    // console.log(this.props.crowdsourcingData)
     //reset crowdsourcing state
     let num = this.props.location.pathname.split("/")[2];
     this.setState({ item: this.props.itemsToDisplay[num] });
-    {Object.entries(this.props.crowdsourcingData).map((d, i) => {
-      if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
-        Object.entries(d[1]).forEach((r, i) => {
-          this.setState({[r[0]]: Object.keys(r[1]).length})
-        })
-      }
-    })}
+    {
+      Object.entries(this.props.crowdsourcingData).map((d, i) => {
+        if (d[0] == this.props.itemsToDisplay[num].uniqueID) {
+          Object.entries(d[1]).forEach((r, i) => {
+            this.setState({ [r[0]]: Object.keys(r[1]).length })
+          })
+        }
+      })
+    }
+    console.log(this.state);
   }
 
   handleCrowdsource = (crowdsource, f) => {
@@ -60,9 +107,9 @@ class Info extends Component {
       let placeID = this.state.item.uniqueID;
       let placeRef = firebase.database().ref('crowdsourcing/' + placeID);
       const crowdsourceRef = placeRef.child(c[0] + "/" + firebase.auth().currentUser.uid);
-      crowdsourceRef.once('value').then(function(snap) {
-        if(c[1] === true) {
-          crowdsourceRef.set({val:1})
+      crowdsourceRef.once('value').then(function (snap) {
+        if (c[1] === true) {
+          crowdsourceRef.set({ val: 1 })
         } else {
           crowdsourceRef.remove()
         }
@@ -114,7 +161,7 @@ class Info extends Component {
   }
 
   hideAuthModal = () => {
-    this.setState({authModal: false})
+    this.setState({ authModal: false })
   }
 
   handleChange = (e) => {
@@ -141,7 +188,7 @@ class Info extends Component {
     let review = {
       reviewContent: this.state.reviewText,
       username: currentUser,
-      date:currentDate
+      date: currentDate
     }
 
     let placeID = this.state.item.uniqueID;
@@ -151,8 +198,8 @@ class Info extends Component {
       reviewContent: this.state.reviewText,
       username: currentUser,
       datePosted: currentDate,
-      time:firebase.database.ServerValue.TIMESTAMP,
-      likes:0,
+      time: firebase.database.ServerValue.TIMESTAMP,
+      likes: 0,
       locationName: this.state.item.name
     });
 
@@ -168,13 +215,15 @@ class Info extends Component {
     let showReviews = [];
     //There has to be a better way to do this! a lot of looping going on!
     // There was some explanation in info340 book but I couldn't understand
-    {this.props.reviews && Object.entries(this.props.reviews).map((d, i) => {
-      if (d[0] == this.state.item.uniqueID) {
-        Object.values(d[1]).forEach((r, i) => {
-          showReviews.unshift(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
-        })
-      }
-    })}
+    {
+      this.props.reviews && Object.entries(this.props.reviews).map((d, i) => {
+        if (d[0] == this.state.item.uniqueID) {
+          Object.values(d[1]).forEach((r, i) => {
+            showReviews.unshift(<Review id={i} text={r.reviewContent} date={r.datePosted} username={r.username} />)
+          })
+        }
+      })
+    }
     return showReviews;
   }
 
@@ -185,8 +234,8 @@ class Info extends Component {
   // </span>
 
   render() {
-    console.log(this.state);
-    console.log(this.props.crowdsourcingData)
+    // console.log(this.state);
+    // console.log(this.props.crowdsourcingData)
     let item = this.state.item;
     let addrLink = "http://maps.google.com/?q=" + item.longAddress;
     let telLink = "tel:" + item.phone;
@@ -231,8 +280,8 @@ class Info extends Component {
         <div class="info">
           <Button id="edit" variant="outline-primary" className="rounded-pill" onClick={() => this.crowdSourceAuth()}>Edit</Button>
           <ModalAuth authModal={this.state.authModal}
-                  hideAuthModal={this.hideAuthModal}
-                  renderLocations={this.props.renderLocations}
+            hideAuthModal={this.hideAuthModal}
+            renderLocations={this.props.renderLocations}
           />
           <OurModal show1={this.state.show1}
             show2={this.state.show2}
@@ -255,18 +304,18 @@ class Info extends Component {
               <FontAwesomeIcon icon={this.mobilityCheck()} />
               Wheelchair accessible
               {this.state.wheelchair && this.state.item.wheelchair ? <div class="cs-num">OpenStreetMap and {this.state.wheelchair} person(s) endorsed this </div> : this.state.wheelchair ?
-               <div class= "cs-num"> {this.state.wheelchair} person(s) endorsed this </div> : this.state.item.wheelchair ? <div class= "cs-num"> OpenStreetMap endorsed this </div> : <></>}
+                <div class="cs-num"> {this.state.wheelchair} person(s) endorsed this </div> : this.state.item.wheelchair ? <div class="cs-num"> OpenStreetMap endorsed this </div> : <></>}
             </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.ada ? faCheckCircle : faTimesCircle} />
               ADA doorways
               {this.state.ada ? <div class="cs-num">{this.state.ada} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.stadium ? faCheckCircle : faTimesCircle} />
               Stadium seating
               {this.state.stadium ? <div class="cs-num">{this.state.stadium} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
           </ul>
           <div className="flex">
             <h4>
@@ -279,12 +328,12 @@ class Info extends Component {
               <FontAwesomeIcon icon={this.state.braille ? faCheckCircle : faTimesCircle} />
               Braille
               {this.state.braille ? <div class="cs-num">{this.state.braille} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.dn ? faCheckCircle : faTimesCircle} />
               Descriptive narration
               {this.state.dn ? <div class="cs-num">{this.state.dn} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
           </ul>
           <div className="flex">
             <h4>
@@ -297,17 +346,17 @@ class Info extends Component {
               <FontAwesomeIcon icon={this.state.ad ? faCheckCircle : faTimesCircle} />
               Audio description
               {this.state.ad ? <div class="cs-num">{this.state.ad} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.cc ? faCheckCircle : faTimesCircle} />
               Closed captioning
               {this.state.cc ? <div class="cs-num">{this.state.cc} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
             <li className="list-group-item nobackground">
               <FontAwesomeIcon icon={this.state.als ? faCheckCircle : faTimesCircle} />
               Assisted listening devices
               {this.state.als ? <div class="cs-num">{this.state.als} person(s) endorsed this </div> : <></>}
-              </li>
+            </li>
           </ul>
           <hr />
           <div className="photos">

@@ -15,7 +15,7 @@ class Card extends Component {
   }
 
   componentWillMount() {
-    {Object.entries(this.props.crowdsourcingData).map((d, i) => {
+    {this.props.crowdsourcingData && Object.entries(this.props.crowdsourcingData).map((d, i) => {
       if (d[0] == this.props.item.uniqueID) {
         Object.entries(d[1]).forEach((r, i) => {
           this.setState({[r[0]]: Object.keys(r[1]).length})
